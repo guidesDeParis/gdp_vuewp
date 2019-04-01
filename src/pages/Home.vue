@@ -1,16 +1,15 @@
 <template>
-  <div class="full-width center-content">
-    <img src="static/img/logo.png">
-    <WelcomeMessage name="GDP" />
+  <div class="full-width">
+    <PresentationMessage />
   </div>
 </template>
 
 <script>
-import WelcomeMessage from 'components/Home/WelcomeMessage'
+import PresentationMessage from 'components/Home/PresentationMessage'
 
 export default {
   components: {
-    WelcomeMessage
+    PresentationMessage
   }
 }
 </script>
