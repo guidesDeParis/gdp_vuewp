@@ -1,15 +1,15 @@
 <template>
   <div class="full-width">
-    <PresentationMessage />
+    <Posts />
   </div>
 </template>
 
 <script>
-import PresentationMessage from 'components/Home/PresentationMessage'
+import Posts from 'components/Home/Posts'
 
 export default {
   components: {
-    PresentationMessage
+    Posts
   }
 }
 </script>
