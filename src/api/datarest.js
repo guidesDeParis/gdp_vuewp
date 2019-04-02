@@ -1,5 +1,4 @@
 import { HTTP } from './http-axios'
-// import { store } from 'modules/data/store'
 
 export default {
   getPosts (cb) {

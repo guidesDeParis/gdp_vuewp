@@ -22,12 +22,7 @@
 </template>
 
 <script>
-
-// import store from './store'
-// import datarest from 'components/data/datarest'
-
 import { mapState, mapActions } from 'vuex'
-// import { mapState } from 'vuex'
 
 export default {
   computed: mapState({
@@ -42,5 +37,4 @@ export default {
     this.$store.dispatch('posts/getAllPosts')
   }
 }
-
 </script>
