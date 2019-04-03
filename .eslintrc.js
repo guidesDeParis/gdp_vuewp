@@ -13,10 +13,12 @@ module.exports = {
   },
   extends: [
     'plugin:vue/recommended',
+    'plugin:vue-a11y/base',
     'standard'
   ],
   plugins: [
-    'vue'
+    'vue',
+    'vue-a11y'
   ],
   rules: {
     'generator-star-spacing': 'off',

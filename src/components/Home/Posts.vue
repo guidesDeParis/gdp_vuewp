@@ -2,10 +2,12 @@
   <section v-if="opened != null">
     <h2>{{ opened.title }}</h2>
     <p>{{ opened.body }}</p>
-    <span
+    <a
+      href="#"
       @click="closePost()"
+      @keydown.enter="openPost(post)"
       >
-      close</span>
+      close</a>
   </section>
   <ul v-else>
     <li
@@ -14,7 +16,9 @@
       >
       <h2>
         <a
+          :href="'#post-'+post.id"
           @click="openPost(post)"
+          @keydown.enter="openPost(post)"
           >
           {{ post.title }}</a></h2>
     </li>
