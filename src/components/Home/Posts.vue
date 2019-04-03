@@ -5,22 +5,25 @@
     <a
       href="#"
       @click="closePost()"
-      @keydown.enter="openPost(post)"
-      >
-      close</a>
+      @keydown.enter="closePost()"
+    >
+      close
+    </a>
   </section>
   <ul v-else>
     <li
       v-for="post in posts"
       :key="post.id"
-      >
+    >
       <h2>
         <a
           :href="'#post-'+post.id"
           @click="openPost(post)"
           @keydown.enter="openPost(post)"
-          >
-          {{ post.title }}</a></h2>
+        >
+          {{ post.title }}
+        </a>
+      </h2>
     </li>
   </ul>
 </template>
@@ -33,12 +36,17 @@ export default {
     opened: state => state.posts.opened,
     posts: state => state.posts.all
   }),
+  created () {
+    this.$store.dispatch('posts/getAllPosts')
+  },
   methods: mapActions('posts', [
     'openPost',
     'closePost'
   ]),
-  created () {
-    this.$store.dispatch('posts/getAllPosts')
+  metaInfo () {
+    return {
+      title: this.opened !== null ? this.opened.title : 'home'
+    }
   }
 }
 </script>
