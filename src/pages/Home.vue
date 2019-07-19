@@ -1,15 +1,11 @@
 <template>
   <div class="full-width">
-    <Posts />
+    <h2>Home</h2>
   </div>
 </template>
 
 <script>
-import Posts from 'components/Home/Posts'
 
 export default {
-  components: {
-    Posts
-  }
 }
 </script>

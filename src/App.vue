@@ -3,11 +3,10 @@
     <header role="banner">
       <h1
         tabindex="0"
-        @click="closePost()"
-        @keydown.enter="closePost()"
       >
         Les Guides de Paris
       </h1>
+      <HeaderMenu />
     </header>
     <section class="container center-content">
       <RouterView />
@@ -17,7 +16,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import HeaderMenu from './components/nav/HeaderMenu'
+// import { mapState, mapActions } from 'vuex'
 
 export default {
   metaInfo: {
@@ -26,19 +26,18 @@ export default {
     // all titles will be injected into this template
     titleTemplate: '%s | Guides de Paris'
   },
-  computed: mapState({
-    opened: state => state.posts.opened
-  }),
-  methods: mapActions('posts', [
-    'closePost'
-  ])
+  components: {
+    HeaderMenu
+  }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 
-.container
-  font-family 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-  max-width 1200px
+.container{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  max-width: 1200px;
+
+}
 
 </style>
