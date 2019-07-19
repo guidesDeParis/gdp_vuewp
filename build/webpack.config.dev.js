@@ -4,7 +4,6 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 
-const HOST = 'localhost'
 const PORT = 8080
 
 module.exports = merge(baseConfig, {
@@ -15,7 +14,7 @@ module.exports = merge(baseConfig, {
     hot: true,
     contentBase: 'dist',
     compress: true,
-    host: HOST,
+    host: '0.0.0.0',
     port: PORT,
     // open: "firefox-developer-edition",
     overlay: { warnings: false, errors: true },
