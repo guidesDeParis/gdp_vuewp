@@ -1,20 +1,15 @@
 <template>
-  <div
-    id="nominum"
-    class="full-width"
-  >
-    <h1>Nominum</h1>
+  <div id="search">
+    Search
   </div>
 </template>
-
 <script>
-
 export default {
-  name: 'Nominum',
+  name: 'Search',
   data: () => ({
+
   })
 }
 </script>
-
 <style lang="scss" scoped>
 </style>

@@ -1,0 +1,92 @@
+// http://www.thesassway.com/intermediate/simple-grid-mixins
+
+
+@mixin row() {
+  // font-size: 0;
+  // white-space: nowrap;
+  position: relative;
+  // >*{
+  //   font-size: 16px;
+  // }
+  &:after{
+    content:"";
+    clear:both;
+    display: block;
+  }
+}
+
+%col-reset {
+    width: 100%;
+    // display: inline-block;
+    // white-space:normal;
+    // font-size: 16px;
+    float:left;
+    box-sizing: border-box;
+}
+
+@mixin col($col, $offset: 0, $sum: $default_sum, $gap: $default_gap, $align: top) {
+  @extend %col-reset;
+  padding-left: $gap*$offset;
+  @if $col == $default_sum {
+    padding-right: 0;
+  }@else{
+    padding-right: $gap;
+  }
+  &:last-child{padding-right: 0;}
+
+  margin-left: percentage(($col/$sum)*$offset);
+
+  // @media only screen and (min-width: 768px) {
+    width: percentage($col/$sum);
+    // vertical-align: $align;
+  // }
+}
+
+.row{
+  @include row;
+  // html:not(.js) &{
+  //   overflow-y: auto;
+  // }
+}
+
+@for $c from 1 through $default_sum {
+  .col-#{$c} {
+      @include col($c);
+  }
+
+  // small
+  .small-col-#{$c} {
+    @media only screen and (max-width: $small-bp) {
+      @include col($c);
+    }
+  }
+
+  // medium
+  .med-col-#{$c} {
+    @media only screen and (min-width: $small-bp+1) and (max-width: $med-bp) {
+      @include col($c);
+    }
+  }
+
+  // large
+  .large-col-#{$c} {
+    @media only screen and (min-width: $med-bp+1) {
+      @include col($c);
+    }
+  }
+
+}
+
+@for $c from 1 through $default_sum - 1 {
+  @for $o from 1 through $default_sum - $c {
+    .col-#{$c}-offset-#{$o} {
+      @include col($c, $o);
+    }
+  }
+}
+
+.col.float-right{
+  float: right;
+  padding-right: 0;
+  padding-left: $default_gap;
+}

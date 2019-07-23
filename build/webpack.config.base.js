@@ -13,7 +13,8 @@ module.exports = {
       'assets': utils.resolve('assets'),
       'pages': utils.resolve('src/pages'),
       'static': utils.resolve('static'),
-      'components': utils.resolve('src/components')
+      'components': utils.resolve('src/components'),
+      'api': utils.resolve('src/api')
     }
   },
 

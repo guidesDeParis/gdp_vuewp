@@ -1,20 +1,15 @@
 <template>
-  <div
-    id="nominum"
-    class="full-width"
-  >
-    <h1>Nominum</h1>
+  <div id="history">
+    History
   </div>
 </template>
-
 <script>
-
 export default {
-  name: 'Nominum',
+  name: 'History',
   data: () => ({
+
   })
 }
 </script>
-
 <style lang="scss" scoped>
 </style>

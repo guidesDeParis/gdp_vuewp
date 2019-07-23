@@ -1,22 +1,32 @@
 <template>
   <div id="root">
     <header role="banner">
-      <h1
-        tabindex="0"
-      >
-        Les Guides de Paris
-      </h1>
-      <HeaderMenu />
+      <div class="wrapper">
+        <h1
+          class="site-title"
+          tabindex="0"
+        >
+          Les Guides de Paris
+        </h1>
+        <HeaderMenu />
+      </div>
     </header>
-    <section class="container center-content">
+    <section role="main-content">
       <RouterView />
     </section>
-    <footer role="search-bar" />
+    <footer role="search-bar">
+      <History />
+      <Results />
+      <Search />
+    </footer>
   </div>
 </template>
 
 <script>
 import HeaderMenu from './components/nav/HeaderMenu'
+import Search from './components/nav/Search'
+import Results from './components/nav/Results'
+import History from './components/nav/History'
 // import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -27,7 +37,10 @@ export default {
     titleTemplate: '%s | Guides de Paris'
   },
   components: {
-    HeaderMenu
+    HeaderMenu,
+    Search,
+    Results,
+    History
   }
 }
 </script>

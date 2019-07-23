@@ -16,10 +16,11 @@ module.exports = merge(baseConfig, {
     compress: true,
     host: '0.0.0.0',
     port: PORT,
+    // disableHostCheck: true,
     // open: "firefox-developer-edition",
     overlay: { warnings: false, errors: true },
     publicPath: '/',
-    quiet: true
+    quiet: true,
   },
 
   module: {

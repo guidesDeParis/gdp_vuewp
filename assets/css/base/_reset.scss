@@ -1,0 +1,40 @@
+html, body{
+  font-size:16px;
+  line-height: 0.9;
+  margin:0; padding:0;
+  background: white;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+a, a:focus, a:active { outline: none; }
+a:focus{ -moz-outline-style: none; }
+
+ul {
+  padding:0;
+  margin:0;
+}
+li{
+  padding:0;
+  margin:0;
+  list-style: none;
+}
+
+.visualy-hidden {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  word-wrap: normal;
+}
+.visualy-hidden:active,
+.visualy-hidden:focus {
+  position: static !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+  width: auto;
+}
