@@ -19,6 +19,7 @@ export default {
 
   }),
   beforeCreate () {
+    // ?_format=json
     REST.get(`/indexOperum`, {})
       .then(({ data }) => {
         console.log('operum REST: data', data)
