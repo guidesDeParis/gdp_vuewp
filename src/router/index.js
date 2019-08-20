@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from 'pages/Home'
+import Corpus from 'pages/Corpus'
 import Nominum from 'pages/Nominum'
 import Locorum from 'pages/Locorum'
 import Operum from 'pages/Operum'
@@ -14,6 +15,11 @@ const routes = [
     name: 'home',
     path: '/',
     component: Home
+  },
+  {
+    name: 'corpus',
+    path: '/corpus',
+    component: Corpus
   },
   {
     name: 'nominum',

@@ -19,7 +19,8 @@ export default {
 
   }),
   beforeCreate () {
-    // ?_format=json
+    // items/gdpLeMaire1685T01BodyFr01.003.016
+    // texts/gdpSauval1724
     REST.get(`/indexOperum`, {})
       .then(({ data }) => {
         console.log('operum REST: data', data)
@@ -40,5 +41,6 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 </style>

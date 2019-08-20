@@ -1,6 +1,7 @@
 <template>
   <nav id="header-menu">
     <ul>
+      <li><router-link to="/corpus">Corpus</router-link></li>
       <li>
         <span>Index</span>
         <ul>

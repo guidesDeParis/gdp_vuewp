@@ -8,7 +8,7 @@ export const REST = axios.create({
   // withCredentials: true,
   crossorigin: true,
   headers: {
-    'Content-Type': 'application/json'
+    'Accept': 'application/json'
     // 'Access-Control-Allow-Credentials': true
   }
 })
