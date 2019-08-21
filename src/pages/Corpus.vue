@@ -5,38 +5,43 @@
   >
     <h1>Corpus</h1>
     <span v-if="!items.length">Loading ...</span>
+    <div v-else class="item-list">
+      <ul>
+        <li v-for="item in items" v-bind:key="item.url">
+          <CorpusItem :item="item" />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 
-import { REST } from 'api/rest-axios'
+import CorpusItem from '../components/Content/CorpusItem'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Corpus',
+  components: {
+    CorpusItem
+  },
   data: () => ({
-    items: []
+    // items: []
   }),
-  beforeCreate () {
-    // items/gdpLeMaire1685T01BodyFr01.003.016
-    // texts/gdpSauval1724
-    REST.get(`/corpus`, {})
-      .then(({ data }) => {
-        console.log('corpus REST: data', data)
-        // if(data.length){
-        //   commit('setItems',data)
-        //   // console.log('items.length', this.items.length);
-        //   if(state.infiniteLoadingState)
-        //     state.infiniteLoadingState.loaded()
-        // }else{
-        //   if(state.infiniteLoadingState)
-        //     state.infiniteLoadingState.complete()
-        // }
-      })
-      .catch((error) => {
-        console.warn('Issue with corpus', error)
-        Promise.reject(error)
-      })
+  computed: {
+    ...mapState({
+      items: state => state.Corpus.items
+    })
+  },
+  created () {
+    if (!this.items.length) {
+      this.getItems()
+    }
+  },
+  methods: {
+    ...mapActions({
+      getItems: 'Corpus/getItems'
+    })
   }
 }
 </script>
