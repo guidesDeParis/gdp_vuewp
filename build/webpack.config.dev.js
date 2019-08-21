@@ -2,6 +2,7 @@
 
 const webpack = require('webpack')
 const merge = require('webpack-merge')
+
 const baseConfig = require('./webpack.config.base')
 
 const PORT = 8988
@@ -11,6 +12,11 @@ module.exports = merge(baseConfig, {
 
   devServer: {
     clientLogLevel: 'warning',
+    historyApiFallback: {
+      rewrites: [
+        { from: /.*/, to: '/index.html' },
+      ],
+    },
     hot: true,
     contentBase: 'dist',
     compress: true,
