@@ -10,7 +10,7 @@
         />
       </h1>
     </header>
-    <div class="text-quantity" v-html="item.textsQuantity"/>
+    <div class="text-quantity" v-html="item.textsQuantity" />
   </article>
 </template>
 
