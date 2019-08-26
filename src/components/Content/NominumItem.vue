@@ -1,5 +1,5 @@
 <template>
-  <article class="corpus item">
+  <article class="nominum item">
     <header>
       <h1>
         <a
@@ -10,13 +10,12 @@
         />
       </h1>
     </header>
-    <div class="text-quantity" v-html="item.textsQuantity" />
   </article>
 </template>
 
 <script>
 export default {
-  name: 'CorpusItem',
+  name: 'NominumItem',
   props: {
     item: {
       type: Object,
@@ -28,13 +27,11 @@ export default {
   }),
   methods: {
     onclick () {
-      console.log('clicked on corpus item', this.item)
-      // this.$router.push({
-      //   name:`article`,
-      //   params: { alias:this.alias },
-      //   query: { uuid: this.item.uuid }
-      //   // meta: { uuid:this.item.uuid },
-      // })
+      console.log('clicked on nominum item', this.item)
+      this.$router.push({
+        name: `nominumItem`,
+        query: { id: this.item.uuid }
+      })
     }
   }
 }

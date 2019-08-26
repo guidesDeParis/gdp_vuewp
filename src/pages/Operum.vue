@@ -5,15 +5,26 @@
   >
     <h1>Operum</h1>
     <span v-if="!items.length">Loading ...</span>
+    <div v-else class="item-list">
+      <ul>
+        <li v-for="item in items" v-bind:key="item.url">
+          <OperumItem :item="item" />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 
 import { REST } from 'api/rest-axios'
+import OperumItem from '../components/Content/OperumItem'
 
 export default {
   name: 'Operum',
+  components: {
+    OperumItem
+  },
   data: () => ({
     items: []
 
@@ -24,15 +35,9 @@ export default {
     REST.get(`/indexOperum`, {})
       .then(({ data }) => {
         console.log('operum REST: data', data)
-        // if(data.length){
-        //   commit('setItems',data)
-        //   // console.log('items.length', this.items.length);
-        //   if(state.infiniteLoadingState)
-        //     state.infiniteLoadingState.loaded()
-        // }else{
-        //   if(state.infiniteLoadingState)
-        //     state.infiniteLoadingState.complete()
-        // }
+        if (data.content.length) {
+          this.items = data.content
+        }
       })
       .catch((error) => {
         console.warn('Issue with operum', error)
