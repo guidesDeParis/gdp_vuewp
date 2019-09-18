@@ -9,6 +9,9 @@
           v-html="item.title"
         />
       </h1>
+      <p v-if="item.birth && item.death">
+        <span>{{ item.birth }}</span> -- <span>{{ item.death }}</span>
+      </p>
     </header>
   </article>
 </template>

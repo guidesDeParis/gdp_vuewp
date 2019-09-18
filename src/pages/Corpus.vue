@@ -7,7 +7,7 @@
     <span v-if="!items.length">Loading ...</span>
     <div v-else class="item-list">
       <ul>
-        <li v-for="item in items" v-bind:key="item.url">
+        <li v-for="item in items" :key="item.url">
           <CorpusItem :item="item" />
         </li>
       </ul>
