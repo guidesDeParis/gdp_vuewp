@@ -35,7 +35,7 @@ export default {
       return REST.get(`/search?` + q)
         .then(({ data }) => {
           console.log('search REST: data', data)
-          // commit('setResults', data.content)
+          commit('setResults', data.content)
         })
         .catch((error) => {
           console.warn('Issue with search', error)
