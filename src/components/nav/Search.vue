@@ -1,11 +1,11 @@
 <template>
   <div id="search">
     <form class="" action="index.html" method="post">
-      <label for="keywords">
+      <label for="keys">
         Search
         <input
-          id="keywords"
-          v-model="keywords"
+          id="keys"
+          v-model="keys"
           type="text"
           placeholder="search"
         >
@@ -24,24 +24,25 @@
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Search',
   // data: () => ({
-  //   keywords: ''
+  //   typed: ''
   // }),
   computed: {
-    ...mapState({
-      keywords: state => state.Search.keywords
-    })
+    keys: {
+      get () { return this.$store.state.Search.keys },
+      set (value) { this.$store.commit('Search/setKeys', value) }
+    }
   },
   methods: {
     ...mapActions({
       getResults: 'Search/getResults'
     }),
     submit () {
-      console.log('submited', this.keywords)
+      console.log('submited', this.keys)
       this.getResults()
     }
   }

@@ -6,7 +6,7 @@ export default {
 
   // initial state
   state: {
-    keywords: '',
+    keys: '',
     results: []
   },
 
@@ -15,6 +15,9 @@ export default {
 
   // mutations
   mutations: {
+    setKeys (state, keys) {
+      state.keys = keys
+    },
     setResults (state, content) {
       state.results = content
     }
@@ -23,12 +26,13 @@ export default {
   // actions
   actions: {
     getResults ({ dispatch, commit, state }) {
+      console.log('getResults', state.keys)
       let params = {
-        search: state.keywords
+        search: state.keys
       }
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
-      return REST.post(`/search?` + q)
+      return REST.get(`/search?` + q)
         .then(({ data }) => {
           console.log('search REST: data', data)
           // commit('setResults', data.content)
