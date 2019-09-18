@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-// let path = 'http://' + window.location.hostname + ':8984'
-let path = 'http://dev.api.gdp.fr'
+// TODO: make this one as settings (or find an other solution)
+let path = 'http://' + window.location.hostname + ':8984'
+// let path = 'http://dev.api.gdp.fr'
+// let path = 'http://localhost:8984'
 
 export const REST = axios.create({
   baseURL: path + '/gdp',
