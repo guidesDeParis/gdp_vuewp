@@ -14,19 +14,23 @@
     <section role="main-content">
       <RouterView />
     </section>
-    <footer role="search-bar">
+    <footer role="tools">
       <History />
       <Results />
-      <Search />
+      <div id="footer-bottom" class="row">
+        <FooterTabs />
+        <Search />
+      </div>
     </footer>
   </div>
 </template>
 
 <script>
 import HeaderMenu from './components/nav/HeaderMenu'
-import Search from './components/nav/Search'
-import Results from './components/nav/Results'
 import History from './components/nav/History'
+import Results from './components/nav/Results'
+import Search from './components/nav/Search'
+import FooterTabs from './components/nav/FooterTabs'
 // import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -38,9 +42,10 @@ export default {
   },
   components: {
     HeaderMenu,
-    Search,
+    History,
     Results,
-    History
+    Search,
+    FooterTabs
   }
 }
 </script>

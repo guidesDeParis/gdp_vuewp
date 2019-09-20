@@ -1,6 +1,6 @@
 <template>
   <div id="history">
-    History
+    <h2>Historique de consultation</h2>
   </div>
 </template>
 <script>

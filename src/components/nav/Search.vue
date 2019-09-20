@@ -1,15 +1,13 @@
 <template>
-  <div id="search">
+  <div id="search" class="col-11">
     <form class="" action="index.html" method="post">
-      <label for="keys">
-        Search
-        <input
-          id="keys"
-          v-model="keys"
-          type="text"
-          placeholder="search"
-        >
-      </label>
+      <label htmlFor="keys">Search</label>
+      <input
+        id="keys"
+        v-model="keys"
+        type="text"
+        placeholder="search"
+      >
       <input
         id="search"
         type="submit"

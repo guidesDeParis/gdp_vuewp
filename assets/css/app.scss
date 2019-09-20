@@ -51,17 +51,54 @@ header[role="banner"]{
 section[role="main-content"]{
 
 }
-footer[role="search-bar"]{
-  #search{
-    color: #fff;
-    background-color: $bleuroi;
+footer[role="tools"]{
+  #history{
+    // color: #1a1a1a;
+    background-color: $or;
   }
   #results{
     // color: #1a1a1a;
     background-color: $gris;
   }
-  #history{
-    // color: #1a1a1a;
-    background-color: $or;
+  #footer-bottom{
+    #footer-tabs{
+      ul{
+        padding:0; margin:0;
+        display: flex;
+        flex-direction: column;
+        li{
+          flex: 1 1 auto;
+          box-sizing: border-box;
+          padding:0.3em;
+          margin:0;
+          line-height: 0.6em;
+          height:2em;
+          &.history{
+            background-color: $or;
+          }
+          &.results{
+            background-color: $gris;
+          }
+          span{
+            font-size: 0.693em;
+            font-weight: 400;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+    #search{
+      color: #fff;
+      background-color: $bleuroi;
+      label[for="keys"]{
+        display: none;
+      }
+    }
+  }
+  h2{
+    margin:0;
+    font-size: 0.756em;
+    font-weight: 400;
+    text-transform: uppercase;
   }
 }

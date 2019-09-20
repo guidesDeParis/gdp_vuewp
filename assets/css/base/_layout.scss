@@ -33,12 +33,12 @@ body{
     overflow-y: auto;
     overflow-x: hidden;
   }
-  footer[role="search-bar"]{
+  footer[role="tools"]{
     flex:0 0 auto;
     @extend %layout-element;
     // padding-bottom: 1em;
-    >*{
-      padding:0.5em 1em;
-    }
+    // >*{
+    //   padding:0.5em 1em;
+    // }
   }
 }
