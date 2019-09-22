@@ -1,0 +1,86 @@
+// http://www.thesassway.com/intermediate/simple-grid-mixins
+
+
+@mixin row() {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  // &:after{
+  //   content:"";
+  //   clear:both;
+  //   display: block;
+  // }
+}
+
+.row{
+  @include row;
+}
+.row-rl{
+  @include row;
+}
+
+%col-reset {
+    box-sizing: border-box;
+}
+
+@mixin col($col, $offset: 0, $sum: $default_sum, $gap: $default_gap, $align: top) {
+  @extend %col-reset;
+  padding-left: $gap*$offset;
+  @if $col == $default_sum {
+    // if last col, then no gap
+    padding-right: 0;
+  }@else{
+    padding-right: $gap;
+  }
+  &:last-child{padding-right: 0;}
+
+  // no offset with flex ??
+  // margin-left: percentage(($col/$sum)*$offset);
+
+  // col width
+  flex-basis: percentage($col/$sum);
+}
+
+@for $c from 1 through $default_sum {
+  .col-#{$c} {
+      @include col($c);
+  }
+
+  // small
+  .small-col-#{$c} {
+    @media only screen and (max-width: $small-bp) {
+      @include col($c);
+    }
+  }
+
+  // medium
+  .med-col-#{$c} {
+    @media only screen and (min-width: $small-bp+1) and (max-width: $med-bp) {
+      @include col($c);
+    }
+  }
+
+  // large
+  .large-col-#{$c} {
+    @media only screen and (min-width: $med-bp+1) {
+      @include col($c);
+    }
+  }
+
+}
+
+@for $c from 1 through $default_sum - 1 {
+  @for $o from 1 through $default_sum - $c {
+    .col-#{$c}-offset-#{$o} {
+      @include col($c, $o);
+    }
+  }
+}
+
+// TODO: replace with align-self:flex-start or flex-end
+// .col.float-right{
+//   float: right;
+//   padding-right: 0;
+//   padding-left: $default_gap;
+// }

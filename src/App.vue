@@ -16,7 +16,7 @@
     </section>
     <footer role="tools">
       <History />
-      <Results />
+      <Results v-if="resultsOpened" />
       <div id="footer-bottom" class="row">
         <FooterTabs />
         <Search />
@@ -31,7 +31,7 @@ import History from './components/nav/History'
 import Results from './components/nav/Results'
 import Search from './components/nav/Search'
 import FooterTabs from './components/nav/FooterTabs'
-// import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   metaInfo: {
@@ -46,6 +46,11 @@ export default {
     Results,
     Search,
     FooterTabs
+  },
+  computed: {
+    ...mapState({
+      resultsOpened: state => state.Search.opened
+    })
   }
 }
 </script>

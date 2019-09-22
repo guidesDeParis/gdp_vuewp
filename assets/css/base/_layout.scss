@@ -1,3 +1,5 @@
+$side-padding:3em;
+
 body, html{
   position: relative;
   width: 100%;
@@ -24,12 +26,12 @@ body{
   header[role="banner"]{
     flex: 0 0 auto;
     @extend %layout-element;
-    padding:1em 1em 0 1em;
+    padding:1em $side-padding 0 $side-padding;
   }
   section[role="main-content"]{
     flex:1 1 auto;
     @extend %layout-element;
-    padding:0 1em 0 1em;
+    padding:0 $side-padding 0 $side-padding;
     overflow-y: auto;
     overflow-x: hidden;
   }

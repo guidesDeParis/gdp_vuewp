@@ -1,8 +1,8 @@
 $base_font_size:16px;
 
 // grid
-$default_gap: 0;
-$default_sum: 12;
+$default_gap: 1em;
+$default_sum: 12; // total number of columns
 
 $small-bp:768px;
 $med-bp:1080px;

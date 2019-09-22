@@ -1,16 +1,33 @@
 <template>
-  <div id="results">
-    <h2>Resultats</h2>
-    <h3 v-if="keys">{{ keys }}</h3>
-    <div class="results-list">
-      <ul v-if="results.length">
-        <li v-for="result in results" :key="result.uuid">
-          <ResultItem :result="result" />
-        </li>
-      </ul>
+  <transition name="fade-roll">
+    <div
+      v-if="opened"
+      id="results"
+      class="row"
+    >
+      <section class="col-1">
+        <h2>Resultats</h2>
+        <span class="results-count">{{ results.length }} resultat(s)</span>
+      </section>
+      <section class="col-10 results-list">
+        <div class="wrapper">
+          <ul v-if="results.length">
+            <li v-for="result in results" :key="result.uuid" class="result">
+              <ResultItem :result="result" />
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="col-1 tools">
+        <span
+          class="mdi mdi-close"
+          title="close"
+          @click.prevent="close"
+          @keydown.enter.prevent="close"
+        />
+      </section>
     </div>
-
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -23,14 +40,21 @@ export default {
   components: {
     ResultItem
   },
-  data: () => ({
-
-  }),
   computed: {
+    opened: {
+      get () { return this.$store.state.Search.opened },
+      set (value) { this.$store.commit('Search/setOpened', value) }
+    },
     ...mapState({
       keys: state => state.Search.keys,
       results: state => state.Search.results
     })
+  },
+  methods: {
+    close () {
+      console.log('clicked on close results')
+      this.opened = false
+    }
   }
 }
 </script>
