@@ -1,0 +1,126 @@
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedthin-webfont.woff2') format('woff2'),
+         url('notosans-condensedthin-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedthinitalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedthinitalic-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedextralight-webfont.woff2') format('woff2'),
+         url('notosans-condensedextralight-webfont.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedextralightitalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedextralightitalic-webfont.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedlight-webfont.woff2') format('woff2'),
+         url('notosans-condensedlight-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedlightitalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedlightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensed-webfont.woff2') format('woff2'),
+         url('notosans-condensed-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condenseditalic-webfont.woff2') format('woff2'),
+         url('notosans-condenseditalic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedmedium-webfont.woff2') format('woff2'),
+         url('notosans-condensedmedium-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedmediumitalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedmediumitalic-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedsemibold-webfont.woff2') format('woff2'),
+         url('notosans-condensedsemibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedsemibolditalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedsemibolditalic-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedbold-webfont.woff2') format('woff2'),
+         url('notosans-condensedbold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedbolditalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedbolditalic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedextrabold-webfont.woff2') format('woff2'),
+         url('notosans-condensedextrabold-webfont.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedextrabolditalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedextrabolditalic-webfont.woff') format('woff');
+    font-weight: 800;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedblack-webfont.woff2') format('woff2'),
+         url('notosans-condensedblack-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanscondensed';
+    src: url('notosans-condensedblackitalic-webfont.woff2') format('woff2'),
+         url('notosans-condensedblackitalic-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+}

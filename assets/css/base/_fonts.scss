@@ -1,8 +1,22 @@
 @import '../fonts/libertinus/libertinus.css';
 @import '../fonts/notosans/notosans.css';
+// @import '../fonts/notosans/notosans-semicondensed.css';
+// @import '../fonts/notosans/notosans-condensed.css';
+// @import '../fonts/notosans/notosans-extracondensed.css';
 
 body{
   font-family: 'libertinus_serif';
-  // font-family: 'noto_sans';
   font-weight: 400;
+
+  // font-family: 'noto_sans';
+  // font-weight: 900;
+  // font-style: italic;
+}
+
+#header-menu,
+#footer-tabs,
+#search,
+footer[role="tools"] .row>header,
+footer[role="tools"] .row>nav{
+  font-family: "noto_sans";
 }

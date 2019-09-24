@@ -5,10 +5,10 @@
       id="results"
       class="row"
     >
-      <section class="col-1">
+      <header class="col-1">
         <h2>Resultats</h2>
         <span class="results-count">{{ results.length }} resultat(s)</span>
-      </section>
+      </header>
       <section class="col-10 results-list">
         <div class="wrapper">
           <ul v-if="results.length">
@@ -18,14 +18,14 @@
           </ul>
         </div>
       </section>
-      <section class="col-1 tools">
+      <nav class="col-1 tools">
         <span
           class="mdi mdi-close"
           title="close"
           @click.prevent="close"
           @keydown.enter.prevent="close"
         />
-      </section>
+      </nav>
     </div>
   </transition>
 </template>

@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedthin-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedthin-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedthinitalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedthinitalic-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedextralight-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedextralight-webfont.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedextralightitalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedextralightitalic-webfont.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedlight-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedlight-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedlightitalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedlightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensed-webfont.woff2') format('woff2'),
+         url('notosans-semicondensed-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondenseditalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondenseditalic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedmedium-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedmedium-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedmediumitalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedmediumitalic-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedsemibold-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedsemibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedsemibolditalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedsemibolditalic-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedbold-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedbold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedbolditalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedbolditalic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedextrabold-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedextrabold-webfont.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'noto_sanssemicondensed';
+    src: url('notosans-semicondensedextrabolditalic-webfont.woff2') format('woff2'),
+         url('notosans-semicondensedextrabolditalic-webfont.woff') format('woff');
+    font-weight: 800;
+    font-style: italic;
+}
