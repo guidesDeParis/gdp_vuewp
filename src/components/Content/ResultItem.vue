@@ -29,12 +29,10 @@ export default {
   methods: {
     onclick () {
       console.log('clicked on result item', this.result)
-      // this.$router.push({
-      //   name:`article`,
-      //   params: { alias:this.alias },
-      //   query: { uuid: this.item.uuid }
-      //   // meta: { uuid:this.item.uuid },
-      // })
+      this.$router.push({
+        name: `item`,
+        params: { uuid: this.result.uuid }
+      })
     }
   }
 }

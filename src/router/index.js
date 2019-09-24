@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from 'pages/Home'
+import Item from 'components/Content/Item'
 import Corpus from 'pages/Corpus'
 import Nominum from 'pages/Nominum'
 import NominumItem from 'components/Content/NominumItem'
@@ -17,6 +18,12 @@ const routes = [
     name: 'home',
     path: '/',
     component: Home
+  },
+  {
+    name: 'item',
+    path: '/items/:uuid',
+    component: Item,
+    props: true
   },
   {
     name: 'corpus',
