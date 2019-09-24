@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade-roll">
+  <transition name="accordeon" appear>
     <div
       v-if="opened"
       id="results"

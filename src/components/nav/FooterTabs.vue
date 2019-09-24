@@ -8,14 +8,16 @@
       </li>
       <li class="results">
         <div class="wrapper">
-          <span
-            v-if="resultsItems.length && !resultsOpened"
-            title="Ouvrir les resultats"
-            @click.prevent="openResults"
-            @keydown.enter.prevent="openResults"
-          >
-            Resultas
-          </span>
+          <transition name="fade" appear>
+            <span
+              v-if="resultsItems.length && !resultsOpened"
+              title="Ouvrir les resultats"
+              @click.prevent="openResults"
+              @keydown.enter.prevent="openResults"
+            >
+              Resultas
+            </span>
+          </transition>
         </div>
       </li>
     </ul>

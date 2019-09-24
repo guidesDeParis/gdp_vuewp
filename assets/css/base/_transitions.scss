@@ -1,0 +1,47 @@
+
+//  _                    _ _   _
+// | |_ _ _ __ _ _ _  __(_) |_(_)___ _ _  ___
+// |  _| '_/ _` | ' \(_-< |  _| / _ \ ' \(_-<
+//  \__|_| \__,_|_||_/__/_|\__|_\___/_||_/__/
+@mixin accordeon-transition($h){
+  &.accordeon-enter,
+  &.accordeon-leave-to{
+    // opacity: 0;
+    height:0.01vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    // transform: translateY(100%);
+    // transform: translate3d(0, 100%, 0);
+  }
+  &.accordeon-enter-to,
+  &.accordeon-leave{
+    // opacity:1;
+    height:$h;
+    // transform: translateY(0%);
+    // transform: translate3d(0, 0, 0);
+  }
+  &.accordeon-enter-active{
+    transition: all 300ms ease-in-out;
+  }
+  &.accordeon-leave-active{
+    transition: all 200ms ease-in-out;
+  }
+
+}
+
+@mixin fade-transition() {
+  &.fade-enter,
+  &.fade-leave-to{
+    opacity: 0;
+  }
+  &.fade-enter-to,
+  &.fade-leave{
+    opacity:1;
+  }
+  &.fade-enter-active{
+    transition: all 300ms ease-in-out;
+  }
+  &.fade-leave-active{
+    transition: all 200ms ease-in-out;
+  }
+}
