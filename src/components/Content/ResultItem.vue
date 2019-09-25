@@ -15,6 +15,9 @@
 </template>
 
 <script>
+
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ResultItem',
   props: {
@@ -23,16 +26,17 @@ export default {
       required: true
     }
   },
-  data: () => ({
-
-  }),
   methods: {
+    ...mapActions({
+      addHistoryItem: 'History/addItem'
+    }),
     onclick () {
       console.log('clicked on result item', this.result)
-      this.$router.push({
-        name: `item`,
-        params: { uuid: this.result.uuid }
-      })
+      this.addHistoryItem(this.result)
+      // this.$router.push({
+      //   name: `item`,
+      //   params: { uuid: this.result.uuid }
+      // })
     }
   }
 }

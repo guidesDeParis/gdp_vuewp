@@ -6,7 +6,7 @@
           class="site-title"
           tabindex="0"
         >
-          Les Guides de Paris
+          <router-link :to="{ name:'home' }">Les Guides de Paris</router-link>
         </h1>
         <HeaderMenu />
       </div>
@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 
 .container{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  // font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   max-width: 1200px;
 
 }

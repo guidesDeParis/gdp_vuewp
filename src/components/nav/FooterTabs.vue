@@ -3,7 +3,16 @@
     <ul>
       <li class="history">
         <div class="wrapper">
-          <span>Historique de consultation</span>
+          <transition name="fade" appear>
+            <span
+              v-if="historyItems.length && !historyOpened"
+              title="Ouvrir l'historique'"
+              @click.prevent="openHistory"
+              @keydown.enter.prevent="openHistory"
+            >
+              Historique de consultation
+            </span>
+          </transition>
         </div>
       </li>
       <li class="results">
@@ -35,13 +44,21 @@ export default {
       get () { return this.$store.state.Search.opened },
       set (value) { this.$store.commit('Search/setOpened', value) }
     },
+    historyOpened: {
+      get () { return this.$store.state.History.opened },
+      set (value) { this.$store.commit('History/setOpened', value) }
+    },
     ...mapState({
-      resultsItems: state => state.Search.results
+      resultsItems: state => state.Search.results,
+      historyItems: state => state.History.items
     })
   },
   methods: {
     openResults () {
       this.resultsOpened = true
+    },
+    openHistory () {
+      this.historyOpened = true
     }
   }
 }
