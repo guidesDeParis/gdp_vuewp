@@ -7,7 +7,7 @@
     >
       <header class="col-1">
         <h2>Resultats</h2>
-        <span class="search-keys">{{ keys }}</span><br />
+        <span class="search-keys">{{ keys }}</span><br>
         <span class="results-count">{{ results.length }} resultat(s)</span>
       </header>
       <section class="col-10 results-list">

@@ -53,7 +53,68 @@ header[role="banner"]{
   }
 }
 section[role="main-content"]{
-
+  #home{
+    header{
+      text-align: center;
+      h1{
+        color: $bleuroi;
+        font-size: 8em;
+        font-weight: 300;
+        margin:15vh 0 0;
+      }
+      h2{
+        color: $or;
+        font-size: 2em;
+        font-weight: 300;
+        margin:1em 0 0;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        sup{
+          // line-height: 5em;
+          vertical-align:text-top;
+          font-size: 0.7em
+        }
+      }
+    }
+    $filet_space:8em;
+    $decallage: 0.5em;
+    section{
+      padding-top: $filet_space;
+    }
+    div.teasers{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      position: relative;
+      padding-right: 0;
+      article{
+        box-sizing: border-box;
+        flex-basis: percentage(2 / ( $default_sum - 6) );
+        padding-right: $default_gap;
+      }
+      // filets decoratif
+      &:before, &:after{
+        z-index: 0;
+        content: "";
+        position: absolute;
+        opacity: 0.4;
+      }
+      &:before{
+        border:1px solid $or;
+        width:calc(100% + #{$filet_space*2 + $decallage*2});
+        left:- $filet_space - $default_gap/2 -$decallage;
+        height:calc(100% + #{$filet_space});
+        top:- $filet_space / 2;
+      }
+      &:after{
+        border:1px solid $rouge;
+        width:calc(100% + #{$filet_space*2});
+        left:- $filet_space - $default_gap/2;
+        height:calc(100% + #{$filet_space + $decallage*2});
+        top:- $filet_space / 2 - $decallage;
+      }
+    }
+  }
 }
 footer[role="tools"]{
   $list-item-h: 5.3em;
@@ -83,11 +144,12 @@ footer[role="tools"]{
       }
       li.item{
         box-sizing: border-box;
-        flex-basis: percentage(2/$default_sum);
+        // we are only on 10 colls as 2 are occupied by sides
+        flex-basis: percentage(2/($default_sum - 2));
         height: $list-item-h;
         overflow: hidden;
         padding-bottom: 1em;
-        padding-right: 0.7em;
+        padding-right: $default_gap;
         article{
           max-height: 100%;
           overflow: hidden;
@@ -145,11 +207,12 @@ footer[role="tools"]{
       }
       li.result{
         box-sizing: border-box;
-        flex-basis: percentage(2/$default_sum);
+        // we are only on 10 colls as 2 are occupied by sides
+        flex-basis: percentage(2/($default_sum - 2));
         height: $list-item-h;
         overflow: hidden;
         padding-bottom: 1em;
-        padding-right: 0.7em;
+        padding-right: $default_gap;
         article{
           max-height: 100%;
           overflow: hidden;
