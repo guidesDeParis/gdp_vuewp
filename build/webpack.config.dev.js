@@ -15,7 +15,7 @@ module.exports = merge(baseConfig, {
   },
 
   devServer: {
-    clientLogLevel: 'debug',
+    clientLogLevel: 'warning',
     historyApiFallback: {
       // rewrites: [
       //   { from: /.*/, to: '/index.html' },
