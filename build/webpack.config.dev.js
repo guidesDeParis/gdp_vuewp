@@ -10,13 +10,21 @@ const PORT = 8988
 module.exports = merge(baseConfig, {
   mode: 'development',
 
+  output: {
+    publicPath: '/'
+  },
+
   devServer: {
-    clientLogLevel: 'warning',
+    clientLogLevel: 'debug',
     historyApiFallback: {
-      rewrites: [
-        { from: /.*/, to: '/index.html' },
-      ],
+      // rewrites: [
+      //   { from: /.*/, to: '/index.html' },
+      // ],
+      index: '/',
+      disableDotRule: true,
+      verbose: true
     },
+    // historyApiFallback: true,
     hot: true,
     contentBase: 'dist',
     compress: true,
@@ -24,10 +32,10 @@ module.exports = merge(baseConfig, {
     host: '0.0.0.0',
     port: PORT,
     disableHostCheck: true,
-    // open: "firefox-developer-edition",
     overlay: { warnings: false, errors: true },
     publicPath: '/',
-    quiet: true,
+    quiet: false,
+    // open: "firefox-developer-edition",
   },
 
   module: {
