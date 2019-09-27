@@ -1,5 +1,5 @@
 <template>
-  <MainContentLayout id="operum">
+  <MainContentLayout id="operum" class="index">
     <template v-slot:header>
       <h1>Œuvres</h1>
       <span v-if="!items.length">Loading ...</span>
@@ -12,7 +12,6 @@
     </ul>
 
     <template v-slot:nav>
-      nav
     </template>
   </MainContentLayout>
 </template>

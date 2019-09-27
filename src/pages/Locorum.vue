@@ -1,5 +1,5 @@
 <template>
-  <MainContentLayout id="locorum">
+  <MainContentLayout id="locorum" class="index">
     <template v-slot:header>
       <h1>Lieux</h1>
       <span v-if="!items.length">Loading ...</span>
@@ -12,9 +12,7 @@
     </ul>
 
     <template v-slot:nav>
-      nav
     </template>
-
   </MainContentLayout>
 </template>
 

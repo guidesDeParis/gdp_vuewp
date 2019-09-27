@@ -10,7 +10,6 @@
     <section v-html="item.tei" class="col-6"/>
 
     <template v-slot:nav>
-      tree
     </template>
   </MainContentLayout>
 </template>

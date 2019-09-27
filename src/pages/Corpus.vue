@@ -12,7 +12,6 @@
     </ul>
 
     <template v-slot:nav>
-      nav
     </template>
   </MainContentLayout>
 </template>

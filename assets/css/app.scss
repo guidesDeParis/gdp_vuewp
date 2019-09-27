@@ -115,6 +115,30 @@ section[role="main-content"]{
       }
     }
   }
+
+  #corpus, .index{
+    >header>h1{
+      font-family: "noto_sans";
+      color: $rouge;
+      font-weight: 400;
+    }
+
+    article.item{
+      margin: 2em 0 0;
+      header h1{
+        font-size: 1.323em;
+        color: $bleuroi;
+        font-weight: 400;
+        margin:0;
+      }
+    }
+  }
+
+  #corpus{
+  }
+
+  .index{
+  }
 }
 footer[role="tools"]{
   $list-item-h: 5.3em;
