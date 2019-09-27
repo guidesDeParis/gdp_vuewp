@@ -7,7 +7,7 @@
       <span v-if="!loaded">Loading...</span>
     </template>
 
-    <section v-html="item.tei" class="col-6"/>
+    <div class="content" v-html="item.tei"/>
 
     <template v-slot:nav>
     </template>

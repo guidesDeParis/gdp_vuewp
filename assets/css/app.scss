@@ -139,6 +139,24 @@ section[role="main-content"]{
 
   .index{
   }
+
+  #text{
+    .content{
+      color: $bleuroi;
+      h1{
+        font-size: 1.512em;
+      }
+      p{
+        font-size: 1.134em;
+        line-height: 1.5;
+        span.persName,
+        span.placeName,
+        span.objectName{
+          font-weight: 600;
+        }
+      }
+    }
+  }
 }
 footer[role="tools"]{
   $list-item-h: 5.3em;
