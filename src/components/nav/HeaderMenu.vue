@@ -5,9 +5,9 @@
       <li>
         <span>Index</span>
         <ul>
-          <li><router-link to="/nominum">Nominum</router-link></li>
-          <li><router-link to="/locorum">Locorum</router-link></li>
-          <li><router-link to="/operum">Operum</router-link></li>
+          <li><router-link to="/nominum">Personnes</router-link></li>
+          <li><router-link to="/locorum">Lieux</router-link></li>
+          <li><router-link to="/operum">Œuvres</router-link></li>
         </ul>
       </li>
       <li><router-link to="/bibliographie">Bibliographie</router-link></li>

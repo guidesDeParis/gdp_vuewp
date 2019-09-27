@@ -1,26 +1,30 @@
 <template>
-  <transition name="fade" appear>
-    <span v-if="!loaded">Loading...</span>
-    <article v-else class="item row">
-      <header class="col-3">
-        <h1>
-          {{ item.title }}
-        </h1>
-      </header>
-      <section v-html="item.tei" class="col-6"/>
-      <section class="col-3">
-        tree
-      </section>
-    </article>
-  </transition>
+  <MainContentLayout id="text" class="text">
+    <template v-slot:header>
+      <h1>
+        {{ item.title }}
+      </h1>
+      <span v-if="!loaded">Loading...</span>
+    </template>
+
+    <section v-html="item.tei" class="col-6"/>
+
+    <template v-slot:nav>
+      tree
+    </template>
+  </MainContentLayout>
 </template>
 
 <script>
 
 import { REST } from 'api/rest-axios'
+import MainContentLayout from '../components/Layouts/MainContentLayout'
 
 export default {
   name: 'Item',
+  components: {
+    MainContentLayout
+  },
   props: {
     uuid: {
       type: String,

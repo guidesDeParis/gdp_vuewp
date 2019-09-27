@@ -1,38 +1,45 @@
 <template>
-  <div
-    id="locorum"
-    class="full-width"
-  >
-    <h1>Locorum</h1>
-    <span v-if="!items.length">Loading ...</span>
-  </div>
+  <MainContentLayout id="locorum">
+    <template v-slot:header>
+      <h1>Lieux</h1>
+      <span v-if="!items.length">Loading ...</span>
+    </template>
+
+    <ul v-if="items.length" class="item-list">
+      <li v-for="item in items" :key="item.url">
+        <LocorumItem :item="item" />
+      </li>
+    </ul>
+
+    <template v-slot:nav>
+      nav
+    </template>
+
+  </MainContentLayout>
 </template>
 
 <script>
 
 import { REST } from 'api/rest-axios'
+import MainContentLayout from '../components/Layouts/MainContentLayout'
+import LocorumItem from '../components/Content/LocorumItem'
 
 export default {
   name: 'Locorum',
+  components: {
+    LocorumItem,
+    MainContentLayout
+  },
   data: () => ({
     items: []
-
   }),
   beforeCreate () {
-    // items/gdpLeMaire1685T01BodyFr01.003.016
-    // texts/gdpSauval1724
     REST.get(`/indexLocorum`, {})
       .then(({ data }) => {
         console.log('locorum REST: data', data)
-        // if(data.length){
-        //   commit('setItems',data)
-        //   // console.log('items.length', this.items.length);
-        //   if(state.infiniteLoadingState)
-        //     state.infiniteLoadingState.loaded()
-        // }else{
-        //   if(state.infiniteLoadingState)
-        //     state.infiniteLoadingState.complete()
-        // }
+        if (data.content.length) {
+          this.items = data.content
+        }
       })
       .catch((error) => {
         console.warn('Issue with locorum', error)
