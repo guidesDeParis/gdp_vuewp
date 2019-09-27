@@ -31,9 +31,13 @@ body{
   section[role="main-content"]{
     flex:1 1 auto;
     @extend %layout-element;
-    padding:0 $side-padding 0 $side-padding;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
+    >.wrapper{
+      padding:0 $side-padding 0 $side-padding;
+      height:100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
   }
   footer[role="tools"]{
     flex:0 0 auto;

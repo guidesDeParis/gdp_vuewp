@@ -12,7 +12,9 @@
       </div>
     </header>
     <section role="main-content">
-      <RouterView />
+      <div class="wrapper">
+        <RouterView />
+      </div>
     </section>
     <footer role="tools">
       <History />

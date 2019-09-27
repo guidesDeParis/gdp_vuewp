@@ -1,13 +1,16 @@
 <template>
   <transition name="fade" appear>
     <span v-if="!loaded">Loading...</span>
-    <article v-else class="item">
-      <header>
+    <article v-else class="item row">
+      <header class="col-3">
         <h1>
           {{ item.title }}
         </h1>
       </header>
-      <section v-html="item.tei" />
+      <section v-html="item.tei" class="col-6"/>
+      <section class="col-3">
+        tree
+      </section>
     </article>
   </transition>
 </template>
