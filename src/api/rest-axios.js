@@ -6,7 +6,7 @@ let path = 'http://' + window.location.hostname + ':8984'
 // let path = 'http://localhost:8984'
 
 export const REST = axios.create({
-  baseURL: path + '/gdp',
+  baseURL: path,
   // withCredentials: true,
   crossorigin: true,
   headers: {
