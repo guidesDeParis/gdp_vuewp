@@ -3,12 +3,15 @@ import Router from 'vue-router'
 
 import Home from 'pages/Home'
 import Item from 'pages/Item'
+import ListCorpus from 'pages/ListCorpus'
 import Corpus from 'pages/Corpus'
+import Texts from 'pages/Texts'
+import IndexNominum from 'pages/IndexNominum'
+import IndexLocorum from 'pages/IndexLocorum'
+import IndexOperum from 'pages/IndexOperum'
 import Nominum from 'pages/Nominum'
-// import NominumItem from 'pages/NominumItem'
 import Locorum from 'pages/Locorum'
 import Operum from 'pages/Operum'
-// import OperumItem from 'pages/OperumItem'
 import Bibliographie from 'pages/Bibliographie'
 
 Vue.use(Router)
@@ -26,35 +29,50 @@ const routes = [
     props: true
   },
   {
-    name: 'corpus',
+    name: 'listcorpus',
     path: '/corpus',
+    component: ListCorpus
+  },
+  {
+    name: 'corpus',
+    path: '/corpus/:id',
     component: Corpus
   },
   {
-    name: 'nominum',
+    name: 'texts',
+    path: '/texts/:id',
+    component: Texts
+  },
+  {
+    name: 'indexNominum',
     path: '/nominum',
+    component: IndexNominum
+  },
+  {
+    name: 'nominum',
+    path: '/nominum/:id',
     component: Nominum
   },
-  // {
-  //   name: 'nominumItem',
-  //   path: '/nominum/:id',
-  //   component: NominumItem
-  // },
+  {
+    name: 'indexLocorum',
+    path: '/locorum',
+    component: IndexLocorum
+  },
   {
     name: 'locorum',
-    path: '/locorum',
+    path: '/locorum/:id',
     component: Locorum
   },
   {
-    name: 'operum',
+    name: 'indexOperum',
     path: '/operum',
+    component: IndexOperum
+  },
+  {
+    name: 'operum',
+    path: '/operum/:id',
     component: Operum
   },
-  // {
-  //   name: 'operumItem',
-  //   path: '/operum/:id',
-  //   component: OperumItem
-  // },
   {
     name: 'bibliographie',
     path: '/bibliographie',

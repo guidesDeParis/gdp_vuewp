@@ -1,18 +1,11 @@
 <template>
-  <MainContentLayout id="nominum" class="index">
+  <MainContentLayout id="nominum">
     <template v-slot:header>
-      <h1>Personnes</h1>
-      <span v-if="!items.length">Loading ...</span>
+      <h1 v-if="content">{{ content.title }}</h1>
+      <span v-if="!content">Loading ...</span>
     </template>
 
-    <ul v-if="items.length" class="item-list">
-      <li v-for="item in items" :key="item.url">
-        <NominumItem :item="item" />
-      </li>
-    </ul>
-
-    <template v-slot:nav>
-    </template>
+    <template v-slot:nav />
   </MainContentLayout>
 </template>
 
@@ -20,26 +13,22 @@
 
 import { REST } from 'api/rest-axios'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
-import NominumItem from '../components/Content/NominumItem'
 
 export default {
   name: 'Nominum',
   components: {
-    NominumItem,
     MainContentLayout
   },
   data: () => ({
-    items: []
-
+    content: null
   }),
   beforeCreate () {
-    // items/gdpLeMaire1685T01BodyFr01.003.016
-    // texts/gdpSauval1724
-    REST.get(`/indexNominum`, {})
+    console.log('nominum this.$route', this.$route)
+    REST.get(`/indexNominum/` + this.$route.params.id, {})
       .then(({ data }) => {
         console.log('nominum REST: data', data)
-        if (data.content.length) {
-          this.items = data.content
+        if (data.content) {
+          this.content = data.content
         }
       })
       .catch((error) => {

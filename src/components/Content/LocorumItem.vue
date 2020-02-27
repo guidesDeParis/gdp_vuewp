@@ -9,6 +9,7 @@
           v-html="item.title"
         />
       </h1>
+      <p>{{ item.type }}</p>
     </header>
   </article>
 </template>
@@ -28,10 +29,11 @@ export default {
   methods: {
     onclick () {
       console.log('clicked on locorum item', this.item)
-      // this.$router.push({
-      //   name: `locorumItem`,
-      //   query: { id: this.item.uuid }
-      // })
+      this.$router.push({
+        name: `locorum`,
+        params: { id: this.item.uuid }
+        // query: { id: this.item.uuid }
+      })
     }
   }
 }

@@ -10,7 +10,13 @@
         />
       </h1>
     </header>
-    <div class="text-quantity" v-html="item.textsQuantity" />
+    <section>
+      <p class="author">{{ item.author }}</p>
+      <p class="date">{{ item.date }}</p>
+      <p class="editions-quantity">{{ item.editionsQuantity }}</p>
+      <p class="text-quantity">{{ item.textsQuantity }}</p>
+      <div class="edition" v-html="item.editions" />
+    </section>
   </article>
 </template>
 
@@ -29,12 +35,10 @@ export default {
   methods: {
     onclick () {
       console.log('clicked on corpus item', this.item)
-      // this.$router.push({
-      //   name:`article`,
-      //   params: { alias:this.alias },
-      //   query: { uuid: this.item.uuid }
-      //   // meta: { uuid:this.item.uuid },
-      // })
+      this.$router.push({
+        name: `corpus`,
+        params: { id: this.item.uuid }
+      })
     }
   }
 }

@@ -32,8 +32,8 @@ export default {
     onclick () {
       console.log('clicked on nominum item', this.item)
       this.$router.push({
-        name: `nominumItem`,
-        query: { id: this.item.uuid }
+        name: `nominum`,
+        params: { id: this.item.uuid }
       })
     }
   }

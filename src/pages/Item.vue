@@ -7,10 +7,9 @@
       <span v-if="!loaded">Loading...</span>
     </template>
 
-    <div class="content" v-html="item.tei"/>
+    <div class="content" v-html="item.tei" />
 
-    <template v-slot:nav>
-    </template>
+    <template v-slot:nav />
   </MainContentLayout>
 </template>
 

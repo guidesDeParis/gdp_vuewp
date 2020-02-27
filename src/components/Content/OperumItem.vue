@@ -2,12 +2,18 @@
   <article class="operum item">
     <header>
       <h1>
+
         <a
+          v-if="item.uuid"
           :href="item.url"
           @click.prevent="onclick"
           @keyup.enter="onclick"
-          v-html="item.title"
-        />
+        >
+          {{ item.title }}
+        </a>
+        <span v-else class="red">
+          {{ item.title }}
+        </span>
       </h1>
     </header>
   </article>
@@ -28,10 +34,14 @@ export default {
   methods: {
     onclick () {
       console.log('clicked on Operum item', this.item)
-      this.$router.push({
-        name: `operuumItem`,
-        query: { id: this.item.uuid }
-      })
+      if (this.item.uuid) {
+        this.$router.push({
+          name: `operum`,
+          params: { id: this.item.uuid }
+        })
+      } else {
+        console.warn('no uuid', this.item)
+      }
     }
   }
 }

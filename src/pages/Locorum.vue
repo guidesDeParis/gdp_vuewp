@@ -1,18 +1,12 @@
 <template>
-  <MainContentLayout id="locorum" class="index">
+  <MainContentLayout id="locorum">
     <template v-slot:header>
-      <h1>Lieux</h1>
-      <span v-if="!items.length">Loading ...</span>
+      <h1 v-if="content">{{ content.title }}</h1>
+      <p v-if="content">{{ content.type }}</p>
+      <span v-if="!content">Loading ...</span>
     </template>
 
-    <ul v-if="items.length" class="item-list">
-      <li v-for="item in items" :key="item.url">
-        <LocorumItem :item="item" />
-      </li>
-    </ul>
-
-    <template v-slot:nav>
-    </template>
+    <template v-slot:nav />
   </MainContentLayout>
 </template>
 
@@ -20,23 +14,22 @@
 
 import { REST } from 'api/rest-axios'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
-import LocorumItem from '../components/Content/LocorumItem'
 
 export default {
   name: 'Locorum',
   components: {
-    LocorumItem,
     MainContentLayout
   },
   data: () => ({
-    items: []
+    content: null
   }),
   beforeCreate () {
-    REST.get(`/indexLocorum`, {})
+    console.log('locorum this.$route', this.$route)
+    REST.get(`/indexLocorum/` + this.$route.params.id, {})
       .then(({ data }) => {
         console.log('locorum REST: data', data)
-        if (data.content.length) {
-          this.items = data.content
+        if (data.content) {
+          this.content = data.content
         }
       })
       .catch((error) => {

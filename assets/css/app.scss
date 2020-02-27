@@ -14,6 +14,12 @@ body{
 #root{
 }
 
+.red{
+  background-color: red;
+  color:white;
+
+}
+
 header[role="banner"]{
   div.wrapper{
     display: grid;
@@ -116,7 +122,7 @@ section[role="main-content"]{
     }
   }
 
-  #corpus, .index{
+  #list-corpus, .index{
     >header>h1{
       font-family: "noto_sans";
       color: $rouge;
@@ -138,6 +144,20 @@ section[role="main-content"]{
   }
 
   .index{
+  }
+
+  #texts{
+    .text-title{
+      font-size: 1.323em;
+      color: $bleuroi;
+      font-weight: 400;
+      margin:0;
+    }
+    span.placeName,
+    span.objectName,
+    span.persName{
+      font-weight: 600;
+    }
   }
 
   #text{
