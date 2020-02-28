@@ -146,13 +146,33 @@ section[role="main-content"]{
   .index{
   }
 
-  #texts{
-    .text-title{
-      font-size: 1.323em;
+  #edition-toc{
+    ul{
+      li{
+        ul{
+          // padding-left: 1em;
+          border-left: 1px dotted $or;
+          // min-height: 1em;
+          margin-bottom: 0.5em;
+          li{
+            // min-height: 1em;
+            // border-left: 1px solid red;
+            padding:0 0 0.2em 1em;
+          }
+        }
+      }
+    }
+    .toc-title{
       color: $bleuroi;
       font-weight: 400;
       margin:0;
     }
+    h2.toc-title{font-size: 1.3em;}
+    h3.toc-title{font-size: 1.2em;}
+    h4.toc-title{font-size: 1.1em;}
+    h5.toc-title{font-size: 1.0em;}
+    h6.toc-title{font-size: 0.9em;}
+
     span.placeName,
     span.objectName,
     span.persName{

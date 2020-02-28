@@ -5,7 +5,9 @@ export default {
 
   // initial state
   state: {
-    items: []
+    // items: [],
+    authors: [],
+    editionslist: []
   },
 
   // getters
@@ -13,23 +15,65 @@ export default {
 
   // mutations
   mutations: {
-    setItems (state, content) {
-      state.items = state.items.concat(content)
+    setAuthors (state, authors) {
+      state.authors = authors
+    },
+    setEditionslist (state, editionslist) {
+      state.editionslist = editionslist
     }
   },
 
   // actions
   actions: {
-    getItems ({ dispatch, commit, state }) {
+    getCorpuses ({ dispatch, commit, state }) {
+      return new Promise((resolve, reject) => {
+        // get the list of corpuses (aka authors)
+        dispatch('getAuthors')
+          .then(({ data }) => {
+            console.log('getCorpuses authors data', data)
+            commit('setAuthors', data.content)
+            // get the texts list for each corpus (aka author)
+            let authorsUuids = []
+            for (let author of data.content) {
+              authorsUuids.push(author.uuid)
+            }
+            dispatch('getEditionsList', authorsUuids)
+              .then((editionslist) => {
+                console.log('all texts returned: editionslist', editionslist)
+                commit('setEditionslist', editionslist)
+              })
+          })
+      })
+    },
+    // get authors
+    getAuthors ({ dispatch, commit, state }) {
       return REST.get(`/corpus`, {})
-        .then(({ data }) => {
-          console.log('corpus REST: data', data)
-          commit('setItems', data.content)
-        })
+        // .then(({ data }) => {
+        //   console.log('corpus getAuthors REST: data', data)
+        //   commit('setAuthors', data.content)
+        // })
         .catch((error) => {
-          console.warn('Issue with corpus', error)
+          console.warn('Issue with getAuthors', error)
           Promise.reject(error)
         })
+    },
+    // get editionslist
+    getEditionsList ({ dispatch, commit, state }, authorsUuids) {
+      return Promise.all(authorsUuids.map(function (uuid) {
+        return REST.get(`/corpus/` + uuid, {})
+          .then(({ data }) => {
+            console.log('corpus getEditionsList REST: data', data)
+            // work arround
+            if (!Array.isArray(data.content)) {
+              data.content = [data.content]
+            }
+            return data
+          })
+          .catch((error) => {
+            console.warn('Issue with getEditionsList', error)
+            Promise.reject(error)
+          })
+      }))
     }
   }
 }

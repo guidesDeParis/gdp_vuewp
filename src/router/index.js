@@ -4,8 +4,8 @@ import Router from 'vue-router'
 import Home from 'pages/Home'
 import Item from 'pages/Item'
 import ListCorpus from 'pages/ListCorpus'
-import Corpus from 'pages/Corpus'
-import Texts from 'pages/Texts'
+// import Corpus from 'pages/Corpus'
+import EditionToc from 'pages/EditionToc'
 import IndexNominum from 'pages/IndexNominum'
 import IndexLocorum from 'pages/IndexLocorum'
 import IndexOperum from 'pages/IndexOperum'
@@ -33,15 +33,20 @@ const routes = [
     path: '/corpus',
     component: ListCorpus
   },
+  // {
+  //   name: 'corpus',
+  //   path: '/corpus/:id',
+  //   component: Corpus
+  // },
   {
-    name: 'corpus',
-    path: '/corpus/:id',
-    component: Corpus
+    name: 'editiontoc',
+    path: '/edition/:id',
+    component: EditionToc
   },
   {
-    name: 'texts',
-    path: '/texts/:id',
-    component: Texts
+    name: 'editiontoctext',
+    path: '/edition/:id/:textid',
+    component: EditionToc
   },
   {
     name: 'indexNominum',

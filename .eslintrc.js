@@ -27,6 +27,7 @@ module.exports = {
     'vue/multiline-html-element-content-newline': 'off',
     'vue/max-attributes-per-line': 'off',
     'vue/no-v-html': 'off',
+    'vue/require-default-prop': 'off',
     'vue-a11y/label-has-for': 'off'
   }
 }
