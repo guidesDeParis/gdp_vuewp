@@ -4,8 +4,15 @@
 // @import '../fonts/notosans/notosans-condensed.css';
 // @import '../fonts/notosans/notosans-extracondensed.css';
 
-body{
+@mixin fontsans {
+  font-family: "noto_sans";
+}
+@mixin fontserif {
   font-family: 'libertinus_serif';
+}
+
+body{
+  @include fontserif;
   font-weight: 400;
 
   // font-family: 'noto_sans';
@@ -18,5 +25,5 @@ body{
 #search,
 footer[role="tools"] .row>header,
 footer[role="tools"] .row>nav{
-  font-family: "noto_sans";
+  @include fontsans;
 }

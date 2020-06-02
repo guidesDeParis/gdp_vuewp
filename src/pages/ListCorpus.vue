@@ -7,9 +7,17 @@
 
     <ul v-if="editionslist.length" class="item-list">
       <li v-for="(corpus,index) in editionslist" :key="index">
-        <h2>{{ corpus.meta.author }}</h2>
-        <ul>
-          <li v-for="text in corpus.content" :key="text.uuid">
+        <header>
+          <h2>{{ corpus.author.title }}</h2>
+          <h3>{{ corpus.author.date }}</h3>
+          <section class="editions">
+            <h4 class="editions-quantity">{{ corpus.author.editionsQuantity }}</h4>
+            <div v-if="corpus.author.editions" class="editions" v-html="corpus.author.editions"/>
+          </section>
+          <h4 class="texts-quantity">{{ corpus.author.textsQuantity }}</h4>
+        </header>
+        <ul class="texts-list">
+          <li v-for="text in corpus.editions.content" :key="text.uuid">
             <h3>
               <a
                 :href="text.url"

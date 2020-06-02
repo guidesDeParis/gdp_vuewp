@@ -3,7 +3,7 @@
     <ul>
       <li><router-link to="/corpus">Corpus</router-link></li>
       <li>
-        <span>Index</span>
+        <span>Indexs</span>
         <ul>
           <li><router-link to="/nominum">Personnes</router-link></li>
           <li><router-link to="/locorum">Lieux</router-link></li>
