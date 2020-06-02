@@ -34,7 +34,7 @@ body{
     overflow: hidden;
     >.wrapper{
       padding:0 $side-padding 0 $side-padding;
-      height:100vh;
+      height:100%;
       overflow-y: auto;
       overflow-x: hidden;
     }
