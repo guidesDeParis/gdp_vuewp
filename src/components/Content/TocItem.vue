@@ -70,11 +70,19 @@ export default {
     },
     isActive () {
       // console.log('Active', this.$route.params.textid, this.item.uuid)
-      return this.$route.params.textid === this.item.uuid
+      if (typeof this.$route.params.textid !== 'undefined') {
+        return this.$route.params.textid === this.item.uuid
+      } else {
+        return false
+      }
     },
     isOpened () {
       // console.log('opened', this.$route.params.textid.indexOf(this.item.uuid) >= 0)
-      return this.$route.params.textid.indexOf(this.item.uuid) >= 0
+      if (typeof this.$route.params.textid !== 'undefined') {
+        return this.$route.params.textid.indexOf(this.item.uuid) >= 0
+      } else {
+        return false
+      }
     }
   },
   // beforeCreate () {
