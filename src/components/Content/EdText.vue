@@ -1,6 +1,6 @@
 <template>
   <div id="text">
-    <h1>{{ textdata.content.title }}</h1>
+    <!-- <h1>{{ textdata.meta.title }}</h1> -->
     <div class="tei" v-html="textdata.content.tei" />
   </div>
 </template>

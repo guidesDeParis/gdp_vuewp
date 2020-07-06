@@ -159,44 +159,44 @@ section[role="main-content"]{
         margin: 0 0 2em 0;
         header{
           h2{
-            margin:0.4em 0;
-            font-size: 1.512em;
-            color: $bleuroi;
-            font-weight: 400;
+            margin:0.4em 0 0.2em;
+            @include title1blue;
           }
           h3{
             margin:0.2em 0;
             @include fontsans;
-            font-size: 0.753em;
+            font-size: 0.756em;
             font-weight: 500;
           }
-          h4{
-            margin:0.1em 0;
-            font-weight: 300;
-            @include fontsans;
-            font-size: 0.753em;
-            &.editions-quantity{
-              color: $rouge;
-              &:after{
-                content: ">>";
-                margin:0 0 0 0.5em;
-              }
-            }
-          }
-          section.editions{
-            div.editions{
-              ol{
-                padding:0;
-                li{
-                  margin:0.7em 1em;
-                }
+          margin-bottom: 0.3em;
+        }
+        section.editions{
+          div.editions{
+            ol{
+              padding:0;
+              li{
+                margin:0.7em 1em;
               }
             }
           }
         }
+        h4{
+          margin:0.1em 0;
+          font-weight: 300;
+          @include fontsans;
+          font-size: 0.756em;
+          &.texts-quantity{
+            color: $rouge;
+            // &:after{
+            //   content: ">>";
+            //   margin:0 0 0 0.5em;
+            // }
+          }
+        }
+
         ul {
           li{
-            margin:0;
+            margin:0 0 0 1em;
             h3{
               margin: 0.5em 0;
               font-weight: 400;
@@ -215,36 +215,87 @@ section[role="main-content"]{
   }
 
   #edition-toc{
-    ul{
-      li{
-        ul{
-          // padding-left: 1em;
-          border-left: 1px dotted $or;
-          // min-height: 1em;
-          margin-bottom: 0.5em;
-          li{
-            // min-height: 1em;
-            // border-left: 1px solid red;
-            padding:0 0 0.2em 1em;
+    max-height: 100%;
+    >header,
+    >section,
+    >nav{
+      max-height: 100%;
+      padding-top:1em;
+      padding-bottom:1em;
+    }
+
+    >section,
+    >nav{
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    header{
+      h1{
+        @include title2black;
+      }
+    }
+
+    >section{
+      div#text{
+        // >h1{
+        //   @include title1blue;
+        // }
+        div.tei{
+          // >h1{display: none;}
+          >h1{@include title1blue;}
+          span.placeName,
+          span.objectName,
+          span.persName{
+            font-weight: 600;
           }
         }
       }
     }
-    .toc-title{
-      color: $bleuroi;
-      font-weight: 400;
-      margin:0;
-    }
-    h2.toc-title{font-size: 1.3em;}
-    h3.toc-title{font-size: 1.2em;}
-    h4.toc-title{font-size: 1.1em;}
-    h5.toc-title{font-size: 1.0em;}
-    h6.toc-title{font-size: 0.9em;}
 
-    span.placeName,
-    span.objectName,
-    span.persName{
-      font-weight: 600;
+    >nav{
+      >section{
+        padding:0 0 0 1.5em;
+        >ul{
+          ul{
+            li{
+              ul{
+                overflow: hidden;
+                &:not(.opened){
+                  height:0;
+                }
+                // &.opened{
+                //   border: 1px solid red;
+                // }
+                // padding-left: 1em;
+                border-left: 0.5px solid $gris;
+                // min-height: 1em;
+                margin-bottom: 0em;
+                li{
+                  // min-height: 1em;
+                  // border-left: 1px solid red;
+                  padding:0 0 0.2em 1em;
+                }
+              }
+            }
+          }
+          .toc-title{
+            color: $gris;
+            font-weight: 400;
+            margin:0;
+            &.active,
+            &:hover{
+              color:$grisfonce;
+            }
+          }
+          h2.toc-title{font-size: 0.882em;}
+          h3.toc-title{font-size: 0.882em;}
+          h4.toc-title{font-size: 0.882em;}
+          h5.toc-title{font-size: 0.882em;}
+          h6.toc-title{font-size: 0.882em;}
+        }
+      }
+
     }
   }
 

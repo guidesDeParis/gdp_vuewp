@@ -10,25 +10,32 @@
         <header>
           <h2>{{ corpus.author.title }}</h2>
           <h3>{{ corpus.author.date }}</h3>
-          <section class="editions">
-            <h4 class="editions-quantity">{{ corpus.author.editionsQuantity }}</h4>
-            <div v-if="corpus.author.editions" class="editions" v-html="corpus.author.editions"/>
-          </section>
-          <h4 class="texts-quantity">{{ corpus.author.textsQuantity }}</h4>
         </header>
-        <ul class="texts-list">
-          <li v-for="text in corpus.editions.content" :key="text.uuid">
-            <h3>
-              <a
-                :href="text.url"
-                :uuid="text.uuid"
-                @click.prevent="onclick"
-                @keyup.enter="onclick"
-                v-html="text.title"
-              />
-            </h3>
-          </li>
-        </ul>
+        <section class="editions">
+          <h4 class="editions-quantity">
+            {{ corpus.author.editionsQuantity.quantity }} {{ corpus.author.editionsQuantity.unit }}
+          </h4>
+          <!-- <div v-if="corpus.author.editions" class="editions" v-html="corpus.author.editions"/> -->
+        </section>
+        <section class="texts">
+          <h4 class="texts-quantity">
+            {{ corpus.author.textsQuantity.quantity }}
+            {{ corpus.author.textsQuantity.unit }}
+          </h4>
+          <ul class="texts-list">
+            <li v-for="text in corpus.editions.content" :key="text.uuid">
+              <h3>
+                <a
+                  :href="text.url"
+                  :uuid="text.uuid"
+                  @click.prevent="onclick"
+                  @keyup.enter="onclick"
+                  v-html="text.title"
+                />
+              </h3>
+            </li>
+          </ul>
+        </section>
         <!-- <CorpusItem :item="item" /> -->
       </li>
     </ul>

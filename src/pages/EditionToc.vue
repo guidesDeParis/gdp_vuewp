@@ -1,25 +1,18 @@
 <template>
   <MainContentLayout id="edition-toc">
-    <template v-if="!content" v-slot:header>
+    <template v-if="!content" #header>
       <span>Loading ...</span>
     </template>
-    <template v-if="meta" v-slot:header>
-      <h1>{{ meta.title }}</h1>
-      <section>
-        <ul>
-          <li
-            v-for="item in content"
-            :key="item.uuid"
-          >
-            <TocItem :item="item" :level="1" :editionid="$route.params.id" />
-          </li>
-        </ul>
-      </section>
+    <template v-if="meta" #header>
+      <h1>{{ meta.author }}</h1>
     </template>
 
+    <!-- default slot -->
     <EdText v-if="textdata" :textdata="textdata" />
 
-    <template v-slot:nav />
+    <template #nav>
+      <EdToc  :content="content" />
+    </template>
   </MainContentLayout>
 </template>
 
@@ -27,15 +20,15 @@
 
 import { REST } from 'api/rest-axios'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
-import TocItem from '../components/Content/TocItem'
 import EdText from '../components/Content/EdText'
+import EdToc from '../components/Content/EdToc'
 
 export default {
   name: 'EditionToc',
   components: {
     MainContentLayout,
-    TocItem,
-    EdText
+    EdText,
+    EdToc
   },
   data: () => ({
     content: null,

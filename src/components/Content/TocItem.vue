@@ -8,6 +8,7 @@
       v-if="title"
       class="toc-title"
       :uuid="item.uuid"
+      v-bind:class="{active: isActive}"
     >
       <a
         :href="'/edition/'+editionid+'/'+item.uuid"
@@ -18,7 +19,11 @@
         {{ title }}
       </a>
     </component>
-    <ul v-if="children.length">
+    <ul
+      v-if="children.length"
+      class="toc-list"
+      v-bind:class="{opened: isOpened}"
+    >
       <li v-for="child in children" :key="child.uuid">
         <TocItem :item="child" :level="nextLevel" :editionid="editionid" />
       </li>
@@ -62,6 +67,14 @@ export default {
     },
     nextLevel () {
       return this.level + 1
+    },
+    isActive () {
+      // console.log('Active', this.$route.params.textid, this.item.uuid)
+      return this.$route.params.textid === this.item.uuid
+    },
+    isOpened () {
+      // console.log('opened', this.$route.params.textid.indexOf(this.item.uuid) >= 0)
+      return this.$route.params.textid.indexOf(this.item.uuid) >= 0
     }
   },
   // beforeCreate () {
