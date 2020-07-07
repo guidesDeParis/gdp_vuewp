@@ -11,7 +11,7 @@
     <EdText v-if="textdata" :textdata="textdata" />
 
     <template #nav>
-      <EdToc  :content="content" />
+      <EdToc :toc="toc" />
     </template>
   </MainContentLayout>
 </template>
@@ -24,14 +24,14 @@ import EdText from '../components/Content/EdText'
 import EdToc from '../components/Content/EdToc'
 
 export default {
-  name: 'EditionToc',
+  name: 'Edition',
   components: {
     MainContentLayout,
     EdText,
     EdToc
   },
   data: () => ({
-    content: null,
+    toc: null,
     meta: null,
     editionid: null,
     textid: null,
@@ -39,7 +39,7 @@ export default {
   }),
   watch: {
     textid: function (newid, oldid) {
-      // console.log('textid watcher', this, newid, oldid)
+      console.log('textid watcher', this, oldid, newid)
       this.getTextContent()
     }
   },
@@ -54,9 +54,14 @@ export default {
         this.meta = data.meta
         if (data.content) {
           if (Array.isArray(data.content)) {
-            this.content = data.content
+            this.toc = data.content
           } else {
-            this.content = [data.content]
+            this.toc = [data.content]
+          }
+          // if front page get the first item in toc
+          if (!this.$route.params.textid) {
+            // console.log('toc', this.toc)
+            this.textid = this.toc[0].children[1].uuid
           }
         }
       })
@@ -69,7 +74,6 @@ export default {
     // get the text if textid available
     if (this.$route.params.textid) {
       this.textid = this.$route.params.textid
-      // this.getTextContent()
     }
   },
   beforeRouteUpdate (to, from, next) {

@@ -261,14 +261,22 @@ section[role="main-content"]{
             li{
               ul{
                 overflow: hidden;
+                max-height: 1000px;
+                transition: max-height 0.5s ease-in-out;
+                // transform: scaleY(1);
+                // transform-origin: top;
+                // transition: transform 0.3s ease-in-out;
                 &:not(.opened){
-                  height:0;
+                  // height:0;
+                  max-height:0;
+                  transition: max-height 0.5s cubic-bezier(0, 1.05, 0, 1);
+                  // transform: scaleY(0);
                 }
                 // &.opened{
                 //   border: 1px solid red;
                 // }
                 // padding-left: 1em;
-                border-left: 0.5px solid $gris;
+                border-left: 0.5px solid $grisclair;
                 // min-height: 1em;
                 margin-bottom: 0em;
                 li{

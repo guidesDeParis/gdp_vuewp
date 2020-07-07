@@ -8,7 +8,7 @@
       v-if="title"
       class="toc-title"
       :uuid="item.uuid"
-      v-bind:class="{active: isActive}"
+      :class="{active: isActive}"
     >
       <a
         :href="'/edition/'+editionid+'/'+item.uuid"
@@ -22,7 +22,7 @@
     <ul
       v-if="children.length"
       class="toc-list"
-      v-bind:class="{opened: isOpened}"
+      :class="{opened: isOpened}"
     >
       <li v-for="child in children" :key="child.uuid">
         <TocItem :item="child" :level="nextLevel" :editionid="editionid" />
@@ -92,7 +92,7 @@ export default {
     onclick (e) {
       console.log('clicked on toc text', this.editionid, e)
       this.$router.push({
-        name: `editiontoctext`,
+        name: `editiontext`,
         params: {
           id: this.editionid,
           textid: e.target.getAttribute('uuid')

@@ -2,7 +2,7 @@
   <section>
     <ul>
       <li
-        v-for="item in content"
+        v-for="item in toc"
         :key="item.uuid"
       >
         <TocItem :item="item" :level="1" :editionid="$route.params.id" />
@@ -21,7 +21,7 @@ export default {
     TocItem
   },
   props: {
-    content: Object
+    toc: Array
   },
   data: () => ({
 

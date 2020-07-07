@@ -76,7 +76,7 @@ export default {
     onclick (e) {
       console.log('clicked on editon', e)
       this.$router.push({
-        name: `editiontoc`,
+        name: `edition`,
         params: { id: e.target.getAttribute('uuid') }
       })
     }

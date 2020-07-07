@@ -5,7 +5,7 @@ import Home from 'pages/Home'
 import Item from 'pages/Item'
 import ListCorpus from 'pages/ListCorpus'
 // import Corpus from 'pages/Corpus'
-import EditionToc from 'pages/EditionToc'
+import Edition from 'pages/Edition'
 import IndexNominum from 'pages/IndexNominum'
 import IndexLocorum from 'pages/IndexLocorum'
 import IndexOperum from 'pages/IndexOperum'
@@ -39,14 +39,14 @@ const routes = [
   //   component: Corpus
   // },
   {
-    name: 'editiontoc',
+    name: 'edition',
     path: '/edition/:id',
-    component: EditionToc
+    component: Edition
   },
   {
-    name: 'editiontoctext',
+    name: 'editiontext',
     path: '/edition/:id/:textid',
-    component: EditionToc
+    component: Edition
   },
   {
     name: 'indexNominum',
