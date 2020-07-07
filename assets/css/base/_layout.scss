@@ -38,6 +38,22 @@ body{
       overflow-y: hidden;
       overflow-x: hidden;
     }
+    .main-content-layout{
+      max-height: 100%;
+      >header,
+      >section,
+      >nav{
+        max-height: 100%;
+        padding-top:1em;
+        padding-bottom:1em;
+      }
+
+      >section,
+      >nav{
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
   }
   footer[role="tools"]{
     flex:0 0 auto;

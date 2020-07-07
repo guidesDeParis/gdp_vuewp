@@ -1,7 +1,7 @@
 <template>
   <div
     :id="id"
-    class="full-width row"
+    class="full-width row main-content-layout"
   >
     <header class="col-3">
       <slot name="header" />

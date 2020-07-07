@@ -1,5 +1,5 @@
 <template>
-  <MainContentLayout id="edition-toc">
+  <MainContentLayout id="edition">
     <template v-if="!content" #header>
       <span>Loading ...</span>
     </template>

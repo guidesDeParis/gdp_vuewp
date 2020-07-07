@@ -39,11 +39,16 @@ header[role="banner"]{
       position: relative;
       >ul{
         position: absolute;
-        top:1em; right:0;
+        top:1em; right:-1em;
         overflow: hidden;
+        padding-bottom: 0.5em;
+        background-color: white;
         >li{
+          padding:0 1em;
+          // margin-right: -1em;
           transition: height 0.3s ease-in-out;
-          height:0.2px;
+          height:0;
+          overflow: hidden;
         }
       }
       &:hover{
@@ -214,22 +219,7 @@ section[role="main-content"]{
   .index{
   }
 
-  #edition-toc{
-    max-height: 100%;
-    >header,
-    >section,
-    >nav{
-      max-height: 100%;
-      padding-top:1em;
-      padding-bottom:1em;
-    }
-
-    >section,
-    >nav{
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
+  #edition{
     header{
       h1{
         @include title2black;

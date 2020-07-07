@@ -1,9 +1,36 @@
 <template>
   <MainContentLayout id="nominum">
-    <template v-slot:header>
-      <h1 v-if="content">{{ content.title }}</h1>
-      <span v-if="!content">Loading ...</span>
+    <template v-if="!content" v-slot:header>
+      <span class="loading">Loading ...</span>
     </template>
+
+    <template v-if="content" v-slot:header>
+      <h1>{{ content.title }}</h1>
+      <p>
+        {{ content.birthDate }}, {{ content.birthPlace }}<br>
+        {{ content.deathDate }}, {{ content.deathPlace }}
+      </p>
+    </template>
+
+    <!-- default slot -->
+    <section class="occurences">
+      <ul>
+        <li
+          v-for="ed in content.occurences"
+          :key="ed.item"
+        >
+          <h3>{{ ed.item }}</h3>
+          <ul>
+            <li
+              v-for="oc in ed.occurences"
+              :key="oc.uuid"
+            >
+              <h4>{{ oc.title }}</h4>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
 
     <template v-slot:nav />
   </MainContentLayout>
