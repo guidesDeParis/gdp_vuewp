@@ -43,3 +43,11 @@ footer[role="tools"] .row>nav{
   font-weight: 400;
   margin:0;
 }
+
+@mixin title3black {
+  @include fontserif;
+  font-size: 1em;
+  color: $grisfonce;
+  font-weight: 400;
+  margin:0;
+}
