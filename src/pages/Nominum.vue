@@ -1,5 +1,5 @@
 <template>
-  <MainContentLayout id="nominum">
+  <MainContentLayout id="nominum" class="index-item">
     <template v-if="!content" v-slot:header>
       <span class="loading">Loading ...</span>
     </template>
@@ -13,45 +13,8 @@
     </template>
 
     <!-- default slot -->
-    <section class="occurences">
-      <ul>
-        <li
-          v-for="ed in content.occurences"
-          :key="ed.item"
-        >
-          <h3>
-            <a
-              :href="'/edition/'+ed.item"
-              :uuid="ed.item"
-              @click.prevent="onclick"
-              @keyup.enter="onclick"
-            >
-              {{ ed.item }}
-            </a>
-          </h3>
-          <ul >
-            <li
-              v-for="oc in ed.occurences"
-              :key="oc.uuid"
-            >
-              <h4>
-                <a
-                  :href="'/edition/'+ed.item+'/'+oc.uuid"
-                  :uuid="oc.uuid"
-                  :eduuid="ed.item"
-                  @click.prevent="onclick"
-                  @keyup.enter="onclick"
-                >
-                  {{ oc.title }}
-                </a>
-              </h4>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </section>
+    <IndexItemOcurrences v-if="content" :content="content" />
 
-    <template v-slot:nav />
   </MainContentLayout>
 </template>
 
@@ -59,11 +22,13 @@
 
 import { REST } from 'api/rest-axios'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
+import IndexItemOcurrences from '../components/Content/IndexItemOcurrences'
 
 export default {
   name: 'Nominum',
   components: {
-    MainContentLayout
+    MainContentLayout,
+    IndexItemOcurrences
   },
   data: () => ({
     content: null
@@ -81,27 +46,6 @@ export default {
         console.warn('Issue with nominum', error)
         Promise.reject(error)
       })
-  },
-  methods: {
-    onclick (e) {
-      console.log('clicked on nominum text occurence', e)
-      if (e.target.getAttribute('eduuid')) {
-        this.$router.push({
-          name: `editiontext`,
-          params: {
-            id: e.target.getAttribute('eduuid'),
-            textid: e.target.getAttribute('uuid')
-          }
-        })
-      } else {
-        this.$router.push({
-          name: `edition`,
-          params: {
-            id: e.target.getAttribute('uuid')
-          }
-        })
-      }
-    }
   }
 }
 </script>

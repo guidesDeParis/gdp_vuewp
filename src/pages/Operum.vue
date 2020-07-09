@@ -1,11 +1,16 @@
 <template>
-  <MainContentLayout id="operum">
-    <template v-slot:header>
-      <h1 v-if="content">{{ content.title }}</h1>
-      <span v-if="!content">Loading ...</span>
+  <MainContentLayout id="operum" class="index-item">
+    <template v-if="!content" v-slot:header>
+      <span class="loading">Loading ...</span>
     </template>
 
-    <template v-slot:nav />
+    <template v-if="content" v-slot:header>
+      <h1>{{ content.title }}</h1>
+    </template>
+
+    <!-- default slot -->
+    <IndexItemOcurrences v-if="content" :content="content" />
+
   </MainContentLayout>
 </template>
 
@@ -13,11 +18,13 @@
 
 import { REST } from 'api/rest-axios'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
+import IndexItemOcurrences from '../components/Content/IndexItemOcurrences'
 
 export default {
   name: 'Operum',
   components: {
-    MainContentLayout
+    MainContentLayout,
+    IndexItemOcurrences
   },
   data: () => ({
     content: null

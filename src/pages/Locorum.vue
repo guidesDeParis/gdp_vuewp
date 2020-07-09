@@ -1,12 +1,19 @@
 <template>
-  <MainContentLayout id="locorum">
-    <template v-slot:header>
-      <h1 v-if="content">{{ content.title }}</h1>
-      <p v-if="content">{{ content.type }}</p>
-      <span v-if="!content">Loading ...</span>
+  <MainContentLayout id="locorum" class="index-item">
+    <template v-if="!content" v-slot:header>
+      <span class="loading">Loading ...</span>
     </template>
 
-    <template v-slot:nav />
+    <template v-if="content" v-slot:header>
+      <h1>{{ content.title }}</h1>
+      <p>
+        {{ content.type }}
+      </p>
+    </template>
+
+    <!-- default slot -->
+    <IndexItemOcurrences v-if="content" :content="content" />
+
   </MainContentLayout>
 </template>
 
@@ -14,15 +21,19 @@
 
 import { REST } from 'api/rest-axios'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
+import IndexItemOcurrences from '../components/Content/IndexItemOcurrences'
 
 export default {
   name: 'Locorum',
   components: {
-    MainContentLayout
+    MainContentLayout,
+    IndexItemOcurrences
   },
   data: () => ({
     content: null
   }),
+  computed: {
+  },
   beforeCreate () {
     console.log('locorum this.$route', this.$route)
     REST.get(`/indexLocorum/` + this.$route.params.id, {})
