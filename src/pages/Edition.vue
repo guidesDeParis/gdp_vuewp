@@ -8,7 +8,9 @@
     </template>
 
     <!-- default slot -->
-    <EdText v-if="textdata" :textdata="textdata" />
+    <div id="text">
+      <EdText :tei="textdata.content.tei" />
+    </div>
 
     <template #nav>
       <EdToc :toc="toc" />

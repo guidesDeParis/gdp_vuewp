@@ -11,6 +11,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
+      'vue': 'vue/dist/vue.js',
       'assets': utils.resolve('assets'),
       'pages': utils.resolve('src/pages'),
       'static': utils.resolve('static'),

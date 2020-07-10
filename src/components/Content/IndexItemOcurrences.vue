@@ -18,12 +18,12 @@
         <ul>
           <li
             v-for="oc in ocAsArray(ed.occurences)"
-            :key="oc.uuid"
+            :key="oc.id"
           >
-          <!-- <li
-            v-for="oc in ed.occurences"
-            :key="oc.uuid"
-          > -->
+            <!-- <li
+              v-for="oc in ed.occurences"
+              :key="oc.uuid"
+            > -->
             <h4>
               <a
                 :href="'/edition/'+ed.item+'/'+oc.uuid"

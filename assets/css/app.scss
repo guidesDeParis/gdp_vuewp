@@ -325,18 +325,25 @@ section[role="main-content"]{
   }
 
   #text{
-    .content{
-      color: $bleuroi;
+    .tei{
       h1{
         font-size: 1.512em;
       }
       p{
+        margin-top: 0;
         font-size: 1.134em;
         line-height: 1.5;
         span.persName,
         span.placeName,
         span.objectName{
           font-weight: 600;
+        }
+        a{
+          color: $rouge;
+          font-weight: 600;
+          &.active-link{
+            text-decoration: underline;
+          }
         }
       }
     }
