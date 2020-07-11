@@ -42,30 +42,45 @@ export default {
       // console.log('EdText: builded html', this.html)
     },
     parseLinks () {
-      const regx = /<a[^<]+<\/a>/g
-      let links = this.html.match(regx)
+      let links = this.html.match(/<a[^<]+<\/a>/g)
       console.log('links', links)
       if (links) {
-        let domlink, newlink, uuid
+        // let domparser = new DOMParser()
+        // let domlink
+        let linkparts, newlink, uuid
         let index = null
         for (var i = 0; i < links.length; i++) {
-          domlink = new DOMParser().parseFromString(links[i], 'text/xml').firstChild
-          console.log('domlink', domlink.classList)
-          if (domlink.classList.contains('placeName')) { index = 'locorum' }
-          if (domlink.classList.contains('persName')) { index = 'nominum' }
-          if (domlink.classList.contains('objectName')) { index = 'operum' }
-          console.log('index:', index)
+          // console.log(`link ${i}:`, links[i])
+          // domlink = domparser.parseFromString(links[i], 'text/xml').firstChild
+          // console.log('domlink', domlink.classList)
+          // if (domlink.classList.contains('placeName')) { index = 'locorum' }
+          // if (domlink.classList.contains('persName')) { index = 'nominum' }
+          // if (domlink.classList.contains('objectName')) { index = 'operum' }
+          // console.log('index:', index)
+          linkparts = RegExp(/<a class="(.+)" href="(.+)">(.+)<\/a>/g).exec(links[i], 'g')
+          // console.log('linkparts', linkparts)
+          switch (linkparts[1]) {
+            case 'persName':
+              index = 'nominum'
+              break
+            case 'placeName':
+              index = 'locorum'
+              break
+            case 'objectName':
+              index = 'operum'
+              break
+          }
           if (index) {
-            uuid = domlink.getAttribute('href').replace('#', '')
+            uuid = linkparts[2].replace('#', '')
             newlink = `<a` +
-              ` class="${domlink.getAttribute('class')} active-link"` +
+              ` class="${linkparts[1]} active-link"` +
               ` data-index="${index}"` +
               ` uuid="${uuid}"` +
               ` href="/${index}/${uuid}"` +
               ` @click.prevent="onClickRef"` +
               ` @keyup.enter="onClickRef"` +
-              `>${domlink.innerHTML}</a>`
-            console.log('newlink', newlink)
+              `>${linkparts[3]}</a>`
+            // console.log('newlink', newlink)
             this.html = this.html.replace(links[i], newlink)
           }
         }
