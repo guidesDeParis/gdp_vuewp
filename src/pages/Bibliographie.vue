@@ -13,6 +13,9 @@ import { REST } from 'api/rest-axios'
 
 export default {
   name: 'Bibliographie',
+  metaInfo: {
+    title: 'Bibliographie'
+  },
   data: () => ({
 
   }),

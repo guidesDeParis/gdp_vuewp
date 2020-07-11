@@ -29,6 +29,11 @@ export default {
   data: () => ({
     content: null
   }),
+  metaInfo () {
+    return {
+      title: `Operum ${this.$route.params.id}`
+    }
+  },
   beforeCreate () {
     console.log('operum this.$route', this.$route)
     REST.get(`/indexOperum/` + this.$route.params.id, {})

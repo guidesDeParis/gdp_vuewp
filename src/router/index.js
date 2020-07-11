@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from 'pages/Home'
-import Item from 'pages/Item'
+// import Item from 'pages/Item'
 import ListCorpus from 'pages/ListCorpus'
 // import Corpus from 'pages/Corpus'
 import Edition from 'pages/Edition'
@@ -22,12 +22,12 @@ const routes = [
     path: '/',
     component: Home
   },
-  {
-    name: 'item',
-    path: '/babar/:uuid',
-    component: Item,
-    props: true
-  },
+  // {
+  //   name: 'item',
+  //   path: '/babar/:uuid',
+  //   component: Item,
+  //   props: true
+  // },
   {
     name: 'listcorpus',
     path: '/corpus',

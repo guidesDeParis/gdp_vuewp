@@ -40,7 +40,11 @@ export default {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: 'Home',
     // all titles will be injected into this template
-    titleTemplate: '%s | Guides de Paris'
+    titleTemplate: '%s | Guides de Paris',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    ]
   },
   components: {
     HeaderMenu,

@@ -32,6 +32,11 @@ export default {
   data: () => ({
     content: null
   }),
+  metaInfo () {
+    return {
+      title: `Locorum ${this.$route.params.id}`
+    }
+  },
   computed: {
   },
   beforeCreate () {

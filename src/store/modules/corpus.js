@@ -7,7 +7,8 @@ export default {
   state: {
     // items: [],
     authors: [],
-    editionslist: []
+    editionslist: [],
+    editionsbyuuid: {}
   },
 
   // getters
@@ -20,6 +21,14 @@ export default {
     },
     setEditionslist (state, editionslist) {
       state.editionslist = editionslist
+    },
+    setEditionsByUUID (state, editionlist) {
+      for (var i = 0; i < editionlist.length; i++) {
+        for (var j = 0; j < editionlist[i].editions.content.length; j++) {
+          state.editionsbyuuid[editionlist[i].editions.content[j].uuid] = editionlist[i].editions.content[j]
+        }
+      }
+      console.log('corpus editionsbyuuid', state.editionsbyuuid)
     }
   },
 
@@ -41,6 +50,7 @@ export default {
               .then((editionslist) => {
                 console.log('all texts returned: editionslist', editionslist)
                 commit('setEditionslist', editionslist)
+                commit('setEditionsByUUID', editionslist)
               })
           })
       })

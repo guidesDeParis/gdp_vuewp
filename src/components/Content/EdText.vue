@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     buildTemplate () {
-      console.log('EdText buildTemplate: tei', this.tei)
+      // console.log('EdText buildTemplate: tei', this.tei)
       // to get Vue.compile working we have to use the full build of vuejs
       // https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds
       // in /build/webpack.config.base.js alias -> 'vue': 'vue/dist/vue.js',
@@ -43,7 +43,7 @@ export default {
     },
     parseLinks () {
       let links = this.html.match(/<a[^<]+<\/a>/g)
-      console.log('links', links)
+      // console.log('links', links)
       if (links) {
         // let domparser = new DOMParser()
         // let domlink

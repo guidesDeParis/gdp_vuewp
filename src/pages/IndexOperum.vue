@@ -23,6 +23,9 @@ import OperumItem from '../components/Content/OperumItem'
 
 export default {
   name: 'IndexOperum',
+  metaInfo: {
+    title: 'Index Operum'
+  },
   components: {
     OperumItem,
     MainContentLayout

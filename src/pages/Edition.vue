@@ -3,13 +3,14 @@
     <template v-if="!content" #header>
       <span>Loading ...</span>
     </template>
-    <template v-if="meta" #header>
-      <h1>{{ meta.author }}</h1>
+    <template #header>
+      <h1>{{ title }}</h1>
+      <p v-if="meta">{{ meta.author }}</p>
     </template>
 
     <!-- default slot -->
     <div id="text">
-      <EdText :tei="textdata.content.tei" />
+      <EdText v-if="textdata" :tei="textdata.content.tei" />
     </div>
 
     <template #nav>
@@ -21,12 +22,20 @@
 <script>
 
 import { REST } from 'api/rest-axios'
+import { mapState, mapActions } from 'vuex'
+
 import MainContentLayout from '../components/Layouts/MainContentLayout'
 import EdText from '../components/Content/EdText'
 import EdToc from '../components/Content/EdToc'
 
 export default {
   name: 'Edition',
+  metaInfo () {
+    // console.log('metainfo', this.meta)
+    return {
+      title: this.metainfotitle
+    }
+  },
   components: {
     MainContentLayout,
     EdText,
@@ -37,23 +46,37 @@ export default {
     meta: null,
     editionid: null,
     textid: null,
-    textdata: null
+    textdata: null,
+    metainfotitle: undefined,
+    edtitle: undefined,
+    author: undefined,
+    texttitle: undefined
   }),
+  computed: {
+    ...mapState({
+      editionslist: state => state.Corpus.editionslist,
+      editionsbyuuid: state => state.Corpus.editionsbyuuid
+    })
+  },
   watch: {
     textid: function (newid, oldid) {
       console.log('textid watcher', this, oldid, newid)
       this.getTextContent()
+    },
+    textdata: function (newtxtdata, oldtxtdata) {
+      console.log('textdata watcher', oldtxtdata, newtxtdata)
+      this.metainfotitle = `${this.title} ${newtxtdata.meta.title}`
     }
   },
   beforeCreate () {
     console.log('texts this.$route', this.$route)
     // http://localhost:8984/texts/gdpSauval1724/toc
-    this.editionid = this.$route.params.id
     // get the edition's toc
     REST.get(`/texts/` + this.$route.params.id + `/toc`, {})
       .then(({ data }) => {
         console.log('texts/toc REST: data', data)
         this.meta = data.meta
+        this.author = data.meta.author
         if (data.content) {
           if (Array.isArray(data.content)) {
             this.toc = data.content
@@ -73,6 +96,25 @@ export default {
       })
   },
   created () {
+    // console.log('Edition this.$route.params.id', this.$route.params.id)
+    this.editionid = this.$route.params.id
+
+    // load editions list from Corpus Store if not exist
+    if (!this.editionslist.length) {
+      this.getCorpuses()
+      // subsribe to store to get the editionbyuuid list
+      this.unsubscribe = this.$store.subscribe((mutation, state) => {
+        // console.log('Edition store subscribe', mutation.type)
+        if (mutation.type === 'Corpus/setEditionsByUUID') {
+          console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+          // this.title = 'HoHoHo'
+          this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
+        }
+      })
+    } else {
+      this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
+    }
+
     // get the text if textid available
     if (this.$route.params.textid) {
       this.textid = this.$route.params.textid
@@ -92,6 +134,9 @@ export default {
     next()
   },
   methods: {
+    ...mapActions({
+      getCorpuses: 'Corpus/getCorpuses'
+    }),
     getTextContent () {
       console.log('getTextContent', this.textid)
       if (this.textid) {

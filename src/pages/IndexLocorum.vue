@@ -23,6 +23,9 @@ import LocorumItem from '../components/Content/LocorumItem'
 
 export default {
   name: 'IndexLocorum',
+  metaInfo: {
+    title: 'Index Locorum'
+  },
   components: {
     LocorumItem,
     MainContentLayout

@@ -23,6 +23,9 @@ import NominumItem from '../components/Content/NominumItem'
 
 export default {
   name: 'IndexNominum',
+  metaInfo: {
+    title: 'Index Nominum'
+  },
   components: {
     NominumItem,
     MainContentLayout

@@ -52,6 +52,9 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'ListCorpus',
+  metaInfo: {
+    title: 'Corpus'
+  },
   components: {
     // CorpusItem,
     MainContentLayout

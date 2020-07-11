@@ -33,6 +33,11 @@ export default {
   data: () => ({
     content: null
   }),
+  metaInfo () {
+    return {
+      title: `Nominum ${this.$route.params.id}`
+    }
+  },
   beforeCreate () {
     console.log('nominum this.$route', this.$route)
     REST.get(`/indexNominum/` + this.$route.params.id, {})
