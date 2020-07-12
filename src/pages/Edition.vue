@@ -31,12 +31,18 @@
 
     <!-- default slot -->
     <div id="text">
-      <EdText
-        v-if="textdata"
-        :tei="textdata.content.tei"
-        @onHoverLink="onHoverLink"
-        @onLeaveLink="onLeaveLink"
-      />
+      <template v-if="texts.length">
+        <infinite-loading direction="top" @infinite="prevText" />
+        <EdText
+          v-for="text in texts"
+          :key="text.content.uuid"
+          :tei="text.content.tei"
+          :uuid="text.content.uuid"
+          @onHoverLink="onHoverLink"
+          @onLeaveLink="onLeaveLink"
+        />
+        <infinite-loading @infinite="nextText" />
+      </template>
     </div>
 
     <template #nav>
@@ -72,7 +78,7 @@ export default {
     meta: null,
     editionid: null,
     textid: null,
-    textdata: null,
+    texts: [],
     metainfotitle: undefined,
     title: undefined,
     author: undefined,
@@ -90,7 +96,8 @@ export default {
   watch: {
     textid: function (newid, oldid) {
       console.log('textid watcher', this, oldid, newid)
-      this.getTextContent()
+      this.texts = []
+      this.getTextContent(newid)
     },
     textdata: function (newtxtdata, oldtxtdata) {
       console.log('textdata watcher', oldtxtdata, newtxtdata)
@@ -167,18 +174,39 @@ export default {
     ...mapActions({
       getCorpuses: 'Corpus/getCorpuses'
     }),
-    getTextContent () {
-      console.log('getTextContent', this.textid)
-      if (this.textid) {
-        REST.get(`/items/` + this.textid, {})
-          .then(({ data }) => {
-            console.log('text REST: data', data)
-            this.textdata = data
-          })
-          .catch((error) => {
-            console.warn('Issue with getTextContent', error)
-            Promise.reject(error)
-          })
+    getTextContent (textid, $state = null, direction = 'next') {
+      console.log('getTextContent', textid)
+      REST.get(`/items/${textid}`, {})
+        .then(({ data }) => {
+          console.log('text REST: data', data)
+          if (direction === 'next') {
+            this.texts.push(data)
+          } else {
+            this.texts.unshift(data)
+          }
+          if ($state) {
+            $state.loaded()
+          }
+        })
+        .catch((error) => {
+          console.warn('Issue with getTextContent', error)
+          Promise.reject(error)
+        })
+    },
+    nextText ($state) {
+      console.log('infinite loading nextText()', this.texts[this.texts.length - 1].content.itemAfterUuid, $state)
+      if (this.texts[this.texts.length - 1].content.itemAfterUuid) {
+        this.getTextContent(this.texts[this.texts.length - 1].content.itemAfterUuid, $state, 'next')
+      } else {
+        $state.complete()
+      }
+    },
+    prevText ($state) {
+      console.log('infinite loading prevText()', this.texts[0].content.itemBeforeUuid, $state)
+      if (this.texts[0].content.itemBeforeUuid) {
+        this.getTextContent(this.texts[0].content.itemBeforeUuid, $state, 'prev')
+      } else {
+        $state.complete()
       }
     },
     onHoverLink (elmt) {
