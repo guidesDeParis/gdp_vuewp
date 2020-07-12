@@ -43,7 +43,7 @@ export default {
     },
     parseLinks () {
       let links = this.html.match(/<a[^<]+<\/a>/g)
-      // console.log('links', links)
+      console.log('links', links)
       if (links) {
         // let domparser = new DOMParser()
         // let domlink
@@ -51,36 +51,23 @@ export default {
         let index = null
         for (var i = 0; i < links.length; i++) {
           // console.log(`link ${i}:`, links[i])
-          linkparts = RegExp(/<a class="(.+)" href="(.+)">(.+)<\/a>/g).exec(links[i], 'g')
-          // console.log('linkparts', linkparts)
-          switch (linkparts[1]) {
-            case 'persName':
-              index = 'nominum'
-              break
-            case 'placeName':
-              index = 'locorum'
-              break
-            case 'objectName':
-              index = 'operum'
-              break
-          }
-          if (index) {
-            uuid = linkparts[2].replace('#', '')
-            newlink = `<a` +
-              ` class="${linkparts[1]} active-link"` +
-              ` data-index="${index}"` +
-              ` data-uuid="${uuid}"` +
-              ` href="/${index}/${uuid}"` +
-              ` @click.prevent="onClickRef"` +
-              ` @keyup.enter="onClickRef"` +
-              ` @mouseover="onHoverLink"` +
-              ` @mouseleave="onLeaveLink"` +
-              `>${linkparts[3]}` +
-              `<sup class="mdi mdi-message-text-outline" />` +
-              `</a>`
-            // console.log('newlink', newlink)
-            this.html = this.html.replace(links[i], newlink)
-          }
+          linkparts = RegExp(/<a class="(.+)" href="(.+)" data-index="(.+)">(.+)<\/a>/g).exec(links[i], 'g')
+          index = linkparts[3]
+          uuid = linkparts[2].replace('#', '')
+          newlink = `<a` +
+            ` class="${linkparts[1]} active-link"` +
+            ` data-index="${index}"` +
+            ` data-uuid="${uuid}"` +
+            ` href="/${index}/${uuid}"` +
+            ` @click.prevent="onClickRef"` +
+            ` @keyup.enter="onClickRef"` +
+            ` @mouseover="onHoverLink"` +
+            ` @mouseleave="onLeaveLink"` +
+            `>${linkparts[4]}` +
+            `<sup class="mdi mdi-message-text-outline" />` +
+            `</a>`
+          // console.log('newlink', newlink)
+          this.html = this.html.replace(links[i], newlink)
         }
         // console.log('this.html', this.html)
       }

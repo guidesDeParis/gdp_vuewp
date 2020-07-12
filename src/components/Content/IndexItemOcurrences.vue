@@ -53,6 +53,7 @@ export default {
   }),
   methods: {
     ocAsArray (oc) {
+      // not necesseary anymore (KB #758)
       console.log('Array.isArray(oc)', Array.isArray(oc))
       return Array.isArray(oc) ? oc : [oc]
     },

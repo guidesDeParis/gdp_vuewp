@@ -14,12 +14,15 @@
         <span v-if="indexitem == 'loading'">Loading ...</span>
         <template v-if="indexitem !== 'loading'">
           <h1 v-html="indexitem.title" />
-          <p class="birthdeath">
+          <p v-if="indexitem.birthDate" class="birthdeath">
             <time>{{ indexitem.birthDate }}</time>, <span class="place">{{ indexitem.birthPlace }}</span><br>
             <time>{{ indexitem.deathDate }}</time>, <span class="place">{{ indexitem.deathPlace }}</span>
           </p>
-          <p class="occupation">
+          <p v-if="indexitem.occupation" class="occupation">
             {{ indexitem.occupation }}
+          </p>
+          <p v-if="indexitem.type" class="type">
+            {{ indexitem.type }}
           </p>
         </template>
 
