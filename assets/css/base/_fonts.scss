@@ -36,6 +36,14 @@ footer[role="tools"] .row>nav{
   margin:0;
 }
 
+@mixin title1black {
+  @include fontserif;
+  font-size: 1.512em;
+  color: $grisfonce;
+  font-weight: 400;
+  margin:0;
+}
+
 @mixin title2black {
   @include fontserif;
   font-size: 1.134em;

@@ -51,12 +51,6 @@ export default {
         let index = null
         for (var i = 0; i < links.length; i++) {
           // console.log(`link ${i}:`, links[i])
-          // domlink = domparser.parseFromString(links[i], 'text/xml').firstChild
-          // console.log('domlink', domlink.classList)
-          // if (domlink.classList.contains('placeName')) { index = 'locorum' }
-          // if (domlink.classList.contains('persName')) { index = 'nominum' }
-          // if (domlink.classList.contains('objectName')) { index = 'operum' }
-          // console.log('index:', index)
           linkparts = RegExp(/<a class="(.+)" href="(.+)">(.+)<\/a>/g).exec(links[i], 'g')
           // console.log('linkparts', linkparts)
           switch (linkparts[1]) {
@@ -75,11 +69,15 @@ export default {
             newlink = `<a` +
               ` class="${linkparts[1]} active-link"` +
               ` data-index="${index}"` +
-              ` uuid="${uuid}"` +
+              ` data-uuid="${uuid}"` +
               ` href="/${index}/${uuid}"` +
               ` @click.prevent="onClickRef"` +
               ` @keyup.enter="onClickRef"` +
-              `>${linkparts[3]}</a>`
+              ` @mouseover="onHoverLink"` +
+              ` @mouseleave="onLeaveLink"` +
+              `>${linkparts[3]}` +
+              `<sup class="mdi mdi-message-text-outline" />` +
+              `</a>`
             // console.log('newlink', newlink)
             this.html = this.html.replace(links[i], newlink)
           }
@@ -88,11 +86,23 @@ export default {
       }
     },
     onClickRef (e) {
-      console.log('onClickRef()', e)
+      console.log('onClickRef(e)', e)
       this.$router.push({
-        name: e.target.getAttribute('data-index'),
-        params: { id: e.target.getAttribute('uuid') }
+        name: e.target.dataset.index,
+        params: { id: e.target.dataset.uuid }
       })
+    },
+    onHoverLink (e) {
+      console.log('EdText onHoverLink(e)', e)
+      this.$emit('onHoverLink', {
+        uuid: e.target.dataset.uuid,
+        index: e.target.dataset.index,
+        rect: e.target.getBoundingClientRect()
+      })
+    },
+    onLeaveLink (e) {
+      // console.log('EdText onLeaveLink(e)', e)
+      this.$emit('onLeaveLink')
     }
   },
   render (h) {

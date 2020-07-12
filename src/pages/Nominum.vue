@@ -5,7 +5,7 @@
     </template>
 
     <template v-if="content" v-slot:header>
-      <h1>{{ content.title }}</h1>
+      <h1 v-html="content.title" />
       <p>
         {{ content.birthDate }}, {{ content.birthPlace }}<br>
         {{ content.deathDate }}, {{ content.deathPlace }}

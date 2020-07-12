@@ -6,11 +6,34 @@
     <template #header>
       <h1>{{ title }}</h1>
       <p v-if="meta">{{ meta.author }}</p>
+      <aside
+        v-if="indexitem"
+        class="index-tooltip"
+        :style="{ top:tooltip_top + 'px' }"
+      >
+        <span v-if="indexitem == 'loading'">Loading ...</span>
+        <template v-if="indexitem !== 'loading'">
+          <h1 v-html="indexitem.title" />
+          <p class="birthdeath">
+            <time>{{ indexitem.birthDate }}</time>, <span class="place">{{ indexitem.birthPlace }}</span><br>
+            <time>{{ indexitem.deathDate }}</time>, <span class="place">{{ indexitem.deathPlace }}</span>
+          </p>
+          <p class="occupation">
+            {{ indexitem.occupation }}
+          </p>
+        </template>
+
+      </aside>
     </template>
 
     <!-- default slot -->
     <div id="text">
-      <EdText v-if="textdata" :tei="textdata.content.tei" />
+      <EdText
+        v-if="textdata"
+        :tei="textdata.content.tei"
+        @onHoverLink="onHoverLink"
+        @onLeaveLink="onLeaveLink"
+      />
     </div>
 
     <template #nav>
@@ -48,9 +71,12 @@ export default {
     textid: null,
     textdata: null,
     metainfotitle: undefined,
-    edtitle: undefined,
+    title: undefined,
     author: undefined,
-    texttitle: undefined
+    texttitle: undefined,
+    //
+    indexitem: null,
+    tooltip_top: null
   }),
   computed: {
     ...mapState({
@@ -103,6 +129,7 @@ export default {
     if (!this.editionslist.length) {
       this.getCorpuses()
       // subsribe to store to get the editionbyuuid list
+      // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
       this.unsubscribe = this.$store.subscribe((mutation, state) => {
         // console.log('Edition store subscribe', mutation.type)
         if (mutation.type === 'Corpus/setEditionsByUUID') {
@@ -150,6 +177,28 @@ export default {
             Promise.reject(error)
           })
       }
+    },
+    onHoverLink (elmt) {
+      console.log('Edition onHoverLink(elmt)', elmt)
+      this.tooltip_top = elmt.rect.top
+      this.getIndexItem(elmt)
+    },
+    onLeaveLink () {
+      console.log('Edition onLeaveLink()')
+      this.indexitem = null
+    },
+    getIndexItem (item) {
+      this.indexitem = 'loading'
+      REST.get(`/index${item.index.charAt(0).toUpperCase()}${item.index.slice(1)}/${item.uuid}`, {})
+        .then(({ data }) => {
+          console.log('index tooltip REST: data', data)
+          this.indexitem = data.content
+        })
+        .catch((error) => {
+          console.warn('Issue with index tooltip rest', error)
+          Promise.reject(error)
+          this.indexitem = null
+        })
     }
   }
 }

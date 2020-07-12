@@ -248,8 +248,25 @@ section[role="main-content"]{
 
   #edition{
     header{
+      position: relative;
       h1{
-        @include title2black;
+        @include title1black;
+      }
+      aside.index-tooltip{
+        margin-top: -1.75em;
+        position:absolute;
+        text-align: right;
+        right: 2em;
+        h1 {
+          @include title2black;
+          margin:0 0 0.5em 0;
+        }
+        p{
+          margin:0 0 0.5em 0;
+        }
+        time{
+          font-weight: 600;
+        }
       }
     }
 
@@ -339,10 +356,16 @@ section[role="main-content"]{
           font-weight: 600;
         }
         a{
-          color: $rouge;
           font-weight: 600;
           &.active-link{
-            text-decoration: underline;
+            color: $rouge;
+            // text-decoration: underline;
+          }
+          sup.mdi{
+            font-size: 0.630em;
+            vertical-align: super;
+            // line-height: 0.1;
+            padding: 0 0.2em;
           }
         }
       }
