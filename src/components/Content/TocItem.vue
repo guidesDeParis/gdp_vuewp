@@ -8,7 +8,7 @@
       v-if="title"
       class="toc-title"
       :uuid="item.uuid"
-      :class="{active: isActive}"
+      :class="{active: isActive, loaded: isLoaded}"
     >
       <a
         :href="'/edition/'+editionid+'/'+item.uuid"
@@ -25,7 +25,13 @@
       :class="{opened: isOpened}"
     >
       <li v-for="child in children" :key="child.uuid">
-        <TocItem :item="child" :level="nextLevel" :editionid="editionid" />
+        <TocItem
+          :item="child"
+          :level="nextLevel"
+          :editionid="editionid"
+          :loadedtextsuuids="loadedtextsuuids"
+          @onClickTocItem="onClickTocItem"
+        />
       </li>
     </ul>
   </section>
@@ -43,7 +49,8 @@ export default {
   props: {
     item: Object,
     level: Number,
-    editionid: String
+    editionid: String,
+    loadedtextsuuids: Array
   },
   // data: () => ({
   //
@@ -83,6 +90,9 @@ export default {
       } else {
         return false
       }
+    },
+    isLoaded () {
+      return this.loadedtextsuuids.indexOf(this.item.uuid) !== -1
     }
   },
   // beforeCreate () {
@@ -91,13 +101,20 @@ export default {
   methods: {
     onclick (e) {
       console.log('clicked on toc text', this.editionid, e)
-      this.$router.push({
-        name: `editiontext`,
-        params: {
-          id: this.editionid,
-          textid: e.target.getAttribute('uuid')
-        }
-      })
+      // if (this.$route.params.textid !== e.target.getAttribute('uuid')) {
+      //   this.$router.push({
+      //     name: `editiontext`,
+      //     params: {
+      //       id: this.editionid,
+      //       textid: e.target.getAttribute('uuid')
+      //     }
+      //   })
+      // } else {
+      this.$emit('onClickTocItem', e.target.getAttribute('uuid'))
+      // }
+    },
+    onClickTocItem (uuid) {
+      this.$emit('onClickTocItem', uuid)
     }
   }
 

@@ -5,7 +5,9 @@ import Vue from 'vue'
 export default {
   name: 'EdText',
   props: {
-    tei: String
+    tei: String,
+    uuid: String,
+    textid: String
   },
   data: () => ({
     template: null,
@@ -37,7 +39,10 @@ export default {
       this.template.staticRenderFns.map(fn => (this.$options.staticRenderFns.push(fn)))
     },
     buildHtml () {
-      this.html = `<div class="tei">${this.tei}</div>`
+      this.html = `<div` +
+      ` class="tei${this.uuid === this.textid ? ' active' : ''}"` +
+      ` data-uuid="${this.uuid}"` +
+      `>${this.tei}</div>`
       this.parseLinks()
       // console.log('EdText: builded html', this.html)
     },

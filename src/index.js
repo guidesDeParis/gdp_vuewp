@@ -4,6 +4,7 @@ import store from './store'
 // import { sync } from 'vuex-router-sync'
 import Meta from 'vue-meta'
 import InfiniteLoading from 'vue-infinite-loading'
+import VueScrollTo from 'vue-scrollto'
 
 import App from './App'
 
@@ -20,15 +21,14 @@ Vue.use(InfiniteLoading, {
   slots: {
     noMore: '',
     noResult: ''
-  },
-  system: {
-    throttleLimit: 5000
   }
   // system: {
   //   throttleLimit: 50,
   //   /* other settings need to configure */
   // }
 })
+
+Vue.use(VueScrollTo)
 
 // sync(store, router) // done. Returns an unsync callback fn
 

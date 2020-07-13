@@ -5,7 +5,13 @@
         v-for="item in toc"
         :key="item.uuid"
       >
-        <TocItem :item="item" :level="1" :editionid="$route.params.id" />
+        <TocItem
+          :item="item"
+          :level="1"
+          :editionid="$route.params.id"
+          :loadedtextsuuids="loadedtextsuuids"
+          @onClickTocItem="onClickTocItem"
+        />
       </li>
     </ul>
   </section>
@@ -21,11 +27,17 @@ export default {
     TocItem
   },
   props: {
-    toc: Array
+    toc: Array,
+    loadedtextsuuids: Array
   },
   data: () => ({
 
-  })
+  }),
+  methods: {
+    onClickTocItem (uuid) {
+      this.$emit('onClickTocItem', uuid)
+    }
+  }
 }
 </script>
 

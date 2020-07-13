@@ -1,5 +1,5 @@
 <template>
-  <MainContentLayout id="edition">
+  <MainContentLayout id="edition" :reftoscrollto="reftoscrollto" @onCenterScrolled="onCenterScrolled">
     <template v-if="!content" #header>
       <span>Loading ...</span>
     </template>
@@ -32,21 +32,32 @@
     <!-- default slot -->
     <div id="text">
       <template v-if="texts.length">
-        <infinite-loading direction="top" @infinite="prevText" />
+        <infinite-loading
+          v-if="center_scrolled"
+          :identifier="textid"
+          direction="top"
+          :distance="inifinite_load_distance"
+          @infinite="prevText"
+        />
         <EdText
           v-for="text in texts"
+          :ref="text.content.uuid"
           :key="text.content.uuid"
           :tei="text.content.tei"
           :uuid="text.content.uuid"
+          :textid="textid"
           @onHoverLink="onHoverLink"
           @onLeaveLink="onLeaveLink"
         />
-        <infinite-loading @infinite="nextText" />
+        <infinite-loading
+          :identifier="textid"
+          @infinite="nextText"
+        />
       </template>
     </div>
 
     <template #nav>
-      <EdToc :toc="toc" />
+      <EdToc :toc="toc" :loadedtextsuuids="textsuuids" @onClickTocItem="onClickTocItem" />
     </template>
   </MainContentLayout>
 </template>
@@ -79,13 +90,19 @@ export default {
     editionid: null,
     textid: null,
     texts: [],
+    textsuuids: [],
     metainfotitle: undefined,
     title: undefined,
     author: undefined,
     texttitle: undefined,
     //
     indexitem: null,
-    tooltip_top: null
+    tooltip_top: null,
+    //
+    next_loaded: false,
+    center_scrolled: false,
+    inifinite_load_distance: 10,
+    reftoscrollto: null
   }),
   computed: {
     ...mapState({
@@ -97,6 +114,7 @@ export default {
     textid: function (newid, oldid) {
       console.log('textid watcher', this, oldid, newid)
       this.texts = []
+      this.textsuuids = []
       this.getTextContent(newid)
     },
     textdata: function (newtxtdata, oldtxtdata) {
@@ -181,17 +199,27 @@ export default {
           console.log('text REST: data', data)
           if (direction === 'next') {
             this.texts.push(data)
+            this.textsuuids.push(data.content.uuid)
           } else {
             this.texts.unshift(data)
+            this.textsuuids.unshift(data.content.uuid)
           }
           if ($state) {
             $state.loaded()
+            this.next_loaded = true
           }
         })
         .catch((error) => {
           console.warn('Issue with getTextContent', error)
           Promise.reject(error)
         })
+    },
+    onCenterScrolled (e) {
+      // console.log('Edition centerScrolled(e)', e.target.scrollTop)
+      if (!this.center_scrolled && e.target.scrollTop > this.inifinite_load_distance * 1.5) {
+        this.center_scrolled = true
+      }
+      this.indexitem = null
     },
     nextText ($state) {
       console.log('infinite loading nextText()', this.texts[this.texts.length - 1].content.itemAfterUuid, $state)
@@ -223,17 +251,36 @@ export default {
       REST.get(`/index${item.index.charAt(0).toUpperCase()}${item.index.slice(1)}/${item.uuid}`, {})
         .then(({ data }) => {
           console.log('index tooltip REST: data', data)
-          this.indexitem = data.content
+          if (this.indexitem === 'loading') {
+            this.indexitem = data.content
+          }
         })
         .catch((error) => {
           console.warn('Issue with index tooltip rest', error)
           Promise.reject(error)
           this.indexitem = null
         })
+    },
+    onClickTocItem (uuid) {
+      console.log('Edition onClickTocItem', uuid, this.$refs)
+      if (this.textsuuids.indexOf(uuid) !== -1) {
+        // if already loaded, scroll to uuid
+        this.reftoscrollto = `.tei[data-uuid="${uuid}"]`
+      } else {
+        // if not already loaded, change route
+        this.$router.push({
+          name: `editiontext`,
+          params: {
+            id: this.editionid,
+            textid: uuid
+          }
+        })
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 </style>

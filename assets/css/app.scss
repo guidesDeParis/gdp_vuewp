@@ -273,11 +273,17 @@ section[role="main-content"]{
 
     >section{
       div#text{
-        // >h1{
-        //   @include title1blue;
-        // }
+        .infinite-loading-container{
+          height:0;
+          overflow: hidden;
+        }
         div.tei{
-          // >h1{display: none;}
+          border-left: 1px dotted $grisclair;
+          padding-left: 1em;
+          &.active{
+            border-left: 1px dotted $grisfonce;
+          }
+
           >h1{@include title1blue;}
           span.placeName,
           span.objectName,
@@ -328,6 +334,10 @@ section[role="main-content"]{
             margin:0;
             &.active,
             &:hover{
+              color:$grisfonce;
+              font-weight: 600;
+            }
+            &.loaded{
               color:$grisfonce;
             }
           }
