@@ -52,9 +52,9 @@ export default {
     editionid: String,
     loadedtextsuuids: Array
   },
-  // data: () => ({
-  //
-  // })
+  data: () => ({
+    isOpened: false
+  }),
   computed: {
     children () {
       // check if children exists and if it is an array
@@ -70,7 +70,7 @@ export default {
       }
     },
     titlelevel () {
-      return 'h' + this.level
+      return this.level < 7 ? `h${this.level}` : `span`
     },
     nextLevel () {
       return this.level + 1
@@ -83,21 +83,25 @@ export default {
         return false
       }
     },
-    isOpened () {
-      // console.log('opened', this.$route.params.textid.indexOf(this.item.uuid) >= 0)
-      if (typeof this.$route.params.textid !== 'undefined') {
-        return this.$route.params.textid.indexOf(this.item.uuid) >= 0
-      } else {
-        return false
-      }
-    },
     isLoaded () {
+      // this is updated when loadedtextsuuids is changing
+      // but not for isOpened (had to use a watcher + beforeMount)
+      // don't now why ?
       return this.loadedtextsuuids.indexOf(this.item.uuid) !== -1
+    }
+  },
+  watch: {
+    loadedtextsuuids (n, o) {
+      // console.log('EdTocItem watch loadedtxtsuuids', o, n)
+      this.isOpened = this.loadedtextsuuids.some(e => e.indexOf(this.item.uuid) >= 0)
     }
   },
   // beforeCreate () {
   //   console.log('editionid', this.editionid)
   // },
+  beforeMount () {
+    this.isOpened = this.$route.params.textid.indexOf(this.item.uuid) >= 0
+  },
   methods: {
     onclick (e) {
       console.log('clicked on toc text', this.editionid, e)

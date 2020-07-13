@@ -21,7 +21,7 @@ export default {
     }
   },
   beforeMount () {
-    console.log('EdText beforeMount')
+    // console.log('EdText beforeMount')
     if (this.tei) {
       this.buildTemplate()
     }
@@ -48,7 +48,7 @@ export default {
     },
     parseLinks () {
       let links = this.html.match(/<a[^<]+<\/a>/g)
-      console.log('links', links)
+      // console.log('links', links)
       if (links) {
         // let domparser = new DOMParser()
         // let domlink
@@ -98,7 +98,7 @@ export default {
     }
   },
   render (h) {
-    console.log('EdText render()')
+    // console.log('EdText render()')
     if (!this.template) {
       return h('span', 'Loading ...')
     } else {

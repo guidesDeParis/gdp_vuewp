@@ -30,9 +30,11 @@ export default {
     toc: Array,
     loadedtextsuuids: Array
   },
-  data: () => ({
-
-  }),
+  // watch: {
+  //   loadedtextsuuids (n, o) {
+  //     console.log('EdToc watch loadedtxtsuuids', o, n)
+  //   }
+  // },
   methods: {
     onClickTocItem (uuid) {
       this.$emit('onClickTocItem', uuid)
