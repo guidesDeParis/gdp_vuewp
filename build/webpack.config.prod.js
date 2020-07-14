@@ -41,7 +41,7 @@ module.exports = merge(baseConfig, {
       filename: 'main.css'
     }),
     new webpack.DefinePlugin({
-      "process.env": "'dev'"
+      "process.env": "'prod'"
     })
   ]
 })
