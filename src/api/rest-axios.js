@@ -16,7 +16,7 @@ import axios from 'axios'
 // let path = 'http://' + window.location.hostname + (window.env === 'prod' ? '/api' : ':8984')
 
 export const REST = axios.create({
-  baseURL: 'http://' + window.location.hostname,
+  // baseURL: 'http://',
   // withCredentials: true,
   crossorigin: true,
   headers: {
