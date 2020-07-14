@@ -30,6 +30,8 @@ Vue.use(InfiniteLoading, {
 
 Vue.use(VueScrollTo)
 
+window.env = process.env
+
 // sync(store, router) // done. Returns an unsync callback fn
 
 new Vue({
