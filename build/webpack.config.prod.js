@@ -7,6 +7,9 @@ const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
+  output: {
+    publicPath: '/'
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
