@@ -40,7 +40,7 @@ export default {
   },
   beforeCreate () {
     console.log('nominum this.$route', this.$route)
-    REST.get(`${apipath}/indexNominum/` + this.$route.params.id, {})
+    REST.get(`${window.apipath}/indexNominum/` + this.$route.params.id, {})
       .then(({ data }) => {
         console.log('nominum REST: data', data)
         if (data.content) {

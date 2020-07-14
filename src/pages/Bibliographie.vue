@@ -21,7 +21,7 @@ export default {
   }),
   beforeCreate () {
     // ?_format=json
-    REST.get(`${apipath}/bibliography/works`, {})
+    REST.get(`${window.apipath}/bibliography/works`, {})
       .then(({ data }) => {
         console.log('Biblio REST: data', data)
         // if(data.length){

@@ -37,7 +37,7 @@ export default {
   beforeCreate () {
     // items/gdpLeMaire1685T01BodyFr01.003.016
     // texts/gdpSauval1724
-    REST.get(`${apipath}/indexNominum`, {})
+    REST.get(`${window.apipath}/indexNominum`, {})
       .then(({ data }) => {
         console.log('index nominum REST: data', data)
         if (data.content.length) {

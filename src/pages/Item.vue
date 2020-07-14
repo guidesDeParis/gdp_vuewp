@@ -49,7 +49,7 @@ export default {
   methods: {
     loadItem () {
       this.loaded = false
-      REST.get(`${apipath}/items/` + this.uuid, {})
+      REST.get(`${window.apipath}/items/` + this.uuid, {})
         .then(({ data }) => {
           console.log('item REST: data', data)
           this.item = data.content

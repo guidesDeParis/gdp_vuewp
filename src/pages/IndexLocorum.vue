@@ -34,7 +34,7 @@ export default {
     items: []
   }),
   beforeCreate () {
-    REST.get(`${apipath}/indexLocorum`, {})
+    REST.get(`${window.apipath}/indexLocorum`, {})
       .then(({ data }) => {
         console.log('index locorum REST: data', data)
         if (data.content.length) {

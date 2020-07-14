@@ -57,7 +57,7 @@ export default {
     },
     // get authors
     getAuthors ({ dispatch, commit, state }) {
-      return REST.get(`${apipath}/corpus`, {})
+      return REST.get(`${window.apipath}/corpus`, {})
         // .then(({ data }) => {
         //   console.log('corpus getAuthors REST: data', data)
         //   commit('setAuthors', data.content)
@@ -70,7 +70,7 @@ export default {
     // get editionslist
     getEditionsList ({ dispatch, commit, state }, authors) {
       return Promise.all(authors.map(function (author) {
-        return REST.get(`${apipath}/corpus/` + author.uuid, {})
+        return REST.get(`${window.apipath}/corpus/` + author.uuid, {})
           .then(({ data }) => {
             console.log('corpus getEditionsList REST: author, data', author, data)
             // work arround

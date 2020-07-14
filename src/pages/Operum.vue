@@ -36,7 +36,7 @@ export default {
   },
   beforeCreate () {
     console.log('operum this.$route', this.$route)
-    REST.get(`${apipath}/indexOperum/` + this.$route.params.id, {})
+    REST.get(`${window.apipath}/indexOperum/` + this.$route.params.id, {})
       .then(({ data }) => {
         console.log('operum REST: data', data)
         if (data.content) {
