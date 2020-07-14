@@ -13,10 +13,10 @@ import axios from 'axios'
 // let path = 'http://dev.api.gdp.fr'
 // let path = 'http://localhost:8984'
 // const
-let path = 'http://' + window.location.hostname + (window.env === 'prod' ? '/api' : ':8984')
+// let path = 'http://' + window.location.hostname + (window.env === 'prod' ? '/api' : ':8984')
 
 export const REST = axios.create({
-  baseURL: path,
+  baseURL: 'http://' + window.location.hostname + (window.env === 'prod' ? '/api' : ':8984'),
   // withCredentials: true,
   crossorigin: true,
   headers: {
