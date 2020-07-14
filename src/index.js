@@ -31,7 +31,7 @@ Vue.use(InfiniteLoading, {
 Vue.use(VueScrollTo)
 
 // window.env = process.env
-window.apipath =  process.env === 'prod' ? '/api' : ':8984'
+window.apipath = process.env === 'prod' ? '/api' : ':8984'
 
 // sync(store, router) // done. Returns an unsync callback fn
 
