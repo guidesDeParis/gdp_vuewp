@@ -100,7 +100,9 @@ export default {
   //   console.log('editionid', this.editionid)
   // },
   beforeMount () {
-    this.isOpened = this.$route.params.textid.indexOf(this.item.uuid) >= 0
+    if (typeof this.$route.params.textid !== 'undefined') {
+      this.isOpened = this.$route.params.textid.indexOf(this.item.uuid) >= 0
+    }
   },
   methods: {
     onclick (e) {
