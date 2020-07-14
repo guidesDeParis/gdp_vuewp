@@ -34,7 +34,7 @@ export default {
     items: []
   }),
   beforeCreate () {
-    REST.get(`/indexOperum`, {})
+    REST.get(`${apipath}/indexOperum`, {})
       .then(({ data }) => {
         console.log('index operum REST: data', data)
         if (data.content.length) {

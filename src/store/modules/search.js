@@ -41,7 +41,7 @@ export default {
       }
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
-      return REST.get(`/search?` + q)
+      return REST.get(`${apipath}/search?` + q)
         .then(({ data }) => {
           console.log('search REST: data', data)
           commit('setIsloading', false)

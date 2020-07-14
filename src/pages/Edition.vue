@@ -126,7 +126,7 @@ export default {
     console.log('texts this.$route', this.$route)
     // http://localhost:8984/texts/gdpSauval1724/toc
     // get the edition's toc
-    REST.get(`/texts/` + this.$route.params.id + `/toc`, {})
+    REST.get(`${apipath}/texts/` + this.$route.params.id + `/toc`, {})
       .then(({ data }) => {
         console.log('texts/toc REST: data', data)
         this.meta = data.meta
@@ -194,7 +194,7 @@ export default {
     }),
     getTextContent (textid, $state = null, direction = 'next') {
       console.log('getTextContent', textid)
-      REST.get(`/items/${textid}`, {})
+      REST.get(`${apipath}/items/${textid}`, {})
         .then(({ data }) => {
           console.log('text REST: data', data)
           if (direction === 'next') {
@@ -248,7 +248,7 @@ export default {
     },
     getIndexItem (item) {
       this.indexitem = 'loading'
-      REST.get(`/index${item.index.charAt(0).toUpperCase()}${item.index.slice(1)}/${item.uuid}`, {})
+      REST.get(`${apipath}/index${item.index.charAt(0).toUpperCase()}${item.index.slice(1)}/${item.uuid}`, {})
         .then(({ data }) => {
           console.log('index tooltip REST: data', data)
           if (this.indexitem === 'loading') {

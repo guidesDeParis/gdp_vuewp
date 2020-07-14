@@ -41,7 +41,7 @@ export default {
   },
   beforeCreate () {
     console.log('locorum this.$route', this.$route)
-    REST.get(`/indexLocorum/` + this.$route.params.id, {})
+    REST.get(`${apipath}/indexLocorum/` + this.$route.params.id, {})
       .then(({ data }) => {
         console.log('locorum REST: data', data)
         if (data.content) {
