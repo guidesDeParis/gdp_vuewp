@@ -7,6 +7,13 @@ export default {
   // initial state
   state: {
     keys: '',
+    searchTypeOptions: [
+      { 'code': 'text', 'label': 'Dans les textes' },
+      { 'code': 'persons', 'label': 'Dans les personnes' },
+      { 'code': 'places', 'label': 'Dans les lieux' },
+      { 'code': 'objects', 'label': 'Dans les objets' }
+    ],
+    searchTypeValue: { 'code': 'text', 'label': 'Dans les textes' },
     results: [],
     isloading: false,
     opened: false
@@ -28,6 +35,9 @@ export default {
     },
     setOpened (state, opened) {
       state.opened = opened
+    },
+    setSearchTypeValue (state, value) {
+      state.searchTypeValue = value
     }
   },
 
@@ -39,6 +49,10 @@ export default {
       let params = {
         search: state.keys
       }
+      if (state.searchTypeValue.code !== 'text') {
+        params.type = state.searchTypeValue.code
+      }
+
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
       return REST.get(`${window.apipath}/search?` + q)
@@ -53,6 +67,9 @@ export default {
           commit('setIsloading', false)
           Promise.reject(error)
         })
+    },
+    setSearchTypeValue ({ dispatch, commit, state }, value) {
+      commit('setSearchTypeValue', value)
     }
   }
 }

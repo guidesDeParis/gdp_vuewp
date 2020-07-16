@@ -16,7 +16,7 @@
             type="select"
             placeholder="dans ..."
             append-to-body
-            :calculate-position="withPopper"
+            :calculate-position="dropDownMenuPos"
             :options="searchTypeOptions"
             :clearable="false"
             :value="searchTypeValue"
@@ -68,13 +68,6 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Search',
   data: () => ({
-    searchTypeOptions: [
-      { 'code': 'text', 'label': 'Dans les textes' },
-      { 'code': 'nominum', 'label': 'Dans les personnes' },
-      { 'code': 'locorum', 'label': 'Dans les lieux' },
-      { 'code': 'operum', 'label': 'Dans les objets' }
-    ],
-    searchTypeValue: { 'code': 'text', 'label': 'Dans les textes' }
   }),
   computed: {
     keys: {
@@ -82,18 +75,21 @@ export default {
       set (value) { this.$store.commit('Search/setKeys', value) }
     },
     ...mapState({
-      isloading: state => state.Search.isloading
+      isloading: state => state.Search.isloading,
+      searchTypeOptions: state => state.Search.searchTypeOptions,
+      searchTypeValue: state => state.Search.searchTypeValue
     })
   },
   methods: {
     ...mapActions({
-      getResults: 'Search/getResults'
+      getResults: 'Search/getResults',
+      setSearchTypeValue: 'Search/setSearchTypeValue'
     }),
     submit () {
       console.log('submited', this.keys)
       this.getResults()
     },
-    withPopper (dropdownList, component, { width }) {
+    dropDownMenuPos (dropdownList, component, { width }) {
       /**
        * We need to explicitly define the dropdown width since
        * it is usually inherited from the parent with CSS.
@@ -137,7 +133,7 @@ export default {
     },
     onSearchTypeSelected (e) {
       console.log('onSearchTypeSelected', e)
-      this.searchTypeValue = e
+      this.setSearchTypeValue(e)
     }
   }
 }
