@@ -5,11 +5,13 @@ import store from './store'
 import Meta from 'vue-meta'
 import InfiniteLoading from 'vue-infinite-loading'
 import VueScrollTo from 'vue-scrollto'
+import VueSelect from 'vue-select'
 
 import App from './App'
 
 import 'assets/css/mdi/css/materialdesignicons.css'
 // import 'mdi/font'
+import 'vue-select/src/scss/vue-select.scss'
 import 'assets/css/app.scss'
 
 Vue.use(Meta)
@@ -30,7 +32,7 @@ Vue.use(InfiniteLoading, {
 
 Vue.use(VueScrollTo)
 
-// window.env = process.env
+Vue.component('v-select', VueSelect)
 
 window.apipath = process.env === 'prod' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
 

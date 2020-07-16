@@ -552,35 +552,90 @@ footer[role="tools"]{
       background-color: $bleuroi;
       form{
         padding: 0.7em;
-        label[for="keys"]{
-          display: none;
+        fieldset{
+          padding:1em;
+          border: none;
+          &:not(:first-of-type){
+            border-left: 1px solid $grisclair;
+          }
         }
-        input[type="text"]{
-          padding:0.3em;
-          font-size: 0.756em;
-          line-height: 1;
-          height:1em;
-          border:none;
-          border-radius: 2px;
-        }
-        // input[type="submit"]{
-        //   #submit-search{
-        //     border:none;
-        //
-        //   }
-        // }
-        span.mdi{
-          display: inline-block;
-          font-size: 1.2em;
-          line-height:1.1;
-          vertical-align:middle;
-          width:1.2em; height:1.2em;
-          border-radius: 0.6em;
-          background-color: #fff;
-          color: $bleuroi;
-          text-align: center;
-          font-weight: 700;
-          cursor: pointer;
+        fieldset.search{
+          >div{
+            display: inline-block;
+            width:80%;
+            vertical-align: middle;
+          }
+          label[for="keys"]{
+            display: none;
+          }
+          input[type="text"]{
+            padding:0.3em;
+            box-sizing: border-box;
+            font-size: 0.756em;
+            line-height: 1;
+            width:100%;
+            height:1.2em;
+            border:none;
+            border-radius: 2px;
+          }
+          #search-type{
+            padding:0.2em 0 0 0;
+            div[role="combobox"]{
+              background-color: #fff;
+              padding:0;
+              border-radius: 2px;
+              border: none;
+            }
+            input[type="search"]{
+              margin:0;
+              padding:0;
+            }
+            .vs__search{
+              &, &:focus{
+                font-size: 0.756em;
+                line-height: 1;
+                height:1.2em;
+                border:none;
+                box-sizing: border-box;
+              }
+            }
+            .vs__actions{
+              padding:1px 3px;
+              svg[role="presentation"]{
+                transform: scale(0.8);
+                path{
+                  fill: $bleuroi;
+                }
+              }
+            }
+            .vs__selected{
+              margin:0;
+              padding:0;
+              line-height:1;
+              font-size: 0.756em;
+            }
+            // border-radius: 2px;
+            // border: none;
+          }
+          // input[type="submit"]{
+          //   #submit-search{
+          //     border:none;
+          //
+          //   }
+          // }
+          span.mdi{
+            display: inline-block;
+            font-size: 1.2em;
+            line-height:1.1;
+            vertical-align:middle;
+            width:1.2em; height:1.2em;
+            border-radius: 0.6em;
+            background-color: #fff;
+            color: $bleuroi;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -594,6 +649,19 @@ footer[role="tools"]{
   }
 }
 
+// vue-select
+ul[role="listbox"]{
+  @include fontsans;
+  padding:0;
+  margin:0;
+  border:none;
+  li{
+    padding:0.3em;
+    margin:0;
+    font-size: 0.756em;
+    line-height: 1;
+  }
+}
 
 //  ___
 // |_ _|__ ___ _ _  ___
