@@ -228,16 +228,63 @@ section[role="main-content"]{
     .occurences{
       >ul{
         >li{
-          padding:0 0 1em 0;
+          padding:0 0 2em 0;
           h3{
-            @include title2black;
-            padding:0 0 0.3em 0;
+            @include title1black;
+            padding:0 0 1em 0;
           }
           >ul{
             >li{
-              padding:0 0 0.3em 0;
-              h4{
-                @include title3black;
+              padding:0 0 1em 0;
+              section{
+                h4{
+                  @include title2black;
+                  display: inline-block;
+                }
+                span.open-close{
+                  cursor: pointer;
+                  display: inline-block;
+                  svg{
+                    transform: rotate(-90deg) scale(0.8);
+                    transition: transform 0.3s ease-in-out;
+                    path{
+                      fill:$bleuroi;
+                    }
+                  }
+                }
+                div.text{
+                  max-height: 0;
+                  transition: max-height 0.3s ease-in-out;
+                  overflow: hidden;
+                  box-sizing: content-box;
+                  p, h1, h2, h3, h4, h5, h6{
+                    margin: 0.5em 0 0 0;
+                  }
+                }
+                a.lire-plus{
+                  color: $bleuroi;
+                  opacity: 0;
+                  display: inline-block;
+                  height: 0;
+                  overflow: hidden;
+                  transition: height, opacity 0.3s ease-in-out;
+                }
+                &.opened{
+                  span.open-close{
+                    cursor: pointer;
+                    display: inline-block;
+                    svg{
+                      transform: scale(0.8) rotate(0);
+                    }
+                  }
+                  div.text{
+                    max-height:100px;
+                  }
+                  a.lire-plus{
+                    opacity: 1;
+                    height:1em;
+                  }
+                }
               }
             }
           }

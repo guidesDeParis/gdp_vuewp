@@ -10,6 +10,11 @@
         {{ content.birthDate }}, {{ content.birthPlace }}<br>
         {{ content.deathDate }}, {{ content.deathPlace }}
       </p>
+      <!-- <ul v-if="content.attestedForms.lenght" class="attestedForms">
+        <li v-for="(item, index) in content.attestedForms" :key="index">
+
+        </li>
+      </ul> -->
     </template>
 
     <!-- default slot -->
