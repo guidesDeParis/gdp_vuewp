@@ -553,7 +553,7 @@ footer[role="tools"]{
       form{
         padding: 0.7em;
         fieldset{
-          padding:1em;
+          padding:0em 1em;
           border: none;
           &:not(:first-of-type){
             border-left: 1px solid $grisclair;
@@ -570,6 +570,7 @@ footer[role="tools"]{
           }
           input[type="text"]{
             padding:0.3em;
+            margin:0 0 0.3em 0;
             box-sizing: border-box;
             font-size: 0.756em;
             line-height: 1;
@@ -578,53 +579,9 @@ footer[role="tools"]{
             border:none;
             border-radius: 2px;
           }
-          #search-type{
-            padding:0.2em 0 0 0;
-            div[role="combobox"]{
-              background-color: #fff;
-              padding:0;
-              border-radius: 2px;
-              border: none;
-            }
-            input[type="search"]{
-              margin:0;
-              padding:0;
-            }
-            .vs__search{
-              &, &:focus{
-                font-size: 0.756em;
-                line-height: 1;
-                height:1.2em;
-                border:none;
-                box-sizing: border-box;
-              }
-            }
-            .vs__actions{
-              padding:1px 3px;
-              svg[role="presentation"]{
-                transform: scale(0.8);
-                path{
-                  fill: $bleuroi;
-                }
-              }
-            }
-            .vs__selected{
-              margin:0;
-              padding:0;
-              line-height:1;
-              font-size: 0.756em;
-            }
-            // border-radius: 2px;
-            // border: none;
-          }
-          // input[type="submit"]{
-          //   #submit-search{
-          //     border:none;
-          //
-          //   }
-          // }
           span.mdi{
             display: inline-block;
+            margin:0 0 0 0.5em;
             font-size: 1.2em;
             line-height:1.1;
             vertical-align:middle;
@@ -646,6 +603,60 @@ footer[role="tools"]{
     font-weight: 400;
     text-transform: uppercase;
     padding:0;
+  }
+  .v-select{
+    padding:0;
+    div[role="combobox"]{
+      background-color: #fff;
+      padding:0;
+      border-radius: 2px;
+      border: none;
+    }
+    input[type="search"]{
+      margin:0;
+      padding:0;
+    }
+    .vs__search{
+      &, &:focus{
+        font-size: 0.756em;
+        line-height: 1;
+        height:1.2em;
+        border:none;
+        box-sizing: border-box;
+      }
+    }
+    .vs__actions{
+      padding:1px 3px;
+      svg[role="presentation"]{
+        transform: scale(0.8);
+        path{
+          fill: $bleuroi;
+        }
+      }
+    }
+    .vs__selected{
+      margin:0;
+      padding:0;
+      line-height:1;
+      font-size: 0.756em;
+    }
+    // border-radius: 2px;
+    // border: none;
+  }
+  fieldset.filters .v-select{
+    .vs__selected{
+      background-color: #fff;
+      border:none;
+      padding:0.3em 0.5em;
+      button{
+        svg{
+          transform: scale(0.8);
+          path{
+            fill: $bleuroi;
+          }
+        }
+      }
+    }
   }
 }
 

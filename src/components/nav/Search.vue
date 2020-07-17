@@ -36,24 +36,45 @@
           class="mdi mdi-loading"
           title="chargement"
         />
-        <!-- <input
-          id="submit-search"
-          type="submit"
-          name="search"
-          value="Search"
-          class="mdi mdi-magnify"
-          @click.prevent="submit"
-          @keyup.enter="submit"
-        > -->
       </fieldset>
-      <fieldset class="filters-nominum col-3">
-        <span>Filters Nominum</span>
+      <fieldset v-if="filtersNominum.length" class="filters filters-nominum col-3">
+        <v-select
+          id="filters-nominum"
+          type="select"
+          placeholder="filtrer par personne"
+          append-to-body
+          :calculate-position="dropDownMenuPos"
+          :options="filtersNominum"
+          :value="filtersNominumValue"
+          multiple
+          @input="onFiltersNominumSelected"
+        />
       </fieldset>
-      <fieldset class="filters-locorum col-3">
-        <span>Filters Nominum</span>
+      <fieldset v-if="filtersLocorum.length" class="filters filters-locorum col-3">
+        <v-select
+          id="filters-locorum"
+          type="select"
+          placeholder="filtrer par lieux"
+          append-to-body
+          :calculate-position="dropDownMenuPos"
+          :options="filtersLocorum"
+          :value="filtersLocorumValue"
+          multiple
+          @input="onFiltersLocorumSelected"
+        />
       </fieldset>
-      <fieldset class="filters-operum col-3">
-        <span>Filters Nominum</span>
+      <fieldset v-if="filtersOperum.length" class="filters filters-operum col-3">
+        <v-select
+          id="filters-operum"
+          type="select"
+          placeholder="filtrer par objet"
+          append-to-body
+          :calculate-position="dropDownMenuPos"
+          :options="filtersOperum"
+          :value="filtersOperumValue"
+          multiple
+          @input="onFiltersOperumSelected"
+        />
       </fieldset>
     </form>
   </div>
@@ -77,13 +98,20 @@ export default {
     ...mapState({
       isloading: state => state.Search.isloading,
       searchTypeOptions: state => state.Search.searchTypeOptions,
-      searchTypeValue: state => state.Search.searchTypeValue
+      searchTypeValue: state => state.Search.searchTypeValue,
+      filtersNominum: state => state.Search.filtersNominum,
+      filtersLocorum: state => state.Search.filtersLocorum,
+      filtersOperum: state => state.Search.filtersOperum,
+      filtersNominumValue: state => state.Search.filtersNominumValue,
+      filtersLocorumValue: state => state.Search.filtersLocorumValue,
+      filtersOperumValue: state => state.Search.filtersOperumValue
     })
   },
   methods: {
     ...mapActions({
       getResults: 'Search/getResults',
-      setSearchTypeValue: 'Search/setSearchTypeValue'
+      setSearchTypeValue: 'Search/setSearchTypeValue',
+      setSearchFiltersValue: 'Search/setSearchFiltersValue'
     }),
     submit () {
       console.log('submited', this.keys)
@@ -134,6 +162,18 @@ export default {
     onSearchTypeSelected (e) {
       console.log('onSearchTypeSelected', e)
       this.setSearchTypeValue(e)
+    },
+    onFiltersNominumSelected (e) {
+      console.log('onFiltersNominumSelected', e)
+      this.setSearchFiltersValue({ index: 'nominum', value: e })
+    },
+    onFiltersLocorumSelected (e) {
+      console.log('onFiltersLocorumSelected', e)
+      this.setSearchFiltersValue({ index: 'locorum', value: e })
+    },
+    onFiltersOperumSelected (e) {
+      console.log('onFiltersOperumSelected', e)
+      this.setSearchFiltersValue({ index: 'operum', value: e })
     }
   }
 }
