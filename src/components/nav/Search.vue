@@ -1,7 +1,7 @@
 <template>
   <div id="search" class="col-11">
     <form class="search-form row">
-      <fieldset class="search col-3">
+      <fieldset class="search col-2">
         <div>
           <label for="keys">Search</label>
           <input
@@ -37,41 +37,41 @@
           title="chargement"
         />
       </fieldset>
-      <fieldset v-if="filtersNominum.length" class="filters filters-nominum col-3">
+      <fieldset v-if="filters.persons.length" class="filters filters-nominum col-2">
         <v-select
           id="filters-nominum"
           type="select"
           placeholder="filtrer par personne"
           append-to-body
           :calculate-position="dropDownMenuPos"
-          :options="filtersNominum"
-          :value="filtersNominumValue"
+          :options="personsOptions"
+          :value="activeFilters.persons"
           multiple
           @input="onFiltersNominumSelected"
         />
       </fieldset>
-      <fieldset v-if="filtersLocorum.length" class="filters filters-locorum col-3">
+      <fieldset v-if="filters.places.length" class="filters filters-locorum col-2">
         <v-select
           id="filters-locorum"
           type="select"
           placeholder="filtrer par lieux"
           append-to-body
           :calculate-position="dropDownMenuPos"
-          :options="filtersLocorum"
-          :value="filtersLocorumValue"
+          :options="placesOptions"
+          :value="activeFilters.places"
           multiple
           @input="onFiltersLocorumSelected"
         />
       </fieldset>
-      <fieldset v-if="filtersOperum.length" class="filters filters-operum col-3">
+      <fieldset v-if="filters.objects.length" class="filters filters-operum col-2">
         <v-select
           id="filters-operum"
           type="select"
           placeholder="filtrer par objet"
           append-to-body
           :calculate-position="dropDownMenuPos"
-          :options="filtersOperum"
-          :value="filtersOperumValue"
+          :options="objectsOptions"
+          :value="activeFilters.objects"
           multiple
           @input="onFiltersOperumSelected"
         />
@@ -99,13 +99,18 @@ export default {
       isloading: state => state.Search.isloading,
       searchTypeOptions: state => state.Search.searchTypeOptions,
       searchTypeValue: state => state.Search.searchTypeValue,
-      filtersNominum: state => state.Search.filtersNominum,
-      filtersLocorum: state => state.Search.filtersLocorum,
-      filtersOperum: state => state.Search.filtersOperum,
-      filtersNominumValue: state => state.Search.filtersNominumValue,
-      filtersLocorumValue: state => state.Search.filtersLocorumValue,
-      filtersOperumValue: state => state.Search.filtersOperumValue
-    })
+      filters: state => state.Search.filters,
+      activeFilters: state => state.Search.activeFilters
+    }),
+    personsOptions () {
+      return this.filters.persons.filter(option => !this.activeFilters.persons.includes(option))
+    },
+    placesOptions () {
+      return this.filters.places.filter(option => !this.activeFilters.places.includes(option))
+    },
+    objectsOptions () {
+      return this.filters.objects.filter(option => !this.activeFilters.objects.includes(option))
+    }
   },
   methods: {
     ...mapActions({
@@ -165,15 +170,15 @@ export default {
     },
     onFiltersNominumSelected (e) {
       console.log('onFiltersNominumSelected', e)
-      this.setSearchFiltersValue({ index: 'nominum', value: e })
+      this.setSearchFiltersValue({ index: 'persons', value: e })
     },
     onFiltersLocorumSelected (e) {
       console.log('onFiltersLocorumSelected', e)
-      this.setSearchFiltersValue({ index: 'locorum', value: e })
+      this.setSearchFiltersValue({ index: 'places', value: e })
     },
     onFiltersOperumSelected (e) {
       console.log('onFiltersOperumSelected', e)
-      this.setSearchFiltersValue({ index: 'operum', value: e })
+      this.setSearchFiltersValue({ index: 'objects', value: e })
     }
   }
 }

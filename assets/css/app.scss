@@ -496,7 +496,7 @@ footer[role="tools"]{
     z-index: 9;
     background-color: $gris;
     padding:1.2em $side-padding;
-    max-height: $list-item-h * 3;
+    max-height: $list-item-h * 5;
     @include accordeon-transition($list-item-h * 3);
     >header{
       .search-keys{
@@ -538,18 +538,20 @@ footer[role="tools"]{
       article.result.item{
         header{
           h1{
-            font-size: 0.882em;
-            font-weight: normal;
-            margin:0 0 0.5em 0;
+            @include title3black;
+            font-weight: 600;
+          }
+          h2{
+            @include title3black;
           }
         }
-        .extract{
-          p{
-            font-size: 0.882em;
-            margin:0;
-          }
+        .preview{
+          font-size: 0.882em;
+          margin:0;
           code{
+            @include fontserif;
             background-color: lighten(desaturate($rouge,20%), 20%);
+            padding:0 0.2em;
           }
         }
       }

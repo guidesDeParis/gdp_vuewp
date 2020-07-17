@@ -57,22 +57,27 @@ export default {
         for (var i = 0; i < links.length; i++) {
           // console.log(`link ${i}:`, links[i])
           linkparts = RegExp(/<a class="(.+)" href="(.+)" data-index="(.+)">(.+)<\/a>/g).exec(links[i], 'g')
-          index = linkparts[3]
-          uuid = linkparts[2].replace('#', '')
-          newlink = `<a` +
-            ` class="${linkparts[1]} active-link"` +
-            ` data-index="${index}"` +
-            ` data-uuid="${uuid}"` +
-            ` href="/${index}/${uuid}"` +
-            ` @click.prevent="onClickRef"` +
-            ` @keyup.enter="onClickRef"` +
-            ` @mouseover="onHoverLink"` +
-            ` @mouseleave="onLeaveLink"` +
-            `>${linkparts[4]}` +
-            `<sup class="mdi mdi-message-text-outline" />` +
-            `</a>`
-          // console.log('newlink', newlink)
-          this.html = this.html.replace(links[i], newlink)
+          // console.log('linkparts', linkparts)
+          if (!linkparts) {
+            console.warn(`link ${i} malformed:`, links[i])
+          } else {
+            index = linkparts[3]
+            uuid = linkparts[2].replace('#', '')
+            newlink = `<a` +
+              ` class="${linkparts[1]} active-link"` +
+              ` data-index="${index}"` +
+              ` data-uuid="${uuid}"` +
+              ` href="/${index}/${uuid}"` +
+              ` @click.prevent="onClickRef"` +
+              ` @keyup.enter="onClickRef"` +
+              ` @mouseover="onHoverLink"` +
+              ` @mouseleave="onLeaveLink"` +
+              `>${linkparts[4]}` +
+              `<sup class="mdi mdi-message-text-outline" />` +
+              `</a>`
+            // console.log('newlink', newlink)
+            this.html = this.html.replace(links[i], newlink)
+          }
         }
         // console.log('this.html', this.html)
       }

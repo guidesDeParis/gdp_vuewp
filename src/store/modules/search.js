@@ -14,43 +14,10 @@ export default {
       { 'code': 'objects', 'label': 'Dans les objets' }
     ],
     searchTypeValue: { 'code': 'text', 'label': 'Dans les textes' },
-    filtersNominum: [
-      { 'code': '1', 'label': 'filter Nonminum 1' },
-      { 'code': '2', 'label': 'filter Nonminum 2' },
-      { 'code': '3', 'label': 'filter Nonminum 3' },
-      { 'code': '4', 'label': 'filter Nonminum 4' },
-      { 'code': '5', 'label': 'filter Nonminum 5' },
-      { 'code': '6', 'label': 'filter Nonminum 6' },
-      { 'code': '7', 'label': 'filter Nonminum 7' },
-      { 'code': '8', 'label': 'filter Nonminum 8' },
-      { 'code': '9', 'label': 'filter Nonminum 9' }
-    ],
-    filtersLocorum: [
-      { 'code': '1', 'label': 'filter Locorum 1' },
-      { 'code': '2', 'label': 'filter Locorum 2' },
-      { 'code': '3', 'label': 'filter Locorum 3' },
-      { 'code': '4', 'label': 'filter Locorum 4' },
-      { 'code': '5', 'label': 'filter Locorum 5' },
-      { 'code': '6', 'label': 'filter Locorum 6' },
-      { 'code': '7', 'label': 'filter Locorum 7' },
-      { 'code': '8', 'label': 'filter Locorum 8' },
-      { 'code': '9', 'label': 'filter Locorum 9' }
-    ],
-    filtersOperum: [
-      { 'code': '1', 'label': 'filter Operum 1' },
-      { 'code': '2', 'label': 'filter Operum 2' },
-      { 'code': '3', 'label': 'filter Operum 3' },
-      { 'code': '4', 'label': 'filter Operum 4' },
-      { 'code': '5', 'label': 'filter Operum 5' },
-      { 'code': '6', 'label': 'filter Operum 6' },
-      { 'code': '7', 'label': 'filter Operum 7' },
-      { 'code': '8', 'label': 'filter Operum 8' },
-      { 'code': '9', 'label': 'filter Operum 9' }
-    ],
-    filtersNominumValue: [],
-    filtersLocorumValue: [],
-    filtersOperumValue: [],
+    filters: { persons: [], places: [], objects: [] },
+    activeFilters: { persons: [], places: [], objects: [] },
     results: [],
+    resultsCount: '',
     isloading: false,
     opened: false
   },
@@ -66,6 +33,9 @@ export default {
     setResults (state, content) {
       state.results = content
     },
+    setResultsCount (state, quantity) {
+      state.resultsCount = `${quantity.quantity} ${quantity.unit}`
+    },
     setIsloading (state, isloading) {
       state.isloading = isloading
     },
@@ -75,14 +45,45 @@ export default {
     setSearchTypeValue (state, value) {
       state.searchTypeValue = value
     },
-    setFiltersNominumValue (state, value) {
-      state.filtersNominumValue = value
+    setFilters (state, filters) {
+      for (let index in filters) {
+        if (filters.hasOwnProperty(index)) {
+          console.log('index', index)
+          if (filters[index]) {
+            if (Array.isArray(filters[index])) {
+              state.filters[index] = []
+              for (var i = 0; i < filters[index].length; i++) {
+                if (filters[index][i].uuid && filters[index][i].title) {
+                  state.filters[index].push({
+                    code: filters[index][i].uuid,
+                    label: filters[index][i].title
+                  })
+                }
+              }
+            } else {
+              if (filters[index].uuid && filters[index].title) {
+                state.filters[index] = [{
+                  code: filters[index].uuid,
+                  label: filters[index].title
+                }]
+              }
+            }
+          } else {
+            state.filters[index] = []
+          }
+        }
+      }
+      console.log('filters', state.filters)
     },
-    setFiltersLocorumValue (state, value) {
-      state.filtersLocorumValue = value
+    setActiveFilters (state, filters) {
+      // console.log('setActiveFilters', filters)
+      state.activeFilters[filters.index] = filters.value
+      // console.log('state.activeFilters', state.activeFilters)
     },
-    setFiltersOperumValue (state, value) {
-      state.filtersOperumValue = value
+    resetFiltersValues (state) {
+      for (var index of ['persons', 'places', 'objects']) {
+        state.activeFilters[index] = []
+      }
     }
   },
 
@@ -92,11 +93,14 @@ export default {
       console.log('getResults', state.keys)
       commit('setIsloading', true)
       let params = {
-        search: state.keys
+        search: `${state.keys}`,
+        start: 1,
+        count: 30
       }
       if (state.searchTypeValue.code !== 'text') {
         params.type = state.searchTypeValue.code
       }
+      // if ()
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
       return REST.get(`${window.apipath}/search?` + q)
@@ -105,6 +109,8 @@ export default {
           commit('setIsloading', false)
           commit('setOpened', true)
           commit('setResults', data.content)
+          commit('setResultsCount', data.meta.quantity)
+          commit('setFilters', data.meta.filters)
         })
         .catch((error) => {
           console.warn('Issue with search', error)
@@ -116,18 +122,8 @@ export default {
       commit('setSearchTypeValue', value)
     },
     setSearchFiltersValue ({ dispatch, commit, state }, filters) {
-      console.log('setSearchFiltersValue', filters)
-      switch (filters.index) {
-        case 'nominum':
-          commit('setFiltersNominumValue', filters.value)
-          break
-        case 'locorum':
-          commit('setFiltersLocorumValue', filters.value)
-          break
-        case 'operum':
-          commit('setFiltersOperumValue', filters.value)
-          break
-      }
+      // console.log('setSearchFiltersValue', filters)
+      commit('setActiveFilters', filters)
     }
   }
 }

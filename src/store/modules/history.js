@@ -30,16 +30,22 @@ export default {
       commit('addItem', item)
       commit('setOpened', true)
       router.push({
-        name: `item`,
-        params: { uuid: item.uuid }
+        name: `editiontext`,
+        params: {
+          id: item.textId,
+          textid: item.uuid
+        }
       })
     },
     navigateToItem ({ dispatch, commit, state }, item) {
       console.log('history navigate to item', item, router)
       // commit('addItem', item)
       router.push({
-        name: `item`,
-        params: { uuid: item.uuid }
+        name: `editiontext`,
+        params: {
+          id: item.textId,
+          textid: item.uuid
+        }
       })
     }
   }

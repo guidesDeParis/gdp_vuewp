@@ -3,14 +3,22 @@
     <header>
       <h1>
         <a
-          :href="result.url"
+          :href="'/edition/'+result.textId+'/'+result.uuid"
+          @click.prevent="onclick"
+          @keyup.enter="onclick"
+          v-html="result.title[0]"
+        />
+      </h1>
+      <h2>
+        <a
+          :href="'/edition/'+result.textId+'/'+result.uuid"
           @click.prevent="onclick"
           @keyup.enter="onclick"
           v-html="result.textId"
         />
-      </h1>
+      </h2>
     </header>
-    <div class="extract" v-html="result.extract" />
+    <p v-if="preview" class="preview" v-html="preview" />
   </article>
 </template>
 
@@ -26,6 +34,17 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    preview: ''
+  }),
+  created () {
+    if (this.result.extract) {
+      const subString = this.result.extract.substr(0, 80)
+      this.preview = subString.substr(0, subString.lastIndexOf(' ')) + ' &hellip;'
+    } else {
+      console.warn(`No extract for ${this.result.textId}/${this.result.uuid}`)
+    }
+  },
   methods: {
     ...mapActions({
       addHistoryItem: 'History/addItem'
@@ -33,10 +52,6 @@ export default {
     onclick () {
       console.log('clicked on result item', this.result)
       this.addHistoryItem(this.result)
-      // this.$router.push({
-      //   name: `item`,
-      //   params: { uuid: this.result.uuid }
-      // })
     }
   }
 }

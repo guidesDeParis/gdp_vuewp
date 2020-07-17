@@ -8,7 +8,7 @@
       <header class="col-1">
         <h2>Resultats</h2>
         <span class="search-keys">{{ keys }}</span><br>
-        <span class="results-count">{{ results.length }} resultat(s)</span>
+        <span class="results-count">{{ resultsCount }}</span>
       </header>
       <section class="col-10 results-list">
         <div class="wrapper">
@@ -48,7 +48,8 @@ export default {
     },
     ...mapState({
       keys: state => state.Search.keys,
-      results: state => state.Search.results
+      results: state => state.Search.results,
+      resultsCount: state => state.Search.resultsCount
     })
   },
   methods: {
