@@ -57,7 +57,7 @@ export default {
       offset: state => state.Search.offset
     }),
     resultsCount () {
-      return `${this.resultsQuantity.quantity} ${this.resultsQuantity.unit}`
+      return `${this.$store.state.Search.resultsQuantity.quantity} ${this.$store.state.Search.resultsQuantity.unit}`
     }
   },
   methods: {
