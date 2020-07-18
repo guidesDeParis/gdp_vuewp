@@ -16,6 +16,9 @@
             <li v-for="result in results" :key="result.uuid" class="result">
               <ResultItem :result="result" />
             </li>
+            <infinite-loading
+              @infinite="nextResultsBatch"
+            />
           </ul>
         </div>
       </section>
@@ -34,7 +37,7 @@
 <script>
 
 import ResultItem from '../Content/ResultItem'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Results',
@@ -56,7 +59,10 @@ export default {
     close () {
       console.log('clicked on close results')
       this.opened = false
-    }
+    },
+    ...mapActions({
+      nextResultsBatch: 'Search/nextResultsBatch'
+    })
   }
 }
 </script>

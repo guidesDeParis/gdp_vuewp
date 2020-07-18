@@ -19,6 +19,8 @@ export default {
     results: [],
     resultsCount: '',
     isloading: false,
+    limit: 10,
+    offset: 0,
     opened: false
   },
 
@@ -31,10 +33,16 @@ export default {
       state.keys = keys
     },
     setResults (state, content) {
-      state.results = content
+      state.results = state.results.concat(content)
+    },
+    resetResults (state) {
+      state.results = []
     },
     setResultsCount (state, quantity) {
       state.resultsCount = `${quantity.quantity} ${quantity.unit}`
+    },
+    incrementOffset (state) {
+      state.offset += state.limit
     },
     setIsloading (state, isloading) {
       state.isloading = isloading
@@ -89,34 +97,56 @@ export default {
 
   // actions
   actions: {
-    getResults ({ dispatch, commit, state }) {
-      console.log('getResults', state.keys)
+    getResults ({ dispatch, commit, state }, $infiniteLoadingState = null) {
+      console.log('getResults', state.keys, $infiniteLoadingState)
+      // reset results on new search
+      if (!$infiniteLoadingState) {
+        commit('resetResults')
+      }
       commit('setIsloading', true)
       let params = {
         search: `${state.keys}`,
-        start: 1,
-        count: 30
+        start: state.offset,
+        count: state.limit
       }
       if (state.searchTypeValue.code !== 'text') {
         params.type = state.searchTypeValue.code
       }
+      // params.filterPersons = ['nomLouisXIII', 'nomChampagnePhilippeDe']
       // if ()
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
       return REST.get(`${window.apipath}/search?` + q)
         .then(({ data }) => {
-          console.log('search REST: data', data)
+          // console.log('search REST: data', data.meta.quantity.quantity, state.offset + state.limit, data)
           commit('setIsloading', false)
           commit('setOpened', true)
           commit('setResults', data.content)
           commit('setResultsCount', data.meta.quantity)
           commit('setFilters', data.meta.filters)
+          if ($infiniteLoadingState) {
+            if (state.offset + state.limit > data.meta.quantity.quantity) {
+              console.log('Search infinite completed')
+              // tell to vue-infinite-loading plugin that there si no new page
+              $infiniteLoadingState.complete()
+            } else {
+              console.log('Search infinite loaded')
+              // tell to vue-infinite-loading plugin that newpage is loaded
+              $infiniteLoadingState.loaded()
+            }
+          }
         })
         .catch((error) => {
           console.warn('Issue with search', error)
           commit('setIsloading', false)
+          $infiniteLoadingState.error()
           Promise.reject(error)
         })
+    },
+    nextResultsBatch ({ dispatch, commit, state }, $infiniteLoadingState) {
+      console.log('nextResultsBatch', $infiniteLoadingState)
+      commit('incrementOffset')
+      dispatch('getResults', $infiniteLoadingState)
     },
     setSearchTypeValue ({ dispatch, commit, state }, value) {
       commit('setSearchTypeValue', value)
