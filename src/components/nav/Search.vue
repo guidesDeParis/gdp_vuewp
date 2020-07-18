@@ -114,13 +114,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      getResults: 'Search/getResults',
+      newSearch: 'Search/newSearch',
       setSearchTypeValue: 'Search/setSearchTypeValue',
-      setSearchFiltersValue: 'Search/setSearchFiltersValue'
+      setSearchActiveFilters: 'Search/setSearchActiveFilters'
     }),
     submit () {
       console.log('submited', this.keys)
-      this.getResults()
+      this.newSearch()
     },
     dropDownMenuPos (dropdownList, component, { width }) {
       /**
@@ -170,15 +170,15 @@ export default {
     },
     onFiltersNominumSelected (e) {
       console.log('onFiltersNominumSelected', e)
-      this.setSearchFiltersValue({ index: 'persons', value: e })
+      this.setSearchActiveFilters({ index: 'persons', value: e })
     },
     onFiltersLocorumSelected (e) {
       console.log('onFiltersLocorumSelected', e)
-      this.setSearchFiltersValue({ index: 'places', value: e })
+      this.setSearchActiveFilters({ index: 'places', value: e })
     },
     onFiltersOperumSelected (e) {
       console.log('onFiltersOperumSelected', e)
-      this.setSearchFiltersValue({ index: 'objects', value: e })
+      this.setSearchActiveFilters({ index: 'objects', value: e })
     }
   }
 }

@@ -17,7 +17,7 @@ export default {
     filters: { persons: [], places: [], objects: [] },
     activeFilters: { persons: [], places: [], objects: [] },
     results: [],
-    resultsCount: '',
+    resultsQuantity: null,
     isloading: false,
     limit: 10,
     offset: 0,
@@ -37,9 +37,10 @@ export default {
     },
     resetResults (state) {
       state.results = []
+      state.offset = 0
     },
     setResultsCount (state, quantity) {
-      state.resultsCount = `${quantity.quantity} ${quantity.unit}`
+      state.resultsQuantity = quantity
     },
     incrementOffset (state) {
       state.offset += state.limit
@@ -88,7 +89,7 @@ export default {
       state.activeFilters[filters.index] = filters.value
       // console.log('state.activeFilters', state.activeFilters)
     },
-    resetFiltersValues (state) {
+    resetActiveFilters (state) {
       for (var index of ['persons', 'places', 'objects']) {
         state.activeFilters[index] = []
       }
@@ -100,9 +101,6 @@ export default {
     getResults ({ dispatch, commit, state }, $infiniteLoadingState = null) {
       console.log('getResults', state.keys, $infiniteLoadingState)
       // reset results on new search
-      if (!$infiniteLoadingState) {
-        commit('resetResults')
-      }
       commit('setIsloading', true)
       let params = {
         search: `${state.keys}`,
@@ -112,8 +110,17 @@ export default {
       if (state.searchTypeValue.code !== 'text') {
         params.type = state.searchTypeValue.code
       }
+      let f
+      for (var index of ['persons', 'places', 'objects']) {
+        if (state.activeFilters[index].length) {
+          f = `filter${index.charAt(0).toUpperCase()}${index.slice(1)}`
+          params[f] = []
+          for (var i = 0; i < state.activeFilters[index].length; i++) {
+            params[f].push(state.activeFilters[index][i].code)
+          }
+        }
+      }
       // params.filterPersons = ['nomLouisXIII', 'nomChampagnePhilippeDe']
-      // if ()
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
       return REST.get(`${window.apipath}/search?` + q)
@@ -143,17 +150,31 @@ export default {
           Promise.reject(error)
         })
     },
+    newSearch ({ dispatch, commit, state }) {
+      commit('resetResults')
+      commit('resetActiveFilters')
+      dispatch('getResults')
+    },
+    filteredSearch ({ dispatch, commit, state }) {
+      commit('resetResults')
+      dispatch('getResults')
+    },
     nextResultsBatch ({ dispatch, commit, state }, $infiniteLoadingState) {
       console.log('nextResultsBatch', $infiniteLoadingState)
       commit('incrementOffset')
-      dispatch('getResults', $infiniteLoadingState)
+      if (state.offset < state.resultsQuantity.quantity) {
+        dispatch('getResults', $infiniteLoadingState)
+      } else {
+        $infiniteLoadingState.complete()
+      }
     },
     setSearchTypeValue ({ dispatch, commit, state }, value) {
       commit('setSearchTypeValue', value)
     },
-    setSearchFiltersValue ({ dispatch, commit, state }, filters) {
+    setSearchActiveFilters ({ dispatch, commit, state }, filters) {
       // console.log('setSearchFiltersValue', filters)
       commit('setActiveFilters', filters)
+      dispatch('filteredSearch')
     }
   }
 }

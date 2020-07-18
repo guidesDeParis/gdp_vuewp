@@ -8,7 +8,7 @@
       <header class="col-1">
         <h2>Resultats</h2>
         <span class="search-keys">{{ keys }}</span><br>
-        <span class="results-count">{{ resultsCount }}</span>
+        <span v-if="resultsQuantity" class="results-count">{{ resultsCount }}</span>
       </header>
       <section class="col-10 results-list">
         <div class="wrapper">
@@ -17,6 +17,7 @@
               <ResultItem :result="result" />
             </li>
             <infinite-loading
+              v-if="offset < resultsQuantity.quantity"
               @infinite="nextResultsBatch"
             />
           </ul>
@@ -52,8 +53,12 @@ export default {
     ...mapState({
       keys: state => state.Search.keys,
       results: state => state.Search.results,
-      resultsCount: state => state.Search.resultsCount
-    })
+      resultsQuantity: state => state.Search.resultsQuantity,
+      offset: state => state.Search.offset
+    }),
+    resultsCount () {
+      return `${this.resultsQuantity.quantity} ${this.resultsQuantity.unit}`
+    }
   },
   methods: {
     close () {
