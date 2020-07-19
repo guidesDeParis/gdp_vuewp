@@ -342,8 +342,14 @@ section[role="main-content"]{
     }
 
     >nav{
-      >section{
-        padding:0 0 0 1.5em;
+      padding-bottom: 0;
+      $pager_h:2em;
+      section#toc{
+        box-sizing: content-box;
+        padding:0 0 1em 1.5em;
+        height:calc(100% - #{$pager_h});
+        overflow-x: hidden;
+        overflow-y: auto;
         >ul{
           ul{
             li{
@@ -396,7 +402,17 @@ section[role="main-content"]{
           span.toc-title{font-size: 0.882em;}
         }
       }
-
+      div#page-nav{
+        height:$pager_h;
+        overflow: hidden;
+        box-sizing: content-box;
+        padding:0 1.5em;
+        select{
+          option{
+            padding:0;
+          }
+        }
+      }
     }
   }
 
@@ -683,62 +699,62 @@ footer[role="tools"]{
     text-transform: uppercase;
     padding:0;
   }
-  .v-select{
+
+}
+.v-select{
+  padding:0;
+  div[role="combobox"]{
+    background-color: #fff;
     padding:0;
-    div[role="combobox"]{
-      background-color: #fff;
-      padding:0;
-      border-radius: 2px;
-      border: none;
+    border-radius: 2px;
+    border: none;
+  }
+  input[type="search"]{
+    margin:0;
+    padding:0;
+  }
+  .vs__search{
+    &, &:focus{
+      font-size: 0.756em;
+      line-height: 1;
+      height:1.2em;
+      border:none;
+      box-sizing: border-box;
     }
-    input[type="search"]{
-      margin:0;
-      padding:0;
-    }
-    .vs__search{
-      &, &:focus{
-        font-size: 0.756em;
-        line-height: 1;
-        height:1.2em;
-        border:none;
-        box-sizing: border-box;
+  }
+  .vs__actions{
+    padding:1px 3px;
+    svg[role="presentation"]{
+      transform: scale(0.8);
+      path{
+        fill: $bleuroi;
       }
     }
-    .vs__actions{
-      padding:1px 3px;
-      svg[role="presentation"]{
+  }
+  .vs__selected{
+    margin:0;
+    padding:0;
+    line-height:1;
+    font-size: 0.756em;
+  }
+  // border-radius: 2px;
+  // border: none;
+}
+.v-select{
+  .vs__selected{
+    background-color: #fff;
+    border:none;
+    padding:0.3em 0.5em;
+    button{
+      svg{
         transform: scale(0.8);
         path{
           fill: $bleuroi;
         }
       }
     }
-    .vs__selected{
-      margin:0;
-      padding:0;
-      line-height:1;
-      font-size: 0.756em;
-    }
-    // border-radius: 2px;
-    // border: none;
-  }
-  fieldset.filters .v-select{
-    .vs__selected{
-      background-color: #fff;
-      border:none;
-      padding:0.3em 0.5em;
-      button{
-        svg{
-          transform: scale(0.8);
-          path{
-            fill: $bleuroi;
-          }
-        }
-      }
-    }
   }
 }
-
 // vue-select
 ul[role="listbox"]{
   @include fontsans;

@@ -48,6 +48,7 @@
           :textid="textid"
           @onHoverLink="onHoverLink"
           @onLeaveLink="onLeaveLink"
+          @onNewPageBreaks="onNewPageBreaks"
         />
         <infinite-loading
           :identifier="textid"
@@ -57,16 +58,34 @@
     </div>
 
     <template #nav>
-      <EdToc :toc="toc" :loadedtextsuuids="textsuuids" @onClickTocItem="onClickTocItem" />
+      <EdToc id="toc" :toc="toc" :loadedtextsuuids="textsuuids" @onClickTocItem="onClickTocItem" />
+      <div v-if="pages.length" id="page-nav">
+        <!-- <select class="" name="page-nav" v-model="page_selected" placeholder="Pages">
+          <option value="" disabled selected>Pages</option>
+          <option v-for="(page, index) in pages" :key="index" :value="page">{{ page }}</option>
+        </select> -->
+        <v-select
+          id="page-nav-select"
+          type="select"
+          placeholder="Aller à la page ..."
+          append-to-body
+          :calculate-position="dropDownMenuPos"
+          :options="pages"
+          :clearable="false"
+          :value="page_selected"
+          @input="onPageSelected"
+        />
+      </div>
     </template>
   </MainContentLayout>
 </template>
 
 <script>
 
+import { createPopper } from '@popperjs/core'
+
 import { REST } from 'api/rest-axios'
 import { mapState, mapActions } from 'vuex'
-
 import MainContentLayout from '../components/Layouts/MainContentLayout'
 import EdText from '../components/Content/EdText'
 import EdToc from '../components/Content/EdToc'
@@ -102,7 +121,11 @@ export default {
     next_loaded: false,
     center_scrolled: false,
     inifinite_load_distance: 10,
-    reftoscrollto: null
+    reftoscrollto: null,
+    //
+    pages: [],
+    pagesOptions: [],
+    page_selected: ''
   }),
   computed: {
     ...mapState({
@@ -115,11 +138,17 @@ export default {
       console.log('textid watcher', this, oldid, newid)
       this.texts = []
       this.textsuuids = []
+      this.pages = []
+      this.pagesOtpions = []
       this.getTextContent(newid)
     },
     textdata: function (newtxtdata, oldtxtdata) {
       console.log('textdata watcher', oldtxtdata, newtxtdata)
       this.metainfotitle = `${this.title} ${newtxtdata.meta.title}`
+    },
+    page_selected: function (newp, oldp) {
+      console.log('page_selected watcher', oldp, newp)
+      this.scrollToPage(newp)
     }
   },
   beforeCreate () {
@@ -276,6 +305,72 @@ export default {
           }
         })
       }
+    },
+    onNewPageBreaks (p) {
+      // console.log('onNewPageBreaks', p)
+      for (var i = 0; i < p.length; i++) {
+        if (this.pages.indexOf(p[i]) === -1) {
+          this.pages.push(p[i])
+        }
+      }
+      // reorder array
+      this.pages.sort((a, b) => a - b)
+      // this.pagesOptions = []
+      // for (var j = 0; j < this.pages.length; j++) {
+      //   this.pagesOptions.push({ code: this.pages[j], label: `page ${this.pages[j]}` })
+      // }
+    },
+    dropDownMenuPos (dropdownList, component, { width }) {
+      /**
+       * We need to explicitly define the dropdown width since
+       * it is usually inherited from the parent with CSS.
+       */
+      dropdownList.style.width = width
+
+      /**
+       * Here we position the dropdownList relative to the $refs.toggle Element.
+       *
+       * The 'offset' modifier aligns the dropdown so that the $refs.toggle and
+       * the dropdownList overlap by 1 pixel.
+       *
+       * The 'toggleClass' modifier adds a 'drop-up' class to the Vue Select
+       * wrapper so that we can set some styles for when the dropdown is placed
+       * above.
+       */
+      const popper = createPopper(component.$refs.toggle, dropdownList, {
+        placement: 'top',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, -1]
+            }
+          },
+          {
+            name: 'toggleClass',
+            enabled: true,
+            phase: 'write',
+            fn ({ state }) {
+              component.$el.classList.toggle('drop-up', state.placement === 'top')
+            }
+          }]
+      })
+
+      /**
+       * To prevent memory leaks Popper needs to be destroyed.
+       * If you return function, it will be called just before dropdown is removed from DOM.
+       */
+      return () => popper.destroy()
+    },
+    onPageSelected (e) {
+      console.log('onPageSelected', e)
+      this.page_selected = e
+      this.scrollToPage(e)
+      // this.scrollToPage(e.code)
+    },
+    scrollToPage (p) {
+      // console.log('scrollToPage', p)
+      this.reftoscrollto = `span[role="pageBreak"][data-num="${p}"]`
     }
   }
 }

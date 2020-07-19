@@ -11,7 +11,8 @@ export default {
   },
   data: () => ({
     template: null,
-    html: null
+    html: null,
+    pages: []
   }),
   watch: {
     tei: function (newtei, oldtei) {
@@ -25,6 +26,9 @@ export default {
     if (this.tei) {
       this.buildTemplate()
     }
+  },
+  mounted () {
+    this.$emit('onNewPageBreaks', this.pages)
   },
   methods: {
     buildTemplate () {
@@ -85,7 +89,7 @@ export default {
     },
     parsePageBreaks () {
       let pbs = this.html.match(/<span role="pageBreak"[^>]+><\/span>/g)
-      console.log('pagebreaks', pbs)
+      // console.log('pagebreaks', pbs)
       if (pbs) {
         let pbparts, newpb, num
         for (var i = 0; i < pbs.length; i++) {
@@ -93,14 +97,16 @@ export default {
           if (!pbparts) {
             console.warn(`pageBreak ${i} maformed`, pbs[i])
           } else {
-            console.log('pbparts', pbparts)
+            // console.log('pbparts', pbparts)
             num = pbparts[1]
+            this.pages.push(num)
             newpb = `<span` +
+              // ` id="page-break-${num}"` +
               ` role="pageBreak"` +
               ` data-num="${num}"` +
               ` data-num-prev="${num - 1}"` +
               ` />`
-            console.log('newpb', newpb)
+            // console.log('newpb', newpb)
             this.html = this.html.replace(pbs[i], newpb)
           }
         }
