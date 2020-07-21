@@ -43,8 +43,8 @@ export default {
       router.push({
         name: `editiontext`,
         params: {
-          id: item.textId,
-          textid: item.uuid
+          id: item.id,
+          textid: item.textid
         }
       })
     }
