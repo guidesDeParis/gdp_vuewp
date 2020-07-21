@@ -60,7 +60,19 @@ export default {
     }),
     onclick () {
       console.log('clicked on result item', this.result)
-      this.addHistoryItem(this.result)
+      this.addHistoryItem({
+        id: this.result.textId,
+        textid: this.result.uuid,
+        title: this.result.title[0],
+        editionTitle: this.editionTitle
+      })
+      this.$router.push({
+        name: `editiontext`,
+        params: {
+          id: this.result.textId,
+          textid: this.result.uuid
+        }
+      })
     }
   }
 }

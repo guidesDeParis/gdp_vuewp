@@ -1,16 +1,25 @@
 <template>
-  <article class="history item">
-    <header>
-      <h1>
-        <a
-          :href="item.url"
-          @click.prevent="onclick"
-          @keyup.enter="onclick"
-          v-html="item.textId"
-        />
-      </h1>
-    </header>
-    <div class="extract" v-html="item.extract" />
+  <article class="result item">
+    <h1>
+      <a
+        :href="'/edition/'+item.textId+'/'+item.uuid"
+        @click.prevent="onclick"
+        @keyup.enter="onclick"
+        v-html="item.title"
+      />
+    </h1>
+    <h2>
+      <a
+        :href="'/edition/'+item.textId+'/'+item.uuid"
+        @click.prevent="onclick"
+        @keyup.enter="onclick"
+        v-html="item.editionTitle"
+      />
+    </h2>
+    <!-- <p v-if="preview" class="preview" v-html="preview" /> -->
+    <aside>
+      <span>Pagination</span> | <span>Nbr mots</span>
+    </aside>
   </article>
 </template>
 

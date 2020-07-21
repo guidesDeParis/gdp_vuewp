@@ -1,7 +1,7 @@
 <template>
   <div id="search" class="col-11">
     <form class="search-form row">
-      <fieldset class="search col-2">
+      <fieldset class="search">
         <div>
           <label for="keys">Search</label>
           <input

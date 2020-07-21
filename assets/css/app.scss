@@ -6,6 +6,25 @@
 @import './base/fonts';
 @import './base/transitions';
 
+/* The emerging W3C standard
+that is currently Firefox-only */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $grisclair rgba(255,255,255,0);
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: $grisclair;
+  border-radius: 20px;
+  border: none;
+}
 
 body{
   color: #1a1a1a;
@@ -479,8 +498,48 @@ section[role="main-content"]{
 
 
 }
+
 footer[role="tools"]{
-  $list-item-h: 5.3em;
+  $list-item-h: 5em;
+
+  @mixin resultItem{
+    box-sizing: border-box;
+    // we are only on 10 colls as 2 are occupied by sides
+    flex-basis: percentage(2/($default_sum - 2));
+    height: $list-item-h;
+    overflow: hidden;
+    padding-bottom: 1em;
+    padding-right: $default_gap;
+    article{
+      max-height: 100%;
+      overflow: hidden;
+    }
+    article.item{
+        h1{
+          @include title3black;
+          font-weight: 600;
+          max-width: 95%;
+        }
+        h2{
+          @include title3black;
+          text-transform: none;
+        }
+        span{
+          font-size: 0.882em;
+        }
+      // .preview{
+      //   font-size: 0.882em;
+      //   margin:0;
+      //   code{
+      //     @include fontserif;
+      //     background-color: lighten(desaturate($rouge,20%), 20%);
+      //     padding:0 0.2em;
+      //   }
+      // }
+    }
+
+  }
+
   #history{
     z-index: 8;
     background-color: $or;
@@ -496,7 +555,7 @@ footer[role="tools"]{
         height:100%;
         // hidding the scrollbar
         overflow-y: auto;
-        width:calc(100% + 1em);
+        // width:calc(100% + 1em);
         padding-right: 1em;
         >ul{
           padding:0;
@@ -506,35 +565,7 @@ footer[role="tools"]{
         }
       }
       li.item{
-        box-sizing: border-box;
-        // we are only on 10 colls as 2 are occupied by sides
-        flex-basis: percentage(2/($default_sum - 2));
-        height: $list-item-h;
-        overflow: hidden;
-        padding-bottom: 1em;
-        padding-right: $default_gap;
-        article{
-          max-height: 100%;
-          overflow: hidden;
-        }
-      }
-      article.history.item{
-        header{
-          h1{
-            font-size: 0.882em;
-            font-weight: normal;
-            margin:0 0 0.5em 0;
-          }
-        }
-        .extract{
-          p{
-            font-size: 0.882em;
-            margin:0;
-          }
-          code{
-            background-color: lighten(desaturate($rouge,20%), 20%);
-          }
-        }
+        @include resultItem;
       }
     }
   }
@@ -560,7 +591,7 @@ footer[role="tools"]{
         height:100%;
         // hidding the scrollbar
         overflow-y: auto;
-        width:calc(100% + 1em);
+        // width:calc(100% + 1em);
         padding-right: 1em;
         >ul{
           padding:0;
@@ -570,39 +601,7 @@ footer[role="tools"]{
         }
       }
       li.result{
-        box-sizing: border-box;
-        // we are only on 10 colls as 2 are occupied by sides
-        flex-basis: percentage(2/($default_sum - 2));
-        height: $list-item-h;
-        overflow: hidden;
-        padding-bottom: 1em;
-        padding-right: $default_gap;
-        article{
-          max-height: 100%;
-          overflow: hidden;
-        }
-      }
-      article.result.item{
-          h1{
-            @include title3black;
-            font-weight: 600;
-          }
-          h2{
-            @include title3black;
-            text-transform: none;
-          }
-          span{
-            font-size: 0.882em;
-          }
-        // .preview{
-        //   font-size: 0.882em;
-        //   margin:0;
-        //   code{
-        //     @include fontserif;
-        //     background-color: lighten(desaturate($rouge,20%), 20%);
-        //     padding:0 0.2em;
-        //   }
-        // }
+        @include resultItem;
       }
       .infinite-loading-container{
         // TODO: how to center the loading
@@ -652,12 +651,18 @@ footer[role="tools"]{
       color: #fff;
       background-color: $bleuroi;
       form{
-        // padding: 0.7em;
+        padding: 0;
+        // display: flex;
+        // flex-direction: row;
+        // flex-wrap: wrap;
         fieldset{
           padding:0.7em 1em;
           border: none;
+          box-sizing:border-box;
           // width correction as row is not the same width as others in the page
+          // flex-basis: percentage(2/($default_sum - 1));
           flex-basis: 17.667%;
+          // flex-basis: percentage(2 / 11);
           &:not(:first-of-type){
             border-left: 1px solid $grisclair;
           }

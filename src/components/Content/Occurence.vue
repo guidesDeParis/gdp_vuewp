@@ -37,6 +37,7 @@
 <script>
 
 import { REST } from 'api/rest-axios'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Occurence',
@@ -49,6 +50,14 @@ export default {
     isopened: false,
     tei: ''
   }),
+  computed: {
+    ...mapState({
+      editionsbyuuid: state => state.Corpus.editionsbyuuid
+    }),
+    editionTitle () {
+      return this.editionsbyuuid[this.ed.item].title
+    }
+  },
   created () {
     console.log('occurence beforeCreate')
     REST.get(`${window.apipath}/items/` + this.oc.uuid, {})
@@ -66,9 +75,19 @@ export default {
       })
   },
   methods: {
+    ...mapActions({
+      addHistoryItem: 'History/addItem'
+    }),
     onGoToText (e) {
-      console.log('clicked on text occurence', e)
+      console.log('clicked on text occurence', e, this.oc.title, this.ed)
+
       if (e.target.getAttribute('eduuid')) {
+        this.addHistoryItem({
+          id: e.target.getAttribute('eduuid'),
+          textid: e.target.getAttribute('uuid'),
+          title: this.oc.title,
+          editionTitle: this.editionTitle
+        })
         this.$router.push({
           name: `editiontext`,
           params: {
