@@ -13,6 +13,7 @@ import Nominum from 'pages/Nominum'
 import Locorum from 'pages/Locorum'
 import Operum from 'pages/Operum'
 import Bibliographie from 'pages/Bibliographie'
+import NotFound from 'pages/NotFound'
 
 Vue.use(Router)
 
@@ -82,6 +83,12 @@ const routes = [
     name: 'bibliographie',
     path: '/bibliographie',
     component: Bibliographie
+  },
+  {
+    name: 'notfound',
+    path: '/404',
+    alias: '*',
+    component: NotFound
   }
 ]
 

@@ -160,7 +160,7 @@ export default {
         console.log('texts/toc REST: data', data)
         this.meta = data.meta
         this.author = data.meta.author
-        if (data.content) {
+        if (data.content && data.content !== 'vide') {
           if (Array.isArray(data.content)) {
             this.toc = data.content
           } else {
@@ -171,10 +171,16 @@ export default {
             // console.log('toc', this.toc)
             this.textid = this.toc[0].children[1].uuid
           }
+        } else {
+          console.warn('Bad edition uuid', this.$route.params.id, this.$route)
+          this.$router.replace({
+            name: 'notfound',
+            query: { fullpath: this.$route.path }
+          })
         }
       })
       .catch((error) => {
-        console.warn('Issue with locorum', error)
+        console.warn('Issue with text toc', error)
         Promise.reject(error)
       })
   },
@@ -240,7 +246,12 @@ export default {
         })
         .catch((error) => {
           console.warn('Issue with getTextContent', error)
+          console.warn('Bad edition uuid', this.$route.params.id, this.$route)
           Promise.reject(error)
+          this.$router.replace({
+            name: 'notfound',
+            query: { fullpath: this.$route.path }
+          })
         })
     },
     onCenterScrolled (e) {

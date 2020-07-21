@@ -46,6 +46,10 @@ export default {
       .catch((error) => {
         console.warn('Issue with operum', error)
         Promise.reject(error)
+        this.$router.replace({
+          name: 'notfound',
+          query: { fullpath: this.$route.path }
+        })
       })
   }
 }
