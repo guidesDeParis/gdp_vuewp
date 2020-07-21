@@ -125,7 +125,7 @@ export default {
       let q = qs.stringify(params)
       return REST.get(`${window.apipath}/search?` + q)
         .then(({ data }) => {
-          // console.log('search REST: data', data.meta.quantity.quantity, state.offset + state.limit, data)
+          console.log('search REST: data', data.meta.quantity.quantity, state.offset + state.limit, data)
           commit('setIsloading', false)
           commit('setOpened', true)
           commit('setResults', data.content)

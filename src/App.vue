@@ -33,7 +33,7 @@ import History from './components/nav/History'
 import Results from './components/nav/Results'
 import Search from './components/nav/Search'
 import FooterTabs from './components/nav/FooterTabs'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   metaInfo: {
@@ -55,7 +55,18 @@ export default {
   },
   computed: {
     ...mapState({
-      resultsOpened: state => state.Search.opened
+      resultsOpened: state => state.Search.opened,
+      editionslist: state => state.Corpus.editionslist
+    })
+  },
+  created () {
+    if (!this.editionslist.length) {
+      this.getCorpuses()
+    }
+  },
+  methods: {
+    ...mapActions({
+      getCorpuses: 'Corpus/getCorpuses'
     })
   }
 }

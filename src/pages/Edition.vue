@@ -4,7 +4,10 @@
       <span>Loading ...</span>
     </template>
     <template #header>
-      <h1>{{ title }}</h1>
+      <h1>
+        <router-link :to="{ name:'edition', params: { id: editionid }}">{{ title }}</router-link>
+      </h1>
+
       <p v-if="meta">{{ meta.author }}</p>
       <aside
         v-if="indexitem"
@@ -134,19 +137,36 @@ export default {
     })
   },
   watch: {
-    textid: function (newid, oldid) {
+    $route (to, from) {
+      console.log('Edition Watcher $route', from, to)
+      if (to.params.textid) {
+        // change textid when route change
+        this.textid = to.params.textid
+      } else if (this.toc) {
+        // if no textid in new route (e.g. edition front)
+        // but we have toc
+        // get the first item
+        // will be replaced by front page of edition
+        this.textid = this.toc[0].children[1].uuid
+      } else {
+        this.textid = null
+      }
+    },
+    textid (newid, oldid) {
       console.log('textid watcher', this, oldid, newid)
       this.texts = []
       this.textsuuids = []
       this.pages = []
       this.pagesOtpions = []
-      this.getTextContent(newid)
+      if (newid) {
+        this.getTextContent(newid)
+      }
     },
-    textdata: function (newtxtdata, oldtxtdata) {
+    textdata (newtxtdata, oldtxtdata) {
       console.log('textdata watcher', oldtxtdata, newtxtdata)
       this.metainfotitle = `${this.title} ${newtxtdata.meta.title}`
     },
-    page_selected: function (newp, oldp) {
+    page_selected (newp, oldp) {
       console.log('page_selected watcher', oldp, newp)
       this.scrollToPage(newp)
     }
@@ -190,7 +210,7 @@ export default {
 
     // load editions list from Corpus Store if not exist
     if (!this.editionslist.length) {
-      this.getCorpuses()
+      // this.getCorpuses()
       // subsribe to store to get the editionbyuuid list
       // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
       this.unsubscribe = this.$store.subscribe((mutation, state) => {
@@ -210,19 +230,19 @@ export default {
       this.textid = this.$route.params.textid
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    // called when the route that renders this component has changed,
-    // but this component is reused in the new route.
-    // For example, for a route with dynamic params `/foo/:id`, when we
-    // navigate between `/foo/1` and `/foo/2`, the same `Foo` component instance
-    // will be reused, and this hook will be called when that happens.
-    // has access to `this` component instance.
-    // console.log('beforeRouteUpdate to', to)
-    if (to.params.textid) {
-      this.textid = to.params.textid
-    }
-    next()
-  },
+  // beforeRouteUpdate (to, from, next) {
+  //   // called when the route that renders this component has changed,
+  //   // but this component is reused in the new route.
+  //   // For example, for a route with dynamic params `/foo/:id`, when we
+  //   // navigate between `/foo/1` and `/foo/2`, the same `Foo` component instance
+  //   // will be reused, and this hook will be called when that happens.
+  //   // has access to `this` component instance.
+  //   // console.log('beforeRouteUpdate to', to)
+  //   if (to.params.textid) {
+  //     this.textid = to.params.textid
+  //   }
+  //   next()
+  // },
   methods: {
     ...mapActions({
       getCorpuses: 'Corpus/getCorpuses'
@@ -246,7 +266,6 @@ export default {
         })
         .catch((error) => {
           console.warn('Issue with getTextContent', error)
-          console.warn('Bad edition uuid', this.$route.params.id, this.$route)
           Promise.reject(error)
           this.$router.replace({
             name: 'notfound',

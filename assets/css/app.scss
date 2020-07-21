@@ -582,24 +582,26 @@ footer[role="tools"]{
         }
       }
       article.result.item{
-        header{
           h1{
             @include title3black;
             font-weight: 600;
           }
           h2{
             @include title3black;
+            text-transform: none;
           }
-        }
-        .preview{
-          font-size: 0.882em;
-          margin:0;
-          code{
-            @include fontserif;
-            background-color: lighten(desaturate($rouge,20%), 20%);
-            padding:0 0.2em;
+          span{
+            font-size: 0.882em;
           }
-        }
+        // .preview{
+        //   font-size: 0.882em;
+        //   margin:0;
+        //   code{
+        //     @include fontserif;
+        //     background-color: lighten(desaturate($rouge,20%), 20%);
+        //     padding:0 0.2em;
+        //   }
+        // }
       }
     }
   }

@@ -1,30 +1,31 @@
 <template>
   <article class="result item">
-    <header>
-      <h1>
-        <a
-          :href="'/edition/'+result.textId+'/'+result.uuid"
-          @click.prevent="onclick"
-          @keyup.enter="onclick"
-          v-html="result.title[0]"
-        />
-      </h1>
-      <h2>
-        <a
-          :href="'/edition/'+result.textId+'/'+result.uuid"
-          @click.prevent="onclick"
-          @keyup.enter="onclick"
-          v-html="result.textId"
-        />
-      </h2>
-    </header>
-    <p v-if="preview" class="preview" v-html="preview" />
+    <h1>
+      <a
+        :href="'/edition/'+result.textId+'/'+result.uuid"
+        @click.prevent="onclick"
+        @keyup.enter="onclick"
+        v-html="result.title[0]"
+      />
+    </h1>
+    <h2>
+      <a
+        :href="'/edition/'+result.textId+'/'+result.uuid"
+        @click.prevent="onclick"
+        @keyup.enter="onclick"
+        v-html="editionTitle"
+      />
+    </h2>
+    <!-- <p v-if="preview" class="preview" v-html="preview" /> -->
+    <aside>
+      <span>Pagination</span> | <span>Nbr mots</span>
+    </aside>
   </article>
 </template>
 
 <script>
 
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'ResultItem',
@@ -37,6 +38,14 @@ export default {
   data: () => ({
     preview: ''
   }),
+  computed: {
+    ...mapState({
+      editionsbyuuid: state => state.Corpus.editionsbyuuid
+    }),
+    editionTitle () {
+      return this.editionsbyuuid[this.result.textId].title
+    }
+  },
   created () {
     if (this.result.extract) {
       const subString = this.result.extract.substr(0, 80)
