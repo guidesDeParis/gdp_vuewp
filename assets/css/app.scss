@@ -556,6 +556,7 @@ footer[role="tools"]{
     .results-list{
       overflow-x: hidden;
       .wrapper{
+        position:relative;
         height:100%;
         // hidding the scrollbar
         overflow-y: auto;
@@ -603,6 +604,9 @@ footer[role="tools"]{
         //   }
         // }
       }
+      .infinite-loading-container{
+        // TODO: how to center the loading
+      }
     }
   }
   #footer-bottom{
@@ -648,17 +652,19 @@ footer[role="tools"]{
       color: #fff;
       background-color: $bleuroi;
       form{
-        padding: 0.7em;
+        // padding: 0.7em;
         fieldset{
-          padding:0em 1em;
+          padding:0.7em 1em;
           border: none;
+          // width correction as row is not the same width as others in the page
+          flex-basis: 17.667%;
           &:not(:first-of-type){
             border-left: 1px solid $grisclair;
           }
         }
         fieldset.search{
+          display: inline-flex;
           >div{
-            display: inline-block;
             width:80%;
             vertical-align: middle;
           }
@@ -692,6 +698,14 @@ footer[role="tools"]{
           }
         }
       }
+
+      fieldset.filters{
+        .vs__actions{
+          background-color: $grisclair;
+          align-items:baseline;
+          padding-top:0.2em;
+        }
+      }
     }
   }
   h2{
@@ -701,8 +715,9 @@ footer[role="tools"]{
     text-transform: uppercase;
     padding:0;
   }
-
 }
+
+// vue-select
 .v-select{
   padding:0;
   div[role="combobox"]{
@@ -735,18 +750,19 @@ footer[role="tools"]{
   }
   .vs__selected{
     margin:0;
-    padding:0;
+    padding:0.2em 0;
     line-height:1;
     font-size: 0.756em;
-  }
-  // border-radius: 2px;
-  // border: none;
-}
-.v-select{
-  .vs__selected{
     background-color: #fff;
     border:none;
-    padding:0.3em 0.5em;
+    align-items: middle;
+    box-sizing: content-box;
+    display: inline-block;
+    width: calc(100% - 12px);
+    // &>*:not(button){
+    //   display: inline-block;
+    //   width:70%;
+    // }
     button{
       svg{
         transform: scale(0.8);
@@ -754,20 +770,34 @@ footer[role="tools"]{
           fill: $bleuroi;
         }
       }
+      &.vs__deselect{
+        line-height: 0;
+      }
     }
+
   }
+
+  // border-radius: 2px;
+  // border: none;
 }
-// vue-select
+
 ul[role="listbox"]{
   @include fontsans;
   padding:0;
   margin:0;
   border:none;
+  position: relative;
   li{
+    box-sizing: content-box;
     padding:0.3em;
     margin:0;
     font-size: 0.756em;
     line-height: 1;
+    white-space: normal;
+    position: relative;
+    *{
+      max-width: 100%;
+    }
   }
 }
 
