@@ -78,8 +78,11 @@
 
 <script>
 
+import qs from 'querystring'
+
 import { REST } from 'api/rest-axios'
 import { mapState, mapActions } from 'vuex'
+
 import MainContentLayout from '../components/Layouts/MainContentLayout'
 import EdText from '../components/Content/EdText'
 import EdToc from '../components/Content/EdToc'
@@ -100,7 +103,6 @@ export default {
     EdPagination
   },
   data: () => ({
-    toc: null,
     meta: null,
     editionid: null,
     textid: null,
@@ -118,6 +120,8 @@ export default {
     center_scrolled: false,
     inifinite_load_distance: 10,
     reftoscrollto: null,
+    //
+    toc: null,
     //
     pagination: null
   }),
@@ -162,103 +166,62 @@ export default {
       this.scrollToPage(newp)
     }
   },
-  beforeCreate () {
-    console.log('texts this.$route', this.$route)
-    // http://localhost:8984/texts/gdpSauval1724/toc
-    // get the edition's toc
-    REST.get(`${window.apipath}/texts/` + this.$route.params.id + `/toc`, {})
-      .then(({ data }) => {
-        console.log('texts/toc REST: data', data)
-        this.meta = data.meta
-        this.author = data.meta.author
-        if (data.content && data.content !== 'vide') {
-          if (Array.isArray(data.content)) {
-            this.toc = data.content
-          } else {
-            this.toc = [data.content]
-          }
-          // if front page get the first item in toc
-          if (!this.$route.params.textid) {
-            // console.log('toc', this.toc)
-            this.textid = this.toc[0].children[1].uuid
-          }
-        } else {
-          console.warn('Bad edition uuid', this.$route.params.id, this.$route)
-          // this.$router.replace({
-          //   name: 'notfound',
-          //   query: { fullpath: this.$route.path }
-          // })
-        }
-      })
-      .catch((error) => {
-        console.warn('Issue with text toc', error)
-        Promise.reject(error)
-      })
-    // get the edition's pagination
-    REST.get(`${window.apipath}/texts/` + this.$route.params.id + `/pagination`, {})
-      .then(({ data }) => {
-        console.log('texts/pagination REST: data', data)
-        if (data.content && data.content !== 'vide') {
-          this.pagination = data.content
-        } else {
-          console.warn('Bad edition uuid', this.$route.params.id, this.$route)
-          // this.$router.replace({
-          //   name: 'notfound',
-          //   query: { fullpath: this.$route.path }
-          // })
-        }
-      })
-      .catch((error) => {
-        console.warn('Issue with text toc', error)
-        Promise.reject(error)
-      })
-  },
   created () {
     // console.log('Edition this.$route.params.id', this.$route.params.id)
     this.editionid = this.$route.params.id
-
-    // load editions list from Corpus Store if not exist
-    if (!this.editionslist.length) {
-      // this.getCorpuses()
-      // subsribe to store to get the editionbyuuid list
-      // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
-      this.unsubscribe = this.$store.subscribe((mutation, state) => {
-        // console.log('Edition store subscribe', mutation.type)
-        if (mutation.type === 'Corpus/setEditionsByUUID') {
-          console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
-          // this.title = 'HoHoHo'
-          this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
-        }
-      })
-    } else {
-      this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
-    }
 
     // get the text if textid available
     if (this.$route.params.textid) {
       this.textid = this.$route.params.textid
     }
+
+    // wait for editions list from Corpus Store if not already loaded
+    if (!this.editionslist.length) {
+      // this.getCorpuses()
+      // subsribe to store to get the editionbyuuid list
+      // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
+      this.edUuuidsUnsubscribe = this.$store.subscribe((mutation, state) => {
+        // console.log('Edition store subscribe', mutation.type)
+        if (mutation.type === 'Corpus/setEditionsByUUID') {
+          // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+          this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
+        }
+        if (mutation.type === 'Corpus/setTocs') {
+          // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+          this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
+          // if no textid in new route (e.g. edition front)
+          // but we have toc
+          // get the first item
+          // will be replaced by front page of edition
+          if (!this.textid) { this.textid = this.toc[0].children[1].uuid }
+        }
+        if (mutation.type === 'Corpus/setPaginations') {
+          // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+          this.pagination = state.Corpus.editionsbyuuid[this.editionid].pagination
+        }
+      })
+    } else {
+      this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
+      this.toc = this.editionsbyuuid[this.editionid].toc
+      // if no textid in new route (e.g. edition front)
+      // but we have toc
+      // get the first item
+      // will be replaced by front page of edition
+      if (!this.textid) { this.textid = this.toc[0].children[1].uuid }
+      this.pagination = this.editionsbyuuid[this.editionid].pagination
+    }
   },
-  // beforeRouteUpdate (to, from, next) {
-  //   // called when the route that renders this component has changed,
-  //   // but this component is reused in the new route.
-  //   // For example, for a route with dynamic params `/foo/:id`, when we
-  //   // navigate between `/foo/1` and `/foo/2`, the same `Foo` component instance
-  //   // will be reused, and this hook will be called when that happens.
-  //   // has access to `this` component instance.
-  //   // console.log('beforeRouteUpdate to', to)
-  //   if (to.params.textid) {
-  //     this.textid = to.params.textid
-  //   }
-  //   next()
-  // },
   methods: {
     ...mapActions({
       getCorpuses: 'Corpus/getCorpuses'
     }),
     getTextContent (textid, $state = null, direction = 'next') {
       console.log('getTextContent', textid)
-      REST.get(`${window.apipath}/items/${textid}`, {})
+      let params = {
+        depth: 0
+      }
+      let q = qs.stringify(params)
+      REST.get(`${window.apipath}/items/${textid}?${q}`, {})
         .then(({ data }) => {
           console.log('text REST: data', data)
           if (direction === 'next') {

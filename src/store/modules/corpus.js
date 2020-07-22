@@ -8,7 +8,9 @@ export default {
     // items: [],
     authors: [],
     editionslist: [],
-    editionsbyuuid: {}
+    editionsbyuuid: {},
+    editionsuuids: [],
+    corpusLoaded: false
   },
 
   // getters
@@ -26,9 +28,27 @@ export default {
       for (var i = 0; i < editionlist.length; i++) {
         for (var j = 0; j < editionlist[i].editions.content.length; j++) {
           state.editionsbyuuid[editionlist[i].editions.content[j].uuid] = editionlist[i].editions.content[j]
+          state.editionsuuids.push(editionlist[i].editions.content[j].uuid)
         }
       }
       console.log('corpus editionsbyuuid', state.editionsbyuuid)
+    },
+    setTocs (state, tocslist) {
+      console.log('setTocs', tocslist)
+      tocslist.forEach((toc, i) => {
+        state.editionsbyuuid[toc.uuid].toc = toc.toc
+      })
+      // console.log('corpus editionsbyuuid', state.editionsbyuuid)
+    },
+    setPaginations (state, paginationslist) {
+      console.log('setPaginations', paginationslist)
+      paginationslist.forEach((pagination, i) => {
+        state.editionsbyuuid[pagination.uuid].pagination = pagination.pagination
+      })
+      // console.log('corpus editionsbyuuid', state.editionsbyuuid)
+    },
+    setCorpusLoaded (state) {
+      state.corpusLoaded = true
     }
   },
 
@@ -51,6 +71,19 @@ export default {
                 console.log('all texts returned: editionslist', editionslist)
                 commit('setEditionslist', editionslist)
                 commit('setEditionsByUUID', editionslist)
+
+                dispatch('getEditionsTocs')
+                  .then((tocslist) => {
+                    console.log('all tocs returned: tocslist', tocslist)
+                    commit('setTocs', tocslist)
+
+                    dispatch('getEditionsPaginations')
+                      .then((paginationslist) => {
+                        console.log('all paginations returned: paginationslist', paginationslist)
+                        commit('setPaginations', paginationslist)
+                        commit('setCorpusLoaded')
+                      })
+                  })
               })
           })
       })
@@ -84,6 +117,48 @@ export default {
           })
           .catch((error) => {
             console.warn('Issue with getEditionsList', error)
+            Promise.reject(error)
+          })
+      }))
+    },
+    // get tocslist
+    getEditionsTocs ({ dispatch, commit, state }) {
+      return Promise.all(state.editionsuuids.map(function (uuid) {
+        return REST.get(`${window.apipath}/texts/${uuid}/toc`, {})
+          .then(({ data }) => {
+            console.log('corpus getEditionsTocs REST: uuid, data', uuid, data)
+            // work arround
+            // if (!Array.isArray(data.content)) {
+            //   data.content = [data.content]
+            // }
+            return {
+              uuid: uuid,
+              toc: data.content
+            }
+          })
+          .catch((error) => {
+            console.warn('Issue with getEditionsTocs', error)
+            Promise.reject(error)
+          })
+      }))
+    },
+    // get tocslist
+    getEditionsPaginations ({ dispatch, commit, state }) {
+      return Promise.all(state.editionsuuids.map(function (uuid) {
+        return REST.get(`${window.apipath}/texts/${uuid}/pagination`, {})
+          .then(({ data }) => {
+            console.log('corpus getEditionsPaginations REST: uuid, data', uuid, data)
+            // work arround
+            // if (!Array.isArray(data.content)) {
+            //   data.content = [data.content]
+            // }
+            return {
+              uuid: uuid,
+              pagination: data.content
+            }
+          })
+          .catch((error) => {
+            console.warn('Issue with getEditionsPaginations', error)
             Promise.reject(error)
           })
       }))

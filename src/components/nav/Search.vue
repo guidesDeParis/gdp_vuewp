@@ -1,6 +1,6 @@
 <template>
   <div id="search" class="col-11">
-    <form class="search-form row">
+    <form v-if="corpusLoaded" class="search-form row">
       <fieldset class="search">
         <div>
           <label for="keys">Search</label>
@@ -100,7 +100,8 @@ export default {
       searchTypeOptions: state => state.Search.searchTypeOptions,
       searchTypeValue: state => state.Search.searchTypeValue,
       filters: state => state.Search.filters,
-      activeFilters: state => state.Search.activeFilters
+      activeFilters: state => state.Search.activeFilters,
+      corpusLoaded: state => state.Corpus.corpusLoaded
     }),
     personsOptions () {
       return this.filters.persons.filter(option => !this.activeFilters.persons.includes(option))

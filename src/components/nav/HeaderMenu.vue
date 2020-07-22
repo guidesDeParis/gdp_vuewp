@@ -1,6 +1,6 @@
 <template>
   <nav id="header-menu">
-    <ul>
+    <ul v-if="corpusLoaded">
       <li><router-link to="/corpus">Corpus</router-link></li>
       <li>
         <span>Indexs</span>
@@ -23,11 +23,18 @@
 
 <script>
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'HeaderMenu',
   data: () => ({
 
-  })
+  }),
+  computed: {
+    ...mapState({
+      corpusLoaded: state => state.Corpus.corpusLoaded
+    })
+  }
 }
 
 </script>
