@@ -466,32 +466,32 @@ section[role="main-content"]{
       }
     }
     // <span role=\"pageBreak\" data-num=\"15\"></span>
-    span[role="pageBreak"]{
-      display: inline-block;
-      border-left: 1px solid $bleuroi;
-      height:1.4em;
-      // word-spacing: 0;
-      margin: 0 0.3em;
-      line-height: 3;
-      position: relative;
-      vertical-align: bottom;
-      &:after, &:before{
-        content: '';
-        display: block;
-        width:0.5em;
-        position: absolute;
-      }
-      &:after{
-        top:0;
-        left:0;
-        border-top: 1px solid $bleuroi;
-      }
-      &:before{
-        bottom:0;
-        right:0;
-        border-bottom: 1px solid $bleuroi;
-      }
-    }
+    // span[role="pageBreak"]{
+    //   display: inline-block;
+    //   border-left: 1px solid $bleuroi;
+    //   height:1.4em;
+    //   // word-spacing: 0;
+    //   margin: 0 0.3em;
+    //   line-height: 3;
+    //   position: relative;
+    //   vertical-align: bottom;
+    //   &:after, &:before{
+    //     content: '';
+    //     display: block;
+    //     width:0.5em;
+    //     position: absolute;
+    //   }
+    //   &:after{
+    //     top:0;
+    //     left:0;
+    //     border-top: 1px solid $bleuroi;
+    //   }
+    //   &:before{
+    //     bottom:0;
+    //     right:0;
+    //     border-bottom: 1px solid $bleuroi;
+    //   }
+    // }
     span[role="pageNum"]{
       // display:inline;
       position: relative;
