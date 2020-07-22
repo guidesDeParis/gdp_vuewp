@@ -53,6 +53,7 @@
           @onLeaveLink="onLeaveLink"
         />
         <infinite-loading
+          v-if="toc"
           :identifier="textid"
           @infinite="nextText"
         />

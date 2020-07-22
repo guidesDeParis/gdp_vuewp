@@ -36,9 +36,26 @@ export default {
     setTocs (state, tocslist) {
       console.log('setTocs', tocslist)
       tocslist.forEach((toc, i) => {
-        state.editionsbyuuid[toc.uuid].toc = toc.toc
+        state.editionsbyuuid[toc.uuid].toc = Array.isArray(toc.toc) ? toc.toc : [toc.toc]
       })
       // console.log('corpus editionsbyuuid', state.editionsbyuuid)
+    },
+    buildFlatTocs (state, eeuid) {
+      let recurseFlatToc = (state, eduuid, a) => {
+        // console.log('recurseFlatToc', a)
+        a.forEach((item, i) => {
+          state.editionsbyuuid[eduuid].flattoc.push(item.uuid)
+          if (item.children && item.children.length) {
+            recurseFlatToc(state, eduuid, item.children)
+          }
+        })
+      }
+      state.editionsuuids.forEach((eduuid, i) => {
+        // console.log('buildFlatTocs', i, eduuid)
+        state.editionsbyuuid[eduuid].flattoc = []
+        recurseFlatToc(state, eduuid, state.editionsbyuuid[eduuid].toc)
+        console.log('buildFlatTocs DONE', eduuid, state.editionsbyuuid[eduuid].flattoc)
+      })
     },
     setPaginations (state, paginationslist) {
       console.log('setPaginations', paginationslist)
@@ -76,7 +93,9 @@ export default {
                   .then((tocslist) => {
                     console.log('all tocs returned: tocslist', tocslist)
                     commit('setTocs', tocslist)
-
+                    // this.methods.testMethod()
+                    // dispatch('buildFlatTocs')
+                    commit('buildFlatTocs')
                     dispatch('getEditionsPaginations')
                       .then((paginationslist) => {
                         console.log('all paginations returned: paginationslist', paginationslist)
@@ -88,7 +107,7 @@ export default {
           })
       })
     },
-    // get authors
+    // async get authors
     getAuthors ({ dispatch, commit, state }) {
       return REST.get(`${window.apipath}/corpus`, {})
         // .then(({ data }) => {
@@ -100,7 +119,7 @@ export default {
           Promise.reject(error)
         })
     },
-    // get editionslist
+    // async get editionslist
     getEditionsList ({ dispatch, commit, state }, authors) {
       return Promise.all(authors.map(function (author) {
         return REST.get(`${window.apipath}/corpus/` + author.uuid, {})
@@ -121,7 +140,7 @@ export default {
           })
       }))
     },
-    // get tocslist
+    // async get tocslist
     getEditionsTocs ({ dispatch, commit, state }) {
       return Promise.all(state.editionsuuids.map(function (uuid) {
         return REST.get(`${window.apipath}/texts/${uuid}/toc`, {})
@@ -142,7 +161,7 @@ export default {
           })
       }))
     },
-    // get tocslist
+    // async get paginationslist
     getEditionsPaginations ({ dispatch, commit, state }) {
       return Promise.all(state.editionsuuids.map(function (uuid) {
         return REST.get(`${window.apipath}/texts/${uuid}/pagination`, {})
@@ -163,5 +182,43 @@ export default {
           })
       }))
     }
+    // ,
+    // buildFlatTocs ({ dispatch, commit, state }) {
+    //   state.editionsuuids.forEach((eduuid, i) => {
+    //     // console.log('buildFlatTocs', i, eduuid)
+    //     dispatch('recurseFlatToc', state.editionsbyuuid[eduuid].toc)
+    //       .then((ft) => {
+    //         console.log('buildFlatTocs DONE', eduuid, ft)
+    //         state.editionsbyuuid[eduuid].flattoc = ft
+    //       })
+    //   })
+    // },
+    // recurseFlatToc ({ dispatch, commit, state }, a) {
+    //   // console.log('recurseFlatToc', a)
+    //   let na = []
+    //   // a.forEach((item, i) => {
+    //   return Promise.all(a.map(function (item) {
+    //     console.log('item', item)
+    //     na.push(item.uuid)
+    //     if (item.children && item.children.length) {
+    //       return dispatch('recurseFlatToc', item.children)
+    //         .then((nna) => {
+    //           console.log('recurseFlatToc: na, nna', na, nna)
+    //           na.concat(nna)
+    //         })
+    //     }
+    //     //  else {
+    //     //   return na
+    //     // }
+    //   }))
+    //   // })
+    //   // return na
+    // }
+  },
+  methods: {
+    testMethod () {
+      console.log('testmethod')
+    }
   }
+
 }

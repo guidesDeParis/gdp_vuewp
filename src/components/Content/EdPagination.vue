@@ -17,7 +17,7 @@
       @input="onClickPaginationItem"
     >
       <template v-slot:option="option">
-        <span v-for="l in option.level" :key="l" class="op-tab"/>
+        <span v-for="l in option.level" :key="l" class="op-tab" />
         {{ option.label }}
       </template>
     </v-select>
