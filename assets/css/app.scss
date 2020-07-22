@@ -467,18 +467,46 @@ section[role="main-content"]{
     }
     // <span role=\"pageBreak\" data-num=\"15\"></span>
     span[role="pageBreak"]{
-      display:block;
+      display: inline-block;
+      border-left: 1px solid $bleuroi;
+      height:1.4em;
+      // word-spacing: 0;
+      margin: 0 0.3em;
+      line-height: 3;
       position: relative;
-      $w:3em;
+      vertical-align: bottom;
+      &:after, &:before{
+        content: '';
+        display: block;
+        width:0.5em;
+        position: absolute;
+      }
+      &:after{
+        top:0;
+        left:0;
+        border-top: 1px solid $bleuroi;
+      }
+      &:before{
+        bottom:0;
+        right:0;
+        border-bottom: 1px solid $bleuroi;
+      }
+    }
+    span[role="pageNum"]{
+      // display:inline;
+      position: relative;
+      float:right;
+      // position: sticky;
+      $w:0.5em;
       width:$w; height:0;
       margin-left:calc(100% - (#{$w} * 0.5));
       // &:before
       &:after{
-        display: block;
+        // display: block;
         position: absolute;
         font-size: 0.630em;
-        width:$w; height:$w;
-        line-height: $w *0.95;
+        width:$w; height:$w*2;
+        line-height: $w*1.7;
         padding-left: 1em;
         border-right: 1px solid $bleuroilight;
         color: $bleuroi;
@@ -490,9 +518,9 @@ section[role="main-content"]{
       //   bottom: 0.1em;
       // }
       &:after{
-        content:attr(title);
+        content:attr(data-num);
         border-top: 1px solid $bleuroilight;
-        top:0.1em;
+        // bottom:1.3em;
       }
     }
   }

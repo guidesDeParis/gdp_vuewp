@@ -48,7 +48,7 @@ export default {
       ` data-uuid="${this.uuid}"` +
       `>${this.tei}</div>`
       this.parseLinks()
-      this.parsePageBreaks()
+      // this.parsePageBreaks()
       // console.log('EdText: builded html', this.html)
     },
     parseLinks () {
@@ -87,31 +87,31 @@ export default {
         // console.log('this.html', this.html)
       }
     },
-    parsePageBreaks () {
-      let pbs = this.html.match(/<span role="pageBreak"[^>]+><\/span>/g)
-      console.log('pagebreaks', pbs)
-      // if (pbs) {
-      //   let pbparts, newpb, num
-      //   for (var i = 0; i < pbs.length; i++) {
-      //     pbparts = RegExp(/<span role="pageBreak" data-num="(.+)"><\/span>/).exec(pbs[i], 'g')
-      //     if (!pbparts) {
-      //       console.warn(`pageBreak ${i} maformed`, pbs[i])
-      //     } else {
-      //       // console.log('pbparts', pbparts)
-      //       num = pbparts[1]
-      //       this.pages.push(num)
-      //       newpb = `<span` +
-      //         // ` id="page-break-${num}"` +
-      //         ` role="pageBreak"` +
-      //         ` data-num="${num}"` +
-      //         ` data-num-prev="${num - 1}"` +
-      //         ` />`
-      //       // console.log('newpb', newpb)
-      //       this.html = this.html.replace(pbs[i], newpb)
-      //     }
-      //   }
-      // }
-    },
+    // parsePageBreaks () {
+    //   let pbs = this.html.match(/<span role="pageBreak"[^>]+><\/span>/g)
+    //   console.log('pagebreaks', pbs)
+    //   if (pbs) {
+    //     let pbparts, newpb, num
+    //     for (var i = 0; i < pbs.length; i++) {
+    //       pbparts = RegExp(/<span role="pageBreak" data-num="(.+)"><\/span>/).exec(pbs[i], 'g')
+    //       if (!pbparts) {
+    //         console.warn(`pageBreak ${i} maformed`, pbs[i])
+    //       } else {
+    //         // console.log('pbparts', pbparts)
+    //         num = pbparts[1]
+    //         this.pages.push(num)
+    //         newpb = `<span` +
+    //           // ` id="page-break-${num}"` +
+    //           ` role="pageBreak"` +
+    //           ` data-num="${num}"` +
+    //           ` data-num-prev="${num - 1}"` +
+    //           ` />`
+    //         // console.log('newpb', newpb)
+    //         this.html = this.html.replace(pbs[i], newpb)
+    //       }
+    //     }
+    //   }
+    // },
     onClickRef (e) {
       console.log('onClickRef(e)', e)
       this.$router.push({
