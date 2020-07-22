@@ -472,7 +472,8 @@ section[role="main-content"]{
       $w:3em;
       width:$w; height:0;
       margin-left:calc(100% - (#{$w} * 0.5));
-      &:before, &:after{
+      // &:before
+      &:after{
         display: block;
         position: absolute;
         font-size: 0.630em;
@@ -483,13 +484,13 @@ section[role="main-content"]{
         color: $bleuroi;
         text-indent: $w + 0.5em;
       }
-      &:before{
-        content:attr(data-num-prev);
-        border-bottom: 1px solid $bleuroilight;
-        bottom: 0.1em;
-      }
+      // &:before{
+      //   content:attr(data-num-prev);
+      //   border-bottom: 1px solid $bleuroilight;
+      //   bottom: 0.1em;
+      // }
       &:after{
-        content:attr(data-num);
+        content:attr(title);
         border-top: 1px solid $bleuroilight;
         top:0.1em;
       }
