@@ -30,7 +30,7 @@ export default {
   },
   watch: {
     reftoscrollto: function (newref, oldref) {
-      console.log('reftoscrollto watcher', oldref, newref)
+      console.log('MainLayout reftoscrollto watcher', oldref, newref)
       this.scrollToRef()
     }
   },

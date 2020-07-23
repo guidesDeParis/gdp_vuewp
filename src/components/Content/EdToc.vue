@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section ref="scrollabletoc">
     <ul>
       <li
         v-for="item in toc"
@@ -11,6 +11,7 @@
           :editionid="$route.params.id"
           :loadedtextsuuids="loadedtextsuuids"
           @onClickTocItem="onClickTocItem"
+          @onScrollToRef="onScrollToRef"
         />
       </li>
     </ul>
@@ -31,11 +32,18 @@ export default {
     loadedtextsuuids: Array
   },
   // watch: {
-  //   loadedtextsuuids (n, o) {
-  //     console.log('EdToc watch loadedtxtsuuids', o, n)
+  //   reftoscrollto: function (newref, oldref) {
+  //     console.log('TOC reftoscrollto watcher', oldref, newref)
+  //     this.scrollToRef()
   //   }
   // },
   methods: {
+    onScrollToRef (uuid) {
+      // console.log('TOC scrollToRef', uuid, this.$refs)
+      this.$scrollTo(`a[uuid="${uuid}"]`, 500, {
+        container: this.$refs.scrollabletoc
+      })
+    },
     onClickTocItem (uuid) {
       this.$emit('onClickTocItem', uuid)
     }

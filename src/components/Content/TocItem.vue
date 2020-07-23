@@ -31,6 +31,7 @@
           :editionid="editionid"
           :loadedtextsuuids="loadedtextsuuids"
           @onClickTocItem="onClickTocItem"
+          @onScrollToRef="onScrollToRef"
         />
       </li>
     </ul>
@@ -94,11 +95,15 @@ export default {
     loadedtextsuuids (n, o) {
       // console.log('EdTocItem watch loadedtxtsuuids', o, n)
       this.isOpened = this.loadedtextsuuids.some(e => e.indexOf(this.item.uuid) >= 0)
+    },
+    isOpened (n, o) {
+      // console.log('TocItem watch isOpened', o, n)
+      // if was closed and is opened
+      if (!o && n) {
+        this.onOpened()
+      }
     }
   },
-  // beforeCreate () {
-  //   console.log('editionid', this.editionid)
-  // },
   beforeMount () {
     if (typeof this.$route.params.textid !== 'undefined') {
       this.isOpened = this.$route.params.textid.indexOf(this.item.uuid) >= 0
@@ -106,21 +111,19 @@ export default {
   },
   methods: {
     onclick (e) {
-      console.log('clicked on toc text', this.editionid, e)
-      // if (this.$route.params.textid !== e.target.getAttribute('uuid')) {
-      //   this.$router.push({
-      //     name: `editiontext`,
-      //     params: {
-      //       id: this.editionid,
-      //       textid: e.target.getAttribute('uuid')
-      //     }
-      //   })
-      // } else {
+      // console.log('clicked on toc text', this.editionid, e)
       this.$emit('onClickTocItem', e.target.getAttribute('uuid'))
-      // }
     },
     onClickTocItem (uuid) {
+      // pass the event to parent
       this.$emit('onClickTocItem', uuid)
+    },
+    onOpened () {
+      this.$emit('onScrollToRef', this.item.uuid)
+    },
+    onScrollToRef (uuid) {
+      // pass the event to parent
+      this.$emit('onScrollToRef', uuid)
     }
   }
 
