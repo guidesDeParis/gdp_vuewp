@@ -47,7 +47,7 @@ export default {
   // },
   methods: {
     parsePagesToOptions (p, i = 0, l = 0) {
-      console.log('EdPagination parsePagesToOptions', p)
+      // console.log('EdPagination parsePagesToOptions', p)
       for (var j = 0; j < p.length; j++) {
         // if it is just a section without page like a volume
         if (p[j].text) {

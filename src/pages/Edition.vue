@@ -36,7 +36,7 @@
     <div id="text">
       <template v-if="texts.length">
         <infinite-loading
-          v-if="center_scrolled"
+          v-if="flattoc && center_scrolled"
           :identifier="textid"
           direction="top"
           :distance="inifinite_load_distance"
@@ -53,7 +53,7 @@
           @onLeaveLink="onLeaveLink"
         />
         <infinite-loading
-          v-if="toc"
+          v-if="flattoc"
           :identifier="textid"
           @infinite="nextText"
         />
@@ -123,11 +123,13 @@ export default {
     reftoscrollto: null,
     //
     toc: null,
+    flattoc: null,
     //
     pagination: null
   }),
   computed: {
     ...mapState({
+      corpusLoaded: state => state.Corpus.corpusLoaded,
       editionslist: state => state.Corpus.editionslist,
       editionsbyuuid: state => state.Corpus.editionsbyuuid
     })
@@ -177,7 +179,7 @@ export default {
     }
 
     // wait for editions list from Corpus Store if not already loaded
-    if (!this.editionslist.length) {
+    if (!this.corpusLoaded) {
       // this.getCorpuses()
       // subsribe to store to get the editionbyuuid list
       // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
@@ -188,8 +190,9 @@ export default {
           this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
         }
         if (mutation.type === 'Corpus/setTocs') {
-          // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+          console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
           this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
+          this.flattoc = state.Corpus.editionsbyuuid[this.editionid].flattoc
           // if no textid in new route (e.g. edition front)
           // but we have toc
           // get the first item
@@ -202,8 +205,10 @@ export default {
         }
       })
     } else {
+      // console.log('');
       this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
       this.toc = this.editionsbyuuid[this.editionid].toc
+      this.flattoc = this.editionsbyuuid[this.editionid].flattoc
       // if no textid in new route (e.g. edition front)
       // but we have toc
       // get the first item
@@ -240,10 +245,10 @@ export default {
         .catch((error) => {
           console.warn('Issue with getTextContent', error)
           Promise.reject(error)
-          this.$router.replace({
-            name: 'notfound',
-            query: { fullpath: this.$route.path }
-          })
+          // this.$router.replace({
+          //   name: 'notfound',
+          //   query: { fullpath: this.$route.path }
+          // })
         })
     },
     onCenterScrolled (e) {
@@ -254,17 +259,19 @@ export default {
       this.indexitem = null
     },
     nextText ($state) {
-      console.log('infinite loading nextText()', this.texts[this.texts.length - 1].content.itemAfterUuid, $state)
-      if (this.texts[this.texts.length - 1].content.itemAfterUuid) {
-        this.getTextContent(this.texts[this.texts.length - 1].content.itemAfterUuid, $state, 'next')
+      console.log('infinite loading nextText()')
+      let indexofnext = this.flattoc.indexOf(this.textsuuids[this.textsuuids.length - 1]) + 1
+      if (indexofnext < this.flattoc.length) {
+        this.getTextContent(this.flattoc[indexofnext], $state, 'next')
       } else {
         $state.complete()
       }
     },
     prevText ($state) {
-      console.log('infinite loading prevText()', this.texts[0].content.itemBeforeUuid, $state)
-      if (this.texts[0].content.itemBeforeUuid) {
-        this.getTextContent(this.texts[0].content.itemBeforeUuid, $state, 'prev')
+      console.log('infinite loading prevText()')
+      let indexofprev = this.flattoc.indexOf(this.textsuuids[0]) - 1
+      if (indexofprev >= 0) {
+        this.getTextContent(this.flattoc[indexofprev], $state, 'prev')
       } else {
         $state.complete()
       }

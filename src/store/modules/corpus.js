@@ -54,7 +54,7 @@ export default {
         // console.log('buildFlatTocs', i, eduuid)
         state.editionsbyuuid[eduuid].flattoc = []
         recurseFlatToc(state, eduuid, state.editionsbyuuid[eduuid].toc)
-        console.log('buildFlatTocs DONE', eduuid, state.editionsbyuuid[eduuid].flattoc)
+        // console.log('buildFlatTocs DONE', eduuid, state.editionsbyuuid[eduuid].flattoc)
       })
     },
     setPaginations (state, paginationslist) {
