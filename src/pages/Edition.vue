@@ -37,7 +37,7 @@
       <template v-if="texts.length">
         <infinite-loading
           v-if="flattoc && center_scrolled"
-          :identifier="textid"
+          :identifier="inifinite_load_id"
           direction="top"
           :distance="inifinite_load_distance"
           @infinite="prevText"
@@ -54,7 +54,7 @@
         />
         <infinite-loading
           v-if="flattoc"
-          :identifier="textid"
+          :identifier="inifinite_load_id"
           @infinite="nextText"
         />
       </template>
@@ -120,6 +120,7 @@ export default {
     next_loaded: false,
     center_scrolled: false,
     inifinite_load_distance: 10,
+    inifinite_load_id: +new Date(),
     reftoscrollto: null,
     //
     toc: null,
@@ -158,6 +159,7 @@ export default {
       this.pagesOtpions = []
       if (newid) {
         this.getTextContent(newid)
+        this.inifinite_load_id += 1
       }
     },
     textdata (newtxtdata, oldtxtdata) {
@@ -193,11 +195,12 @@ export default {
           console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
           this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
           this.flattoc = state.Corpus.editionsbyuuid[this.editionid].flattoc
+          this.inifinite_load_id += 1
           // if no textid in new route (e.g. edition front)
           // but we have toc
           // get the first item
           // will be replaced by front page of edition
-          if (!this.textid) { this.textid = this.toc[0].children[1].uuid }
+          if (!this.textid) { this.textid = this.toc[0].children[0].uuid }
         }
         if (mutation.type === 'Corpus/setPaginations') {
           // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
@@ -213,7 +216,7 @@ export default {
       // but we have toc
       // get the first item
       // will be replaced by front page of edition
-      if (!this.textid) { this.textid = this.toc[0].children[1].uuid }
+      if (!this.textid) { this.textid = this.toc[0].children[0].uuid }
       this.pagination = this.editionsbyuuid[this.editionid].pagination
     }
   },
@@ -245,6 +248,18 @@ export default {
         .catch((error) => {
           console.warn('Issue with getTextContent', error)
           Promise.reject(error)
+          // if some item don't load and if we come from infinite loading
+          // retry with next step
+          if ($state) {
+            switch (direction) {
+              case 'next':
+                this.nextText($state, 2)
+                break
+              case 'prev':
+                this.prevText($state, 2)
+                break
+            }
+          }
           // this.$router.replace({
           //   name: 'notfound',
           //   query: { fullpath: this.$route.path }
@@ -258,18 +273,18 @@ export default {
       }
       this.indexitem = null
     },
-    nextText ($state) {
+    nextText ($state, indent = 1) {
       console.log('infinite loading nextText()')
-      let indexofnext = this.flattoc.indexOf(this.textsuuids[this.textsuuids.length - 1]) + 1
+      let indexofnext = this.flattoc.indexOf(this.textsuuids[this.textsuuids.length - 1]) + indent
       if (indexofnext < this.flattoc.length) {
         this.getTextContent(this.flattoc[indexofnext], $state, 'next')
       } else {
         $state.complete()
       }
     },
-    prevText ($state) {
+    prevText ($state, indent = 1) {
       console.log('infinite loading prevText()')
-      let indexofprev = this.flattoc.indexOf(this.textsuuids[0]) - 1
+      let indexofprev = this.flattoc.indexOf(this.textsuuids[0]) - indent
       if (indexofprev >= 0) {
         this.getTextContent(this.flattoc[indexofprev], $state, 'prev')
       } else {
