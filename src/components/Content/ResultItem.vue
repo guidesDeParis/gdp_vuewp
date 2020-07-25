@@ -5,7 +5,7 @@
         :href="'/edition/'+result.textId+'/'+result.uuid"
         @click.prevent="onclick"
         @keyup.enter="onclick"
-        v-html="result.title[0]"
+        v-html="result.title"
       />
     </h1>
     <h2>
@@ -18,7 +18,7 @@
     </h2>
     <!-- <p v-if="preview" class="preview" v-html="preview" /> -->
     <aside>
-      <span>Pagination</span> | <span>Nbr mots</span>
+      <span>{{ result.pages.prefix }} {{ result.pages.range }}</span> | <span>{{ result.size.quantity }} {{ result.size.unit }}</span>
     </aside>
   </article>
 </template>
