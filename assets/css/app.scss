@@ -529,13 +529,13 @@ section[role="main-content"]{
 }
 
 footer[role="tools"]{
-  $list-item-h: 5em;
+  $list-item-h: 7em;
 
   @mixin resultItem{
     box-sizing: border-box;
     // we are only on 10 colls as 2 are occupied by sides
     flex-basis: percentage(2/($default_sum - 2));
-    height: $list-item-h;
+    max-height: $list-item-h;
     overflow: hidden;
     padding-bottom: 1em;
     padding-right: $default_gap;
@@ -602,7 +602,7 @@ footer[role="tools"]{
     z-index: 9;
     background-color: $gris;
     padding:1.2em $side-padding;
-    max-height: $list-item-h * 5;
+    max-height: $list-item-h * 3;
     @include accordeon-transition($list-item-h * 3);
     >header{
       .search-keys{
@@ -634,6 +634,17 @@ footer[role="tools"]{
       }
       .infinite-loading-container{
         // TODO: how to center the loading
+      }
+    }
+
+    >header, section.results-list{
+      transition: opacity 0.2s ease-in-out;
+    }
+    &.loading {
+      >header, section.results-list{
+        transition: opacity 0.5s ease-in-out;
+        opacity:0.5;
+        pointer-events: none;
       }
     }
   }
@@ -738,6 +749,16 @@ footer[role="tools"]{
           background-color: $grisclair;
           align-items:baseline;
           padding-top:0.2em;
+        }
+      }
+      form{
+        transition: opacity 0.2s ease-in-out;
+      }
+      &.loading{
+        form{
+          opacity:0.5;
+          transition: opacity 0.5s ease-in-out;
+          pointer-events: none;
         }
       }
     }

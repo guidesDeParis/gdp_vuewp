@@ -35,9 +35,9 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    preview: ''
-  }),
+  // data: () => ({
+  //   preview: ''
+  // }),
   computed: {
     ...mapState({
       editionsbyuuid: state => state.Corpus.editionsbyuuid
@@ -46,14 +46,14 @@ export default {
       return this.editionsbyuuid[this.result.textId].title
     }
   },
-  created () {
-    if (this.result.extract) {
-      const subString = this.result.extract.substr(0, 80)
-      this.preview = subString.substr(0, subString.lastIndexOf(' ')) + ' &hellip;'
-    } else {
-      console.warn(`No extract for ${this.result.textId}/${this.result.uuid}`)
-    }
-  },
+  // created () {
+  //   if (this.result.extract) {
+  //     const subString = this.result.extract.substr(0, 80)
+  //     this.preview = subString.substr(0, subString.lastIndexOf(' ')) + ' &hellip;'
+  //   } else {
+  //     console.warn(`No extract for ${this.result.textId}/${this.result.uuid}`)
+  //   }
+  // },
   methods: {
     ...mapActions({
       addHistoryItem: 'History/addItem'

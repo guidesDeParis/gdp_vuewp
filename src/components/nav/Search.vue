@@ -1,6 +1,6 @@
 <template>
-  <div id="search" class="col-11">
-    <form v-if="corpusLoaded" class="search-form row">
+  <div id="search" class="col-11" :class="{ loading: isloading }">
+    <form class="search-form row">
       <fieldset class="search">
         <div>
           <label for="keys">Search</label>
@@ -84,7 +84,7 @@
 
 import { createPopper } from '@popperjs/core'
 
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Search',
@@ -114,10 +114,13 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      setActiveFilters: 'Search/setActiveFilters'
+    }),
     ...mapActions({
       newSearch: 'Search/newSearch',
       setSearchTypeValue: 'Search/setSearchTypeValue',
-      setSearchActiveFilters: 'Search/setSearchActiveFilters'
+      updateSearch: 'Search/updateSearch'
     }),
     submit () {
       console.log('submited', this.keys)
@@ -171,15 +174,18 @@ export default {
     },
     onFiltersNominumSelected (e) {
       console.log('onFiltersNominumSelected', e)
-      this.setSearchActiveFilters({ index: 'persons', value: e })
+      this.setActiveFilters({ index: 'persons', value: e })
+      this.updateSearch()
     },
     onFiltersLocorumSelected (e) {
       console.log('onFiltersLocorumSelected', e)
-      this.setSearchActiveFilters({ index: 'places', value: e })
+      this.setActiveFilters({ index: 'places', value: e })
+      this.updateSearch()
     },
     onFiltersOperumSelected (e) {
       console.log('onFiltersOperumSelected', e)
-      this.setSearchActiveFilters({ index: 'objects', value: e })
+      this.setActiveFilters({ index: 'objects', value: e })
+      this.updateSearch()
     }
   }
 }

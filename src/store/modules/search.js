@@ -1,8 +1,15 @@
+// import axios from 'axios'
+
 import { REST } from 'api/rest-axios'
 import qs from 'querystring'
 
+// const _CancelToken = axios.CancelToken
+// const _cancelTokenSource = _CancelToken.source()
+// let _cancel
+
 export default {
   namespaced: true,
+  testconst: 'Hello',
 
   // initial state
   state: {
@@ -16,9 +23,18 @@ export default {
     searchTypeValue: { 'code': 'text', 'label': 'Dans les textes' },
     filters: { persons: [], places: [], objects: [] },
     activeFilters: { persons: [], places: [], objects: [] },
+    sortOptions: [
+      { code: 'date', label: 'date' },
+      { code: 'score', label: 'pertinence' },
+      { code: 'size', label: 'nombre de mots' }
+    ],
+    sorting: null,
     results: [],
     resultsQuantity: null,
     isloading: false,
+    // infiniteLoadingIsLoading: false,
+    // infiniteLoadingCancelToken: null,
+    // infiniteLoadingCancelTokenSource: null,
     limit: 10,
     offset: 0,
     opened: false
@@ -93,6 +109,10 @@ export default {
       for (var index of ['persons', 'places', 'objects']) {
         state.activeFilters[index] = []
       }
+    },
+    setSorting (state, sort) {
+      console.log('setSorting', sort)
+      state.sorting = sort
     }
   },
 
@@ -101,7 +121,13 @@ export default {
     getResults ({ dispatch, commit, state }, $infiniteLoadingState = null) {
       console.log('getResults', state.keys, $infiniteLoadingState)
       // reset results on new search
-      commit('setIsloading', true)
+      if (!$infiniteLoadingState) {
+        commit('setIsloading', true)
+      }
+      // else {
+      //   state.infiniteLoadingIsLoading = true
+      // }
+
       let params = {
         search: `${state.keys}`,
         start: state.offset,
@@ -121,42 +147,75 @@ export default {
         }
       }
       // params.filterPersons = ['nomLouisXIII', 'nomChampagnePhilippeDe']
+      if (state.sorting) {
+        params.sort = state.sorting.code
+      }
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
-      return REST.get(`${window.apipath}/search?` + q)
+
+      let ops = {}
+      // if ($infiniteLoadingState) {
+      //   ops.cancelToken = new _CancelToken(function executor (c) {
+      //     _cancel = c
+      //   })
+      // }
+      return REST.get(`${window.apipath}/search?` + q, ops)
         .then(({ data }) => {
           console.log('search REST: data', data.meta.quantity.quantity, state.offset + state.limit, data)
-          commit('setIsloading', false)
-          commit('setOpened', true)
-          commit('setResults', data.content)
           commit('setResultsCount', data.meta.quantity)
           commit('setFilters', data.meta.filters)
           if ($infiniteLoadingState) {
-            if (state.offset + state.limit > data.meta.quantity.quantity) {
-              console.log('Search infinite completed')
-              // tell to vue-infinite-loading plugin that there si no new page
+            if (state.isLoading) {
+              // we are in a new search or an update so we dont apply the infinite loading received results
               $infiniteLoadingState.complete()
             } else {
-              console.log('Search infinite loaded')
-              // tell to vue-infinite-loading plugin that newpage is loaded
-              $infiniteLoadingState.loaded()
+              commit('setResults', data.content)
+              if (state.offset + state.limit > data.meta.quantity.quantity) {
+                console.log('Search infinite completed')
+                // tell to vue-infinite-loading plugin that there si no new page
+                $infiniteLoadingState.complete()
+              } else {
+                console.log('Search infinite loaded')
+                // tell to vue-infinite-loading plugin that newpage is loaded
+                $infiniteLoadingState.loaded()
+              }
+              // state.infiniteLoadingIsLoading = false
             }
+          } else {
+            commit('resetResults')
+            commit('setIsloading', false)
+            commit('setOpened', true)
+            commit('setResults', data.content)
           }
         })
         .catch((error) => {
           console.warn('Issue with search', error)
           commit('setIsloading', false)
-          $infiniteLoadingState.error()
+          // if (axios.isCancel(error)) {
+          //   console.log('Request canceled', error.message)
+          //   if ($infiniteLoadingState) {
+          //     $infiniteLoadingState.complete()
+          //   }
+          // } else {
           Promise.reject(error)
+          if ($infiniteLoadingState) {
+            $infiniteLoadingState.error()
+          }
+          // }
         })
     },
     newSearch ({ dispatch, commit, state }) {
-      commit('resetResults')
+      // commit('resetResults')
       commit('resetActiveFilters')
+      // if (_cancel) {
+      //   _cancel('new search fired')
+      // }
       dispatch('getResults')
     },
-    filteredSearch ({ dispatch, commit, state }) {
-      commit('resetResults')
+    updateSearch ({ dispatch, commit, state }) {
+      // TODO: wait for new results came to reset results list
+      // TODO: indicate loading state
+      // commit('resetResults')
       dispatch('getResults')
     },
     nextResultsBatch ({ dispatch, commit, state }, $infiniteLoadingState) {
@@ -170,11 +229,11 @@ export default {
     },
     setSearchTypeValue ({ dispatch, commit, state }, value) {
       commit('setSearchTypeValue', value)
-    },
-    setSearchActiveFilters ({ dispatch, commit, state }, filters) {
-      // console.log('setSearchFiltersValue', filters)
-      commit('setActiveFilters', filters)
-      dispatch('filteredSearch')
     }
+    // setSearchActiveFilters ({ dispatch, commit, state }, filters) {
+    //   // console.log('setSearchFiltersValue', filters)
+    //   commit('setActiveFilters', filters)
+    //   dispatch('updateSearch')
+    // }
   }
 }
