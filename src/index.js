@@ -22,7 +22,8 @@ Vue.use(InfiniteLoading, {
   },
   slots: {
     noMore: '',
-    noResult: ''
+    noResults: '',
+    error: ''
   }
   // system: {
   //   throttleLimit: 50,

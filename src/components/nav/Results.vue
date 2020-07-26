@@ -8,7 +8,7 @@
     >
       <header class="col-1">
         <h2>Resultats</h2>
-        <span class="search-keys">{{ keys }}</span><br>
+        <span class="search-keys">{{ searchedKeys }}</span><br>
         <span v-if="resultsQuantity" class="results-count">{{ resultsCount }}</span>
         <v-select
           id="sorting"
@@ -29,8 +29,8 @@
             </li>
             <infinite-loading
               v-if="offset < resultsQuantity.quantity"
-              @infinite="nextResultsBatch"
               :identifier="isloading"
+              @infinite="nextResultsBatch"
             />
           </ul>
         </div>
@@ -68,7 +68,7 @@ export default {
     },
     ...mapState({
       isloading: state => state.Search.isloading,
-      keys: state => state.Search.keys,
+      searchedKeys: state => state.Search.searchedKeys,
       results: state => state.Search.results,
       resultsQuantity: state => state.Search.resultsQuantity,
       offset: state => state.Search.offset,

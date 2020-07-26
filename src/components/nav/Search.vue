@@ -91,6 +91,7 @@ export default {
   data: () => ({
   }),
   computed: {
+    // TODO: do not synch keys instantetly (infinite loading will drop)
     keys: {
       get () { return this.$store.state.Search.keys },
       set (value) { this.$store.commit('Search/setKeys', value) }
@@ -115,15 +116,15 @@ export default {
   },
   methods: {
     ...mapMutations({
+      setSearchTypeValue: 'Search/setSearchTypeValue',
       setActiveFilters: 'Search/setActiveFilters'
     }),
     ...mapActions({
       newSearch: 'Search/newSearch',
-      setSearchTypeValue: 'Search/setSearchTypeValue',
       updateSearch: 'Search/updateSearch'
     }),
     submit () {
-      console.log('submited', this.keys)
+      // console.log('submited', this.keys)
       this.newSearch()
     },
     dropDownMenuPos (dropdownList, component, { width }) {

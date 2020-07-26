@@ -1,11 +1,12 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 import { REST } from 'api/rest-axios'
 import qs from 'querystring'
 
-// const _CancelToken = axios.CancelToken
+const _filterskeys = ['persons', 'places', 'objects']
+const _CancelToken = axios.CancelToken
 // const _cancelTokenSource = _CancelToken.source()
-// let _cancel
+let _cancelTokens = []
 
 export default {
   namespaced: true,
@@ -14,6 +15,7 @@ export default {
   // initial state
   state: {
     keys: '',
+    searchedKeys: '',
     searchTypeOptions: [
       { 'code': 'text', 'label': 'Dans les textes' },
       { 'code': 'persons', 'label': 'Dans les personnes' },
@@ -32,9 +34,6 @@ export default {
     results: [],
     resultsQuantity: null,
     isloading: false,
-    // infiniteLoadingIsLoading: false,
-    // infiniteLoadingCancelToken: null,
-    // infiniteLoadingCancelTokenSource: null,
     limit: 10,
     offset: 0,
     opened: false
@@ -48,11 +47,17 @@ export default {
     setKeys (state, keys) {
       state.keys = keys
     },
+    setSearchKeys (state) {
+      state.searchedKeys = state.keys
+    },
     setResults (state, content) {
       state.results = state.results.concat(content)
     },
     resetResults (state) {
+      console.log('resetResults')
       state.results = []
+    },
+    resetOffset (state) {
       state.offset = 0
     },
     setResultsCount (state, quantity) {
@@ -62,6 +67,7 @@ export default {
       state.offset += state.limit
     },
     setIsloading (state, isloading) {
+      console.log('setIsloading', isloading)
       state.isloading = isloading
     },
     setOpened (state, opened) {
@@ -106,7 +112,7 @@ export default {
       // console.log('state.activeFilters', state.activeFilters)
     },
     resetActiveFilters (state) {
-      for (var index of ['persons', 'places', 'objects']) {
+      for (var index of _filterskeys) {
         state.activeFilters[index] = []
       }
     },
@@ -118,18 +124,23 @@ export default {
 
   // actions
   actions: {
-    getResults ({ dispatch, commit, state }, $infiniteLoadingState = null) {
-      console.log('getResults', state.keys, $infiniteLoadingState)
-      // reset results on new search
-      if (!$infiniteLoadingState) {
-        commit('setIsloading', true)
-      }
-      // else {
-      //   state.infiniteLoadingIsLoading = true
-      // }
+    getResults ({ dispatch, commit, state }, pl) {
+      console.log(`getResults keys: ${pl.keys}, infiniteLoading:`, pl.infiniteLoading)
 
+      if (!pl.infiniteLoading) {
+        // loading indicator unless we are on infiniteloading
+        commit('setIsloading', true)
+        commit('resetOffset')
+        // cancel infiniteloading requests
+        _cancelTokens.forEach((ct, i) => {
+          console.log('_cancelTokens forEach ct', ct)
+          ct.cancel('new or updated search fired')
+        })
+      }
+
+      // construct params
       let params = {
-        search: `${state.keys}`,
+        search: `${pl.keys}`,
         start: state.offset,
         count: state.limit
       }
@@ -137,7 +148,7 @@ export default {
         params.type = state.searchTypeValue.code
       }
       let f
-      for (var index of ['persons', 'places', 'objects']) {
+      for (var index of _filterskeys) {
         if (state.activeFilters[index].length) {
           f = `filter${index.charAt(0).toUpperCase()}${index.slice(1)}`
           params[f] = []
@@ -146,94 +157,109 @@ export default {
           }
         }
       }
-      // params.filterPersons = ['nomLouisXIII', 'nomChampagnePhilippeDe']
       if (state.sorting) {
         params.sort = state.sorting.code
       }
       // console.log('Search getResults params', params);
       let q = qs.stringify(params)
 
+      // construct options
       let ops = {}
-      // if ($infiniteLoadingState) {
-      //   ops.cancelToken = new _CancelToken(function executor (c) {
-      //     _cancel = c
-      //   })
-      // }
+      if (pl.infiniteLoading) {
+        ops.cancelToken = pl.infiniteLoading.cancelToken
+      }
+
       return REST.get(`${window.apipath}/search?` + q, ops)
         .then(({ data }) => {
-          console.log('search REST: data', data.meta.quantity.quantity, state.offset + state.limit, data)
+          console.log(`search REST quantity: ${data.meta.quantity.quantity}, offset+limit: ${state.offset + state.limit}, data:`, data)
           commit('setResultsCount', data.meta.quantity)
           commit('setFilters', data.meta.filters)
-          if ($infiniteLoadingState) {
-            if (state.isLoading) {
-              // we are in a new search or an update so we dont apply the infinite loading received results
-              $infiniteLoadingState.complete()
-            } else {
-              commit('setResults', data.content)
-              if (state.offset + state.limit > data.meta.quantity.quantity) {
-                console.log('Search infinite completed')
-                // tell to vue-infinite-loading plugin that there si no new page
-                $infiniteLoadingState.complete()
-              } else {
-                console.log('Search infinite loaded')
-                // tell to vue-infinite-loading plugin that newpage is loaded
-                $infiniteLoadingState.loaded()
-              }
-              // state.infiniteLoadingIsLoading = false
-            }
-          } else {
+
+          if (state.isloading) {
+            // a new or updated search has been launched :
+            // we dont apply the infinite loading received results
+            // and we reset the infinite loader
+            // pl.infiniteLoading.$state.reset()
+            _cancelTokens.forEach((ct, i) => {
+              console.log('_cancelTokens forEach AFTER ct', ct)
+              ct.cancel('new or updated search fired')
+              ct.$state.complete()
+            })
+            _cancelTokens = []
+          }
+
+          if (!pl.infiniteLoading) {
+            // we are not on infiniteloading
+            // new or updated search
             commit('resetResults')
+            commit('setSearchKeys')
+            commit('setResults', data.content)
             commit('setIsloading', false)
             commit('setOpened', true)
+          } else {
+            // we are on infiniteloading
+            // normal InfiniteLoading procedure
             commit('setResults', data.content)
+            if (state.offset + state.limit > data.meta.quantity.quantity) {
+              // tell to vue-infinite-loading plugin that there is no new page
+              pl.infiniteLoading.$state.complete()
+            } else {
+              // tell to vue-infinite-loading plugin that newpage is loaded
+              pl.infiniteLoading.$state.loaded()
+            }
           }
         })
         .catch((error) => {
-          console.warn('Issue with search', error)
-          commit('setIsloading', false)
-          // if (axios.isCancel(error)) {
-          //   console.log('Request canceled', error.message)
-          //   if ($infiniteLoadingState) {
-          //     $infiniteLoadingState.complete()
-          //   }
-          // } else {
-          Promise.reject(error)
-          if ($infiniteLoadingState) {
-            $infiniteLoadingState.error()
+          // console.warn('Issue with search', error)
+          if (axios.isCancel(error)) {
+            console.info(`Request canceled, message: ${error.message}`)
+            // TODO: the $state here is probably not the good one
+            // Promise.reject(error)
+            // pl.infiniteLoading.$state.reset()
+          } else {
+            commit('setIsloading', false)
+            if (pl.infiniteLoading) {
+              pl.infiniteLoading.$state.error()
+            }
+            Promise.reject(error)
           }
-          // }
         })
     },
     newSearch ({ dispatch, commit, state }) {
-      // commit('resetResults')
       commit('resetActiveFilters')
-      // if (_cancel) {
-      //   _cancel('new search fired')
-      // }
-      dispatch('getResults')
+      dispatch('getResults', { keys: state.keys })
+      // .then((e) => {
+      //   console.log('dispatch get results then', e)
+      // })
     },
     updateSearch ({ dispatch, commit, state }) {
-      // TODO: wait for new results came to reset results list
-      // TODO: indicate loading state
-      // commit('resetResults')
-      dispatch('getResults')
+      dispatch('getResults', { keys: state.searchedKeys })
     },
     nextResultsBatch ({ dispatch, commit, state }, $infiniteLoadingState) {
-      console.log('nextResultsBatch', $infiniteLoadingState)
-      commit('incrementOffset')
-      if (state.offset < state.resultsQuantity.quantity) {
-        dispatch('getResults', $infiniteLoadingState)
-      } else {
+      console.log(`nextResultsBatch, isloading: ${state.isloading}`, $infiniteLoadingState)
+      if (state.isloading) {
+        // we are loading a new or updated searche
+        // we stop the infinite
         $infiniteLoadingState.complete()
+      } else {
+        commit('incrementOffset')
+        if (state.offset < state.resultsQuantity.quantity) {
+          dispatch('getResults', {
+            keys: state.searchedKeys,
+            infiniteLoading: {
+              $state: $infiniteLoadingState,
+              cancelToken: new _CancelToken((c) => {
+                _cancelTokens.push({
+                  cancel: c,
+                  $state: $infiniteLoadingState
+                })
+              })
+            }
+          })
+        } else {
+          $infiniteLoadingState.complete()
+        }
       }
-    },
-    setSearchTypeValue ({ dispatch, commit, state }, value) {
-      commit('setSearchTypeValue', value)
     }
-    // setSearchActiveFilters ({ dispatch, commit, state }, filters) {
-    //   // console.log('setSearchFiltersValue', filters)
-    //   commit('setActiveFilters', filters)
-    //   dispatch('updateSearch')
-    // }
   }
 }

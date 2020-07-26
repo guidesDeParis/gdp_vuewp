@@ -34,7 +34,7 @@ export default {
       console.log('corpus editionsbyuuid', state.editionsbyuuid)
     },
     setTocs (state, tocslist) {
-      console.log('setTocs', tocslist)
+      // console.log('setTocs', tocslist)
       tocslist.forEach((toc, i) => {
         state.editionsbyuuid[toc.uuid].toc = Array.isArray(toc.toc) ? toc.toc : [toc.toc]
       })
@@ -58,13 +58,14 @@ export default {
       })
     },
     setPaginations (state, paginationslist) {
-      console.log('setPaginations', paginationslist)
+      // console.log('setPaginations', paginationslist)
       paginationslist.forEach((pagination, i) => {
         state.editionsbyuuid[pagination.uuid].pagination = pagination.pagination
       })
       // console.log('corpus editionsbyuuid', state.editionsbyuuid)
     },
     setCorpusLoaded (state) {
+      console.info('corpusLoaded')
       state.corpusLoaded = true
     }
   },
@@ -76,7 +77,7 @@ export default {
         // get the list of corpuses (aka authors)
         dispatch('getAuthors')
           .then(({ data }) => {
-            console.log('getCorpuses authors data', data)
+            // console.log('getCorpuses authors data', data)
             commit('setAuthors', data.content)
             // get the texts list for each corpus (aka author)
             // let authorsUuids = []
@@ -124,7 +125,7 @@ export default {
       return Promise.all(authors.map(function (author) {
         return REST.get(`${window.apipath}/corpus/` + author.uuid, {})
           .then(({ data }) => {
-            console.log('corpus getEditionsList REST: author, data', author, data)
+            // console.log('corpus getEditionsList REST: author, data', author, data)
             // work arround
             if (!Array.isArray(data.content)) {
               data.content = [data.content]
@@ -145,7 +146,7 @@ export default {
       return Promise.all(state.editionsuuids.map(function (uuid) {
         return REST.get(`${window.apipath}/texts/${uuid}/toc`, {})
           .then(({ data }) => {
-            console.log('corpus getEditionsTocs REST: uuid, data', uuid, data)
+            // console.log('corpus getEditionsTocs REST: uuid, data', uuid, data)
             // work arround
             // if (!Array.isArray(data.content)) {
             //   data.content = [data.content]
@@ -166,7 +167,7 @@ export default {
       return Promise.all(state.editionsuuids.map(function (uuid) {
         return REST.get(`${window.apipath}/texts/${uuid}/pagination`, {})
           .then(({ data }) => {
-            console.log('corpus getEditionsPaginations REST: uuid, data', uuid, data)
+            // console.log('corpus getEditionsPaginations REST: uuid, data', uuid, data)
             // work arround
             // if (!Array.isArray(data.content)) {
             //   data.content = [data.content]
