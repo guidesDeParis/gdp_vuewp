@@ -525,7 +525,26 @@ section[role="main-content"]{
     }
   }
 
-
+  #biblio{
+    .router-link-active{
+      font-weight: 600;
+    }
+    ul.item-list{
+      margin:0;
+      padding:0;
+      li{
+        padding:0;
+        margin:0 0 1.5em 0;
+        h2{
+          margin:0;
+          @include title2black;
+        }
+        p{
+          margin:0;
+        }
+      }
+    }
+  }
 }
 
 footer[role="tools"]{

@@ -80,9 +80,20 @@ const routes = [
     component: Operum
   },
   {
-    name: 'bibliographie',
     path: '/bibliographie',
-    component: Bibliographie
+    redirect: '/bibliographie/expressions'
+  },
+  {
+    name: 'bibliographie',
+    path: '/bibliographie/:type',
+    component: Bibliographie,
+    props: true
+  },
+  {
+    name: 'bibliographieItem',
+    path: '/bibliographie/:type/:uuid',
+    component: Bibliographie,
+    props: true
   },
   {
     name: 'notfound',
