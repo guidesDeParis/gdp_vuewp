@@ -2,8 +2,13 @@
   <nav id="header-menu">
     <ul v-if="corpusLoaded">
       <li><router-link to="/corpus">Corpus</router-link></li>
-      <li>
-        <span>Indexs</span>
+      <li :class="{ opened: indexOpened }">
+        <span
+          @click.prevent="onClickIndex"
+          @keyup.enter="onClickIndex"
+        >
+          Indexs
+        </span>
         <ul>
           <li><router-link to="/nominum">Personnes</router-link></li>
           <li><router-link to="/locorum">Lieux</router-link></li>
@@ -28,12 +33,18 @@ import { mapState } from 'vuex'
 export default {
   name: 'HeaderMenu',
   data: () => ({
-
+    indexOpened: false
   }),
   computed: {
     ...mapState({
       corpusLoaded: state => state.Corpus.corpusLoaded
     })
+  },
+  methods: {
+    onClickIndex (e) {
+      console.log('onClickIndex')
+      this.indexOpened = !this.indexOpened
+    }
   }
 }
 

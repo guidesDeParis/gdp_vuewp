@@ -29,7 +29,7 @@
 
     <!-- default slot -->
     <!-- expressions or manifestations list -->
-    <template v-if="!this.uuid">
+    <template v-if="!uuid">
       <ul class="item-list">
         <li v-for="item in content" :key="item.uuid">
           <h2>

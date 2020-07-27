@@ -77,6 +77,9 @@ export default {
               ` @keyup.enter="onClickRef"` +
               ` @mouseover="onHoverLink"` +
               ` @mouseleave="onLeaveLink"` +
+              // prevent click on this one
+              ` v-touch:tap.prevent="onTapLink"` +
+              ` v-touch-class="'tapped'"` +
               `>${linkparts[4]}` +
               `<sup class="mdi mdi-message-text-outline" />` +
               `</a>`
@@ -114,13 +117,23 @@ export default {
     // },
     onClickRef (e) {
       console.log('onClickRef(e)', e)
-      this.$router.push({
-        name: e.target.dataset.index,
-        params: { id: e.target.dataset.uuid }
-      })
+      if (e.target.classList.contains('tapped')) {
+        this.$router.push({
+          name: e.target.dataset.index,
+          params: { id: e.target.dataset.uuid }
+        })
+      }
     },
     onHoverLink (e) {
       console.log('EdText onHoverLink(e)', e)
+      this.$emit('onHoverLink', {
+        uuid: e.target.dataset.uuid,
+        index: e.target.dataset.index,
+        rect: e.target.getBoundingClientRect()
+      })
+    },
+    onTapLink (e) {
+      console.log('EdText onTapLink(e)', e)
       this.$emit('onHoverLink', {
         uuid: e.target.dataset.uuid,
         index: e.target.dataset.index,

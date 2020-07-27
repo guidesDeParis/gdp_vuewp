@@ -6,6 +6,7 @@ import Meta from 'vue-meta'
 import InfiniteLoading from 'vue-infinite-loading'
 import VueScrollTo from 'vue-scrollto'
 import VueSelect from 'vue-select'
+import Vue2TouchEvents from 'vue2-touch-events'
 
 import App from './App'
 
@@ -15,7 +16,6 @@ import 'vue-select/src/scss/vue-select.scss'
 import 'assets/css/app.scss'
 
 Vue.use(Meta)
-
 Vue.use(InfiniteLoading, {
   props: {
     spinner: 'spiral'
@@ -30,10 +30,9 @@ Vue.use(InfiniteLoading, {
   //   /* other settings need to configure */
   // }
 })
-
 Vue.use(VueScrollTo)
-
 Vue.component('v-select', VueSelect)
+Vue.use(Vue2TouchEvents)
 
 window.apipath = process.env === 'prod' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
 

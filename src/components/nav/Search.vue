@@ -1,7 +1,7 @@
 <template>
   <div id="search" class="col-11" :class="{ loading: isloading }">
     <form class="search-form row">
-      <fieldset class="search">
+      <fieldset class="search small-col-10 med-col-2 large-col-2">
         <div>
           <label for="keys">Search</label>
           <input
@@ -37,7 +37,7 @@
           title="chargement"
         />
       </fieldset>
-      <fieldset v-if="filters.persons.length" class="filters filters-nominum col-2">
+      <fieldset v-if="filters.persons.length" class="filters filters-nominum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-nominum"
           type="select"
@@ -50,7 +50,7 @@
           @input="onFiltersNominumSelected"
         />
       </fieldset>
-      <fieldset v-if="filters.places.length" class="filters filters-locorum col-2">
+      <fieldset v-if="filters.places.length" class="filters filters-locorum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-locorum"
           type="select"
@@ -63,7 +63,7 @@
           @input="onFiltersLocorumSelected"
         />
       </fieldset>
-      <fieldset v-if="filters.objects.length" class="filters filters-operum col-2">
+      <fieldset v-if="filters.objects.length" class="filters filters-operum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-operum"
           type="select"

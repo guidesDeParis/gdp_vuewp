@@ -1,17 +1,17 @@
 <template>
   <div
     :id="id"
-    class="full-width row main-content-layout"
+    class="full-width med-row large-row main-content-layout"
   >
-    <header class="col-3">
+    <header class="med-col-3 large-col-3">
       <slot name="header" />
     </header>
 
-    <section ref="scrollablecenter" class="col-6" @scroll.passive="onScrollCenter">
+    <section ref="scrollablecenter" class="med-col-6 large-col-6" @scroll.passive="onScrollCenter">
       <slot />
     </section>
 
-    <nav class="col-3">
+    <nav class="med-col-3 large-col-3" :class="{ opened: navopened }">
       <slot name="nav" />
     </nav>
 
@@ -26,7 +26,8 @@ export default {
       type: String,
       required: true
     },
-    reftoscrollto: { type: String }
+    reftoscrollto: { type: String },
+    navopened: { type: Boolean }
   },
   watch: {
     reftoscrollto: function (newref, oldref) {

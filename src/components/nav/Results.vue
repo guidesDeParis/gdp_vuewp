@@ -6,9 +6,9 @@
       class="row"
       :class="{ loading: isloading }"
     >
-      <header class="col-1">
+      <header class="small-col-12 med-col-1 large-col-1">
         <h2>Resultats</h2>
-        <span class="search-keys">{{ searchedKeys }}</span><br>
+        <span class="search-keys">{{ searchedKeys }}</span>
         <span v-if="resultsQuantity" class="results-count">{{ resultsCount }}</span>
         <v-select
           id="sorting"
@@ -21,7 +21,7 @@
           @input="onSortingSelected"
         />
       </header>
-      <section class="col-10 results-list">
+      <section class="small-col-12 med-col-10 large-col-10 results-list">
         <div class="wrapper">
           <ul v-if="results.length">
             <li v-for="result in results" :key="result.uuid" class="result">

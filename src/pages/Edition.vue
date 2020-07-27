@@ -1,5 +1,10 @@
 <template>
-  <MainContentLayout id="edition" :reftoscrollto="reftoscrollto" @onCenterScrolled="onCenterScrolled">
+  <MainContentLayout
+    id="edition"
+    :reftoscrollto="reftoscrollto"
+    :navopened="navopened"
+    @onCenterScrolled="onCenterScrolled"
+  >
     <template v-if="!content" #header>
       <span>Loading ...</span>
     </template>
@@ -13,6 +18,10 @@
         v-if="indexitem"
         class="index-tooltip"
         :style="{ top:tooltip_top + 'px' }"
+        :data-index="indexitem.index"
+        :data-uuid="indexitem.uuid"
+        @click.prevent="onClickTooltip"
+        @keyup.enter="onClickTooltip"
       >
         <span v-if="indexitem == 'loading'">Loading ...</span>
         <template v-if="indexitem !== 'loading'">
@@ -61,6 +70,14 @@
     </div>
 
     <template #nav>
+      <span
+        class="nav-title"
+        @click.prevent="onOpenCloseNav"
+        @keyup.enter="onOpenCloseNav"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" role="presentation" class="vs__open-indicator"><path d="M9.211364 7.59931l4.48338-4.867229c.407008-.441854.407008-1.158247 0-1.60046l-.73712-.80023c-.407008-.441854-1.066904-.441854-1.474243 0L7 5.198617 2.51662.33139c-.407008-.441853-1.066904-.441853-1.474243 0l-.737121.80023c-.407008.441854-.407008 1.158248 0 1.600461l4.48338 4.867228L7 10l2.211364-2.40069z" /></svg>
+        Sommaire
+      </span>
       <EdToc
         id="toc"
         :toc="toc"
@@ -126,7 +143,9 @@ export default {
     toc: null,
     flattoc: null,
     //
-    pagination: null
+    pagination: null,
+    //
+    navopened: false
   }),
   computed: {
     ...mapState({
@@ -307,6 +326,7 @@ export default {
           console.log('index tooltip REST: data', data)
           if (this.indexitem === 'loading') {
             this.indexitem = data.content
+            this.indexitem.index = item.index
           }
         })
         .catch((error) => {
@@ -350,6 +370,17 @@ export default {
     scrollToPage (p) {
       // console.log('scrollToPage', p)
       this.reftoscrollto = `span[role="pageBreak"][id="${p.code}"]`
+    },
+    onOpenCloseNav (e) {
+      console.log('onOpenCloseNav', e)
+      this.navopened = !this.navopened
+    },
+    onClickTooltip (e) {
+      console.log(`onClickTooltip index: ${e.target.dataset.index}, uuid: ${e.target.dataset.uuid}`)
+      this.$router.push({
+        name: e.target.dataset.index,
+        params: { id: e.target.dataset.uuid }
+      })
     }
   }
 }
