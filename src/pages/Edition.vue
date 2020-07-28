@@ -188,6 +188,10 @@ export default {
     page_selected (newp, oldp) {
       console.log('page_selected watcher', oldp, newp)
       this.scrollToPage(newp)
+    },
+    flattoc (n, o) {
+      console.log('flattoc watcher', o, n)
+      // this.scrollToPage(newp)
     }
   },
   created () {
@@ -213,13 +217,17 @@ export default {
         if (mutation.type === 'Corpus/setTocs') {
           console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
           this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
+        }
+        if (mutation.type === 'Corpus/buildFlatTocs') {
+          console.log('Edition Corpus/buildFlatTocs', this.editionid, state.Corpus.editionsbyuuid)
           this.flattoc = state.Corpus.editionsbyuuid[this.editionid].flattoc
+          // launch infinitloading
           this.inifinite_load_id += 1
           // if no textid in new route (e.g. edition front)
           // but we have toc
           // get the first item
           // will be replaced by front page of edition
-          if (!this.textid) { this.textid = this.toc[0].children[0].uuid }
+          if (!this.textid) { this.textid = this.flattoc[1] }
         }
         if (mutation.type === 'Corpus/setPaginations') {
           // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
@@ -355,7 +363,8 @@ export default {
       console.log('onClickPaginationItem', o)
       if (this.textsuuids.indexOf(o.uuid) !== -1) {
         // if already loaded, scroll to uuid
-        this.scrollToPage(o)
+        // this.scrollToPage(o)
+        this.reftoscrollto = `span[role="pageBreak"][id="${o.code}"]`
       } else {
         // if not already loaded, change route
         this.$router.push({
@@ -367,10 +376,10 @@ export default {
         })
       }
     },
-    scrollToPage (p) {
-      // console.log('scrollToPage', p)
-      this.reftoscrollto = `span[role="pageBreak"][id="${p.code}"]`
-    },
+    // scrollToPage (p) {
+    //   console.log('scrollToPage', p)
+    //
+    // },
     onOpenCloseNav (e) {
       console.log('onOpenCloseNav', e)
       this.navopened = !this.navopened
