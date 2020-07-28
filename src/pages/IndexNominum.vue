@@ -2,7 +2,7 @@
   <MainContentLayout id="index-nominum" class="index">
     <template v-slot:header>
       <h1>Personnes</h1>
-      <span v-if="!items.length">Loading ...</span>
+      <span v-if="!items.length" class="loading">Loading ...</span>
     </template>
 
     <ul v-if="items.length" class="item-list">

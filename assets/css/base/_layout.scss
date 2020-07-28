@@ -24,6 +24,7 @@ body{
     box-sizing:border-box;
   }
   header[role="banner"]{
+    z-index:10;
     flex: 0 0 auto;
     @extend %layout-element;
     padding:1em $side-padding 1em $side-padding;

@@ -1081,3 +1081,29 @@ span.mdi-loading{
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
+
+ //  _                 _ _
+ // | |   ___  __ _ __| (_)_ _  __ _
+ // | |__/ _ \/ _` / _` | | ' \/ _` |
+ // |____\___/\__,_\__,_|_|_||_\__, |
+ //                            |___/
+
+span.loading{
+  @include fontsans;
+  font-size: 0.756em;
+  color: $grisfonce;
+  animation: pulseloading 4s infinite;
+}
+
+@keyframes pulseloading{
+  0% {
+    opacity: 1;
+  }
+  50%{
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

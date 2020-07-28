@@ -1,7 +1,8 @@
 <template>
   <nav id="header-menu">
-    <ul v-if="corpusLoaded">
-      <li><router-link to="/corpus">Corpus</router-link></li>
+    <!-- <span v-if="!corpusLoaded" class="loading">Loading ...</span> -->
+    <ul>
+      <li v-if="corpusLoaded"><router-link to="/corpus">Corpus</router-link></li>
       <li :class="{ opened: indexOpened }">
         <span
           @click.prevent="onClickIndex"
