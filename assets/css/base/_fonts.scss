@@ -27,7 +27,6 @@ footer[role="tools"] .row>header,
 footer[role="tools"] .row>nav{
   @include fontsans;
 }
-
 @mixin title1blue {
   @include fontserif;
   font-size: 2.268em;
@@ -56,6 +55,25 @@ footer[role="tools"] .row>nav{
   @include fontserif;
   font-size: 1em;
   color: $grisfonce;
+  font-weight: 400;
+  margin:0;
+}
+
+// TEI
+
+@mixin teititlefrontblue {
+  @include fontserif;
+  font-size: 2.6em;
+  color: $bleuroi;
+  font-weight: 400;
+  margin:0;
+  text-align: center;
+}
+
+@mixin teititle1blue {
+  @include fontserif;
+  font-size: 1.8em;
+  color: $bleuroi;
   font-weight: 400;
   margin:0;
 }

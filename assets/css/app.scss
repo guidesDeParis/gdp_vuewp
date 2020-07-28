@@ -337,7 +337,7 @@ section[role="main-content"]{
   }
 
   #edition{
-    header{
+    >header{
       position: relative;
       h1{
         @include title1black;
@@ -383,12 +383,40 @@ section[role="main-content"]{
               border-left: 1px dotted $grisfonce;
             }
           }
-          >h1{@include title1blue;}
+          >h1{@include teititle1blue;}
           span.placeName,
           span.objectName,
           span.persName{
             font-weight: 600;
           }
+          // front page
+          header{
+            padding-top: 1em;
+            h1{
+              @include teititlefrontblue;
+              .initial{
+                text-transform: uppercase;
+                font-size: 1.3em;
+                line-height: 1.3em;
+              }
+            }
+          }
+          .byline{
+            text-align: center;
+            font-style: italic;
+            padding-bottom: 1em;
+          }
+          .docImprint{
+            text-align: center;
+            // padding-bottom: 1em;
+          }
+          .imprimatur{
+            text-align: center;
+            font-style: italic;
+            padding-bottom: 1em;
+
+          }
+
         }
       }
     }
