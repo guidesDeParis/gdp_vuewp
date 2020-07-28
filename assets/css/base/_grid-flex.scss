@@ -18,6 +18,27 @@
   @include row;
 }
 
+// small
+.small-row {
+  @media only screen and (max-width: $small-bp) {
+    @include row;
+  }
+}
+
+// medium
+.med-row {
+  @media only screen and (min-width: $small-bp+1) and (max-width: $med-bp) {
+    @include row;
+  }
+}
+
+// large
+.large-row {
+  @media only screen and (min-width: $med-bp+1) {
+    @include row;
+  }
+}
+
 %col-reset {
     box-sizing: border-box;
 }

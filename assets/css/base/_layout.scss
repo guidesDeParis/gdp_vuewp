@@ -26,7 +26,7 @@ body{
   header[role="banner"]{
     flex: 0 0 auto;
     @extend %layout-element;
-    padding:1em $side-padding 0 $side-padding;
+    padding:1em $side-padding 1em $side-padding;
     @media only screen and (max-width: $small-bp) {
       padding:1em $side-padding/2 0 $side-padding/2;
     }
