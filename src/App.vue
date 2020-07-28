@@ -13,7 +13,9 @@
     </header>
     <section role="main-content">
       <div class="wrapper">
-        <RouterView />
+        <transition name="fade" mode="out-in">
+          <RouterView />
+        </transition>
       </div>
     </section>
     <footer role="tools">

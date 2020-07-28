@@ -5,10 +5,11 @@
     :navopened="navopened"
     @onCenterScrolled="onCenterScrolled"
   >
-    <template v-if="!content" #header>
+    <!-- <transition name="fade" mode="out-in"> -->
+    <template v-if="!corpusLoaded" #header>
       <span class="loading">Loading ...</span>
     </template>
-    <template #header>
+    <template v-else #header>
       <h1>
         <router-link :to="{ name:'edition', params: { id: editionid }}">{{ title }}</router-link>
       </h1>
@@ -23,7 +24,7 @@
         @click.prevent="onClickTooltip"
         @keyup.enter="onClickTooltip"
       >
-        <span v-if="indexitem == 'loading'">Loading ...</span>
+        <span v-if="indexitem == 'loading'" class="loading">Loading ...</span>
         <template v-if="indexitem !== 'loading'">
           <h1 v-html="indexitem.title" />
           <p v-if="indexitem.birthDate" class="birthdeath">
@@ -40,7 +41,7 @@
 
       </aside>
     </template>
-
+    <!-- </transition> -->
     <!-- default slot -->
     <div id="text">
       <template v-if="texts.length">
@@ -51,6 +52,7 @@
           :distance="inifinite_load_distance"
           @infinite="prevText"
         />
+        <!-- <transition-group name="edition-texts" tag="div"> -->
         <EdText
           v-for="text in texts"
           :ref="text.content.uuid"
@@ -61,6 +63,7 @@
           @onHoverLink="onHoverLink"
           @onLeaveLink="onLeaveLink"
         />
+        <!-- </transition-group> -->
         <infinite-loading
           v-if="flattoc"
           :identifier="inifinite_load_id"
