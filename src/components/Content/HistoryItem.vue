@@ -18,7 +18,7 @@
     </h2>
     <!-- <p v-if="preview" class="preview" v-html="preview" /> -->
     <aside>
-      <span>Pagination</span> | <span>Nbr mots</span>
+      <span>{{ item.pages.prefix }} {{ item.pages.range }}</span> | <span>{{ item.size.quantity }} {{ item.size.unit }}</span>
     </aside>
   </article>
 </template>

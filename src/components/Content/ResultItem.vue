@@ -63,8 +63,10 @@ export default {
       this.addHistoryItem({
         id: this.result.textId,
         textid: this.result.uuid,
-        title: this.result.title[0],
-        editionTitle: this.editionTitle
+        title: this.result.title,
+        editionTitle: this.editionTitle,
+        pages: this.result.pages,
+        size: this.result.size
       })
       this.$router.push({
         name: `editiontext`,
