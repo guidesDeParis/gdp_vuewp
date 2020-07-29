@@ -46,7 +46,16 @@ export default {
       this.html = `<div` +
       ` class="tei${this.uuid === this.textid ? ' active' : ''}"` +
       ` data-uuid="${this.uuid}"` +
-      `>${this.tei}</div>`
+      `>` +
+      `<a` +
+      ` href="http://${window.apipath}/items/${this.uuid}"` +
+      ` title="Copy to clipboard ${this.uuid}"` +
+      ` class="text-item-link"` +
+      ` @click.prevent="onClickCopyClipboard"` +
+      `>` +
+      `<span class="mdi mdi-open-in-new" />` +
+      `</a>` +
+      `${this.tei}</div>`
       this.parseLinks()
       // this.parsePageBreaks()
       // console.log('EdText: builded html', this.html)
@@ -143,6 +152,13 @@ export default {
     onLeaveLink (e) {
       // console.log('EdText onLeaveLink(e)', e)
       this.$emit('onLeaveLink')
+    },
+    onClickCopyClipboard (e) {
+      e.preventDefault()
+      console.log('onClickCopyClipboard', e)
+      // navigator.clipboard.writeText(e.target.getAttribute('href'))
+      this.$copyText(e.target.getAttribute('href'))
+      return false
     }
   },
   render (h) {

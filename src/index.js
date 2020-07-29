@@ -7,6 +7,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import VueScrollTo from 'vue-scrollto'
 import VueSelect from 'vue-select'
 import Vue2TouchEvents from 'vue2-touch-events'
+import VueClipboard from 'vue-clipboard2'
 
 import App from './App'
 
@@ -33,6 +34,7 @@ Vue.use(InfiniteLoading, {
 Vue.use(VueScrollTo)
 Vue.component('v-select', VueSelect)
 Vue.use(Vue2TouchEvents)
+Vue.use(VueClipboard)
 
 // https://apple.stackexchange.com/questions/17077/add-a-hosts-file-entry-without-jailbreaking
 window.apipath = process.env === 'prod' || window.location.hostname === 'dev.gdp.fr' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
