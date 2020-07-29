@@ -12,8 +12,8 @@
       @scroll.passive="onScrollCenter"
     >
       <div
-        class="wrapper"
         ref="scrollablecenter"
+        class="wrapper"
       >
         <slot />
       </div>

@@ -70,12 +70,17 @@ header[role="banner"]{
           overflow: hidden;
         }
       }
-      &:hover, &.opened{
+      //
+      // &:focus-within
+      // &:hover,
+      &.opened{
         >ul>li{
           height:1em;
         }
       }
-
+      &.has-submenu{
+        cursor: pointer;
+      }
     }
     li>span,li>a{
       font-size: 0.9em;

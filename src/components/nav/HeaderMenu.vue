@@ -6,7 +6,8 @@
         <span v-if="!corpusLoaded" class="loading">Loading ...</span>
         <router-link v-else to="/corpus">Corpus</router-link>
       </li>
-      <li :class="{ opened: indexOpened }">
+      <li class="has-submenu" :class="{ opened: indexOpened }">
+        <!-- tabindex="-1" -->
         <span
           @click.prevent="onClickIndex"
           @keyup.enter="onClickIndex"
@@ -43,6 +44,12 @@ export default {
     ...mapState({
       corpusLoaded: state => state.Corpus.corpusLoaded
     })
+  },
+  watch: {
+    $route (n, o) {
+      console.log('route changed')
+      this.indexOpened = false
+    }
   },
   methods: {
     onClickIndex (e) {
