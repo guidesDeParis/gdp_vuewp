@@ -11,7 +11,7 @@
           @click.prevent="onClickIndex"
           @keyup.enter="onClickIndex"
         >
-          Indexs
+          Index
         </span>
         <ul>
           <li><router-link to="/nominum">Personnes</router-link></li>
