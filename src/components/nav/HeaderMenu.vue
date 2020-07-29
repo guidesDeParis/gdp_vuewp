@@ -2,7 +2,7 @@
   <nav id="header-menu">
     <!-- <span v-if="!corpusLoaded" class="loading">Loading ...</span> -->
     <ul>
-      <li >
+      <li>
         <span v-if="!corpusLoaded" class="loading">Loading ...</span>
         <router-link v-else to="/corpus">Corpus</router-link>
       </li>

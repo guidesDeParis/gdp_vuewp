@@ -34,8 +34,12 @@ Vue.use(VueScrollTo)
 Vue.component('v-select', VueSelect)
 Vue.use(Vue2TouchEvents)
 
-window.apipath = process.env === 'prod' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
-
+// https://apple.stackexchange.com/questions/17077/add-a-hosts-file-entry-without-jailbreaking
+window.apipath = process.env === 'prod' || window.location.hostname === 'dev.gdp.fr' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
+// if (window.location.hostname === 'dev.gdp.fr') {
+//   window.apipath = `http://${window.location.hostname}/api`
+// }
+// window.apipath = `http://${window.location.hostname}:8984`
 // sync(store, router) // done. Returns an unsync callback fn
 
 new Vue({

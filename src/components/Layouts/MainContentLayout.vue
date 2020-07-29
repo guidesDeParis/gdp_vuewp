@@ -7,8 +7,16 @@
       <slot name="header" />
     </header>
 
-    <section ref="scrollablecenter" class="med-col-6 large-col-6" @scroll.passive="onScrollCenter">
-      <slot />
+    <section
+      class="med-col-6 large-col-6"
+      @scroll.passive="onScrollCenter"
+    >
+      <div
+        class="wrapper"
+        ref="scrollablecenter"
+      >
+        <slot />
+      </div>
     </section>
 
     <nav class="med-col-3 large-col-3" :class="{ opened: navopened }">

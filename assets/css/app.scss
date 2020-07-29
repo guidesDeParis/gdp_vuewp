@@ -422,9 +422,9 @@ section[role="main-content"]{
     }
 
     >nav{
-      padding-bottom: 0;
       $pager_h:2em;
-
+      display: flex;
+      flex-direction: column;
       span.nav-title{ display:none; }
 
       section#toc{
@@ -490,7 +490,7 @@ section[role="main-content"]{
         height:$pager_h;
         overflow: hidden;
         box-sizing: content-box;
-        padding:0 1.5em;
+        padding:1em 0 0 1.5em;
         select{
           option{
             padding:0;
@@ -985,6 +985,12 @@ footer[role="tools"]{
   input[type="search"]{
     margin:0;
     padding:0;
+    -webkit-appearance:textfield;
+    -webkit-box-sizing:content-box;
+  }
+  input::-webkit-search-decoration,
+  input::-webkit-search-cancel-button {
+      display: none;
   }
   .vs__search{
     &, &:focus{
@@ -994,6 +1000,12 @@ footer[role="tools"]{
       border:none;
       box-sizing: border-box;
     }
+  }
+  .vs__dropdown-toggle{
+    input::placeholder{background-color: #fff;}
+  }
+  .vs__selected-options{
+    background-color: #fff;
   }
   .vs__actions{
     padding:1px 3px;

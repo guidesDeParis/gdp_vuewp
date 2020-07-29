@@ -33,13 +33,17 @@ body{
     }
   }
   section[role="main-content"]{
+    display: flex;
     flex:1 1 auto;
     @extend %layout-element;
     overflow: hidden;
+    position: relative;
     >.wrapper{
       position: relative;
       padding:0 $side-padding 0 $side-padding;
-      height:100%; max-height:100%;
+      // height:100%; max-height:100%;
+      display: flex;
+      flex: 1;
       overflow-y: hidden;
       overflow-x: hidden;
       >*{
@@ -51,16 +55,21 @@ body{
       }
     }
     .main-content-layout{
-      height: 100%;
+      position: relative;
+      // https://stackoverflow.com/a/33644245
+      display: flex;
+      flex: 1;
+      >section{
+        max-height: 100%;
+      }
       >header,
-      >section,
+      >section>.wrapper,
       >nav{
+        box-sizing: border-box;
         max-height: 100%;
         padding-top:1em;
-        padding-bottom:1em;
       }
-
-      >section,
+      >section>.wrapper,
       >nav{
         overflow-x: hidden;
         overflow-y: auto;
