@@ -53,6 +53,12 @@ export default {
       historyItems: state => state.History.items
     })
   },
+  watch: {
+    $route (n, o) {
+      // console.log('route changed')
+      this.resultsOpened = false
+    }
+  },
   methods: {
     openResults () {
       this.resultsOpened = true
