@@ -11,9 +11,8 @@
             :uuid="ed.item"
             @click.prevent="onclick"
             @keyup.enter="onclick"
-          >
-            {{ ed.item }}
-          </a>
+            v-html="ed.biblio"
+          />
         </h3>
         <ul>
           <li

@@ -270,7 +270,26 @@ section[role="main-content"]{
   .index-item{
     header{
       h1{
-        @include title2black;
+        @include title1black;
+        margin:0 0 0.3em;
+      }
+      p{
+        margin: 0 0 0.5em 0;
+      }
+      h3{
+        @include title2black
+        margin:0;
+      }
+      .authors{
+        a{
+          @include title2black;
+          color: $bleuroi;
+        }
+        margin:0 0 0.3em;
+      }
+      .mdi{
+        color: $bleuroilight;
+        font-size: 0.7em;
       }
     }
     .occurences{
@@ -278,15 +297,16 @@ section[role="main-content"]{
         >li{
           padding:0 0 2em 0;
           h3{
-            @include title1black;
-            padding:0 0 1em 0;
+            @include title2black;
+            padding:0 0 0.5em 0;
+            color: $bleuroi;
           }
           >ul{
             >li{
-              padding:0 0 1em 0;
+              padding:0 0 0.5em 0;
               section{
                 h4{
-                  @include title2black;
+                  @include title3black;
                   display: inline-block;
                 }
                 span.open-close{
@@ -336,6 +356,32 @@ section[role="main-content"]{
               }
             }
           }
+        }
+      }
+    }
+    nav{
+      h3{
+        @include title2black;
+        margin:0 0 0.5em;
+      }
+      h4{
+        @include title3black;
+        margin:0 0 0.5em;
+        color: $bleuroi;
+      }
+      .attested-forms{
+        ul{
+          >li{
+            margin: 0 0 1em 0;
+            li{
+              margin: 0 0 0.5em 0;
+            }
+          }
+        }
+        a{
+          @include title4black;
+          color: $grisfonce;
+          font-weight: 400;
         }
       }
     }
@@ -539,9 +585,7 @@ section[role="main-content"]{
             }
           }
           .toc-title{
-            color: $gris;
-            font-weight: 400;
-            margin:0;
+            @include title4black;
             &.active,
             &:hover{
               color:$grisfonce;
@@ -551,12 +595,12 @@ section[role="main-content"]{
               color:$grisfonce;
             }
           }
-          h2.toc-title{font-size: 0.882em;}
-          h3.toc-title{font-size: 0.882em;}
-          h4.toc-title{font-size: 0.882em;}
-          h5.toc-title{font-size: 0.882em;}
-          h6.toc-title{font-size: 0.882em;}
-          span.toc-title{font-size: 0.882em;}
+          // h2.toc-title{font-size: 0.882em;}
+          // h3.toc-title{font-size: 0.882em;}
+          // h4.toc-title{font-size: 0.882em;}
+          // h5.toc-title{font-size: 0.882em;}
+          // h6.toc-title{font-size: 0.882em;}
+          // span.toc-title{font-size: 0.882em;}
         }
       }
 

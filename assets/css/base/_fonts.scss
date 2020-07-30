@@ -59,6 +59,14 @@ footer[role="tools"] .row>nav{
   margin:0;
 }
 
+@mixin title4black {
+  @include fontserif;
+  font-size: 0.882em;;
+  color: $gris;
+  font-weight: 400;
+  margin:0;
+}
+
 // TEI
 
 @mixin teititlefrontblue {

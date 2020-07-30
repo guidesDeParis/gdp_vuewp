@@ -10,16 +10,40 @@
         {{ content.birthDate }}, {{ content.birthPlace }}<br>
         {{ content.deathDate }}, {{ content.deathPlace }}
       </p>
-      <!-- <ul v-if="content.attestedForms.lenght" class="attestedForms">
-        <li v-for="(item, index) in content.attestedForms" :key="index">
+      <p v-if="content.occupation">{{ content.occupation }}</p>
 
-        </li>
-      </ul> -->
+      <section class="notes">
+        <div v-for="(note, i) in content.note" :key="i" class="note" v-html="note" />
+      </section>
+
+      <section v-if="content.autorities.length" class="autorities">
+        <h3>Autorities</h3>
+        <ul>
+          <li v-for="(aut, i) in content.autorities" :key="i">
+            <a :href="aut.identifier" target="_blanck">{{ aut.autority }}</a>
+          </li>
+        </ul>
+      </section>
     </template>
 
     <!-- default slot -->
     <IndexItemOcurrences v-if="content" :content="content" />
 
+    <template v-slot:nav>
+      <section v-if="content.attestedForms" class="attested-forms">
+        <h3>Attested forms</h3>
+        <ul>
+          <li v-for="(af, i) in content.attestedForms" :key="i">
+            <h4>{{ af.title }}</h4>
+            <ul>
+              <li v-for="(uuid, j) in af.uuid" :key="j">
+                <a href="#">{{ uuid }}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </template>
   </MainContentLayout>
 </template>
 

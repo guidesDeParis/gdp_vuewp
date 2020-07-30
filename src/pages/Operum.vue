@@ -6,6 +6,32 @@
 
     <template v-if="content" v-slot:header>
       <h1 v-html="content.title" />
+      <section v-if="content.author.length" class="authors">
+        <ul>
+          <li v-for="author in content.author" :key="author.uuid">
+            <router-link
+              :to="{ name:'nominum', params: { id: author.uuid }}"
+            >
+              {{ author.name }}
+            </router-link>
+
+          </li>
+        </ul>
+      </section>
+      <section class="notes">
+        <div v-for="(note, i) in content.note" :key="i" class="note" v-html="note" />
+      </section>
+      <section v-if="content.autorities.length" class="autorities">
+        <h3>Autorities</h3>
+        <ul>
+          <li v-for="(aut, i) in content.autorities" :key="i">
+            <a :href="aut.identifier" target="_blanck">
+              {{ aut.autority }}
+              <span class="mdi mdi-open-in-new" />
+            </a>
+          </li>
+        </ul>
+      </section>
     </template>
 
     <!-- default slot -->
