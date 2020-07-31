@@ -3,7 +3,7 @@ import axios from 'axios'
 import { REST } from 'api/rest-axios'
 import qs from 'querystring'
 
-const _filterskeys = ['persons', 'places', 'objects']
+const _filterskeys = ['persons', 'places', 'objects', 'texts']
 const _CancelToken = axios.CancelToken
 // const _cancelTokenSource = _CancelToken.source()
 let _cancelTokens = []
@@ -23,8 +23,8 @@ export default {
       { 'code': 'objects', 'label': 'Dans les objets' }
     ],
     searchTypeValue: { 'code': 'text', 'label': 'Dans les textes' },
-    filters: { persons: [], places: [], objects: [] },
-    activeFilters: { persons: [], places: [], objects: [] },
+    filters: { persons: [], places: [], objects: [], texts: [] },
+    activeFilters: { persons: [], places: [], objects: [], texts: [] },
     sortOptions: [
       { code: 'date', label: 'date' },
       { code: 'score', label: 'pertinence' },
@@ -77,30 +77,30 @@ export default {
       state.searchTypeValue = value
     },
     setFilters (state, filters) {
-      for (let index in filters) {
-        if (filters.hasOwnProperty(index)) {
-          console.log('index', index)
-          if (filters[index]) {
-            if (Array.isArray(filters[index])) {
-              state.filters[index] = []
-              for (var i = 0; i < filters[index].length; i++) {
-                if (filters[index][i].uuid && filters[index][i].title) {
-                  state.filters[index].push({
-                    code: filters[index][i].uuid,
-                    label: filters[index][i].title
+      for (let filter in filters) {
+        if (filters.hasOwnProperty(filter)) {
+          console.log('filter', filter)
+          if (filters[filter]) {
+            if (Array.isArray(filters[filter])) {
+              state.filters[filter] = []
+              for (var i = 0; i < filters[filter].length; i++) {
+                if (filters[filter][i].uuid && filters[filter][i].title) {
+                  state.filters[filter].push({
+                    code: filters[filter][i].uuid,
+                    label: filters[filter][i].title
                   })
                 }
               }
             } else {
-              if (filters[index].uuid && filters[index].title) {
-                state.filters[index] = [{
-                  code: filters[index].uuid,
-                  label: filters[index].title
+              if (filters[filter].uuid && filters[filter].title) {
+                state.filters[filter] = [{
+                  code: filters[filter].uuid,
+                  label: filters[filter].title
                 }]
               }
             }
           } else {
-            state.filters[index] = []
+            state.filters[filter] = []
           }
         }
       }
@@ -108,7 +108,7 @@ export default {
     },
     setActiveFilters (state, filters) {
       // console.log('setActiveFilters', filters)
-      state.activeFilters[filters.index] = filters.value
+      state.activeFilters[filters.filter] = filters.value
       // console.log('state.activeFilters', state.activeFilters)
     },
     resetActiveFilters (state) {
@@ -148,19 +148,20 @@ export default {
         params.type = state.searchTypeValue.code
       }
       let f
-      for (var index of _filterskeys) {
-        if (state.activeFilters[index].length) {
-          f = `filter${index.charAt(0).toUpperCase()}${index.slice(1)}`
+      for (var filter of _filterskeys) {
+        // console.log(`state.activeFilters[${filter}]`, state.activeFilters[filter])
+        if (state.activeFilters[filter].length) {
+          f = filter === 'texts' ? 'text' : `filter${filter.charAt(0).toUpperCase()}${filter.slice(1)}`
           params[f] = []
-          for (var i = 0; i < state.activeFilters[index].length; i++) {
-            params[f].push(state.activeFilters[index][i].code)
+          for (var i = 0; i < state.activeFilters[filter].length; i++) {
+            params[f].push(state.activeFilters[filter][i].code)
           }
         }
       }
       if (state.sorting) {
         params.sort = state.sorting.code
       }
-      // console.log('Search getResults params', params);
+      console.log('Search getResults params', params)
       let q = qs.stringify(params)
 
       // construct options

@@ -37,6 +37,18 @@
           title="chargement"
         />
       </fieldset>
+      <fieldset v-if="filters.texts.length" class="filters filters-texts small-col-4 med-col-2 large-col-2">
+        <v-select
+          id="filters-texts"
+          type="select"
+          placeholder="filtrer par texte"
+          append-to-body
+          :calculate-position="dropDownMenuPos"
+          :options="textsOptions"
+          :value="activeFilters.texts"
+          @input="onFiltersTextSelected"
+        />
+      </fieldset>
       <fieldset v-if="filters.persons.length" class="filters filters-nominum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-nominum"
@@ -112,6 +124,9 @@ export default {
     },
     objectsOptions () {
       return this.filters.objects.filter(option => !this.activeFilters.objects.includes(option))
+    },
+    textsOptions () {
+      return this.filters.texts.filter(option => !this.activeFilters.texts.includes(option))
     }
   },
   methods: {
@@ -175,17 +190,23 @@ export default {
     },
     onFiltersNominumSelected (e) {
       console.log('onFiltersNominumSelected', e)
-      this.setActiveFilters({ index: 'persons', value: e })
+      this.setActiveFilters({ filter: 'persons', value: e })
       this.updateSearch()
     },
     onFiltersLocorumSelected (e) {
       console.log('onFiltersLocorumSelected', e)
-      this.setActiveFilters({ index: 'places', value: e })
+      this.setActiveFilters({ filter: 'places', value: e })
       this.updateSearch()
     },
     onFiltersOperumSelected (e) {
       console.log('onFiltersOperumSelected', e)
-      this.setActiveFilters({ index: 'objects', value: e })
+      this.setActiveFilters({ filter: 'objects', value: e })
+      this.updateSearch()
+    },
+    onFiltersTextSelected (e) {
+      console.log('onFiltersTextSelected', e)
+      // as texts is not multiple, convert one object value to array [e]
+      this.setActiveFilters({ filter: 'texts', value: e ? [e] : [] })
       this.updateSearch()
     }
   }

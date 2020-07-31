@@ -47,7 +47,7 @@ export default {
   },
   watch: {
     $route (n, o) {
-      console.log('route changed')
+      // console.log('route changed')
       this.indexOpened = false
     }
   },

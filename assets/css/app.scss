@@ -944,7 +944,7 @@ footer[role="tools"]{
 
       fieldset.filters{
         .vs__actions{
-          background-color: $grisclair;
+          // background-color: $grisclair;
           align-items:baseline;
           padding-top:0.2em;
         }
@@ -1040,6 +1040,10 @@ footer[role="tools"]{
   }
   .vs__actions{
     padding:1px 3px;
+    button.vs__clear{
+      line-height: 0.5;
+      // height:0;
+    }
     svg[role="presentation"]{
       transform: scale(0.8);
       path{
