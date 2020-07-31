@@ -24,7 +24,7 @@
               @click.prevent="openResults"
               @keydown.enter.prevent="openResults"
             >
-              Resultas
+              Resultats
             </span>
           </transition>
         </div>
