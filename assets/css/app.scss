@@ -537,6 +537,18 @@ section[role="main-content"]{
 
           }
 
+          figure{
+            // outline: 1px solid red;
+            background-color: $grisclair;
+            margin:1em 0;
+            img{
+              width: 100%;
+            }
+            figcaption{
+              @include fontcaption
+              padding: 0.5em;
+            }
+          }
         }
       }
     }
@@ -626,7 +638,7 @@ section[role="main-content"]{
         top:$top;
         right:0;
         background-color: #fff;
-        width:40%;
+        width:percentage(10/$default_sum);
         box-sizing: border-box;
         padding-top: 1em;
         padding-bottom: 1em;

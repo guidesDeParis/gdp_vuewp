@@ -57,6 +57,7 @@ export default {
       `</a>` +
       `${this.tei}</div>`
       this.parseLinks()
+      this.parseFigures()
       // this.parsePageBreaks()
       // console.log('EdText: builded html', this.html)
     },
@@ -97,6 +98,30 @@ export default {
           }
         }
         // console.log('this.html', this.html)
+      }
+    },
+    parseFigures () {
+      console.log('parseFigures this.html', this.html)
+      let imgs = this.html.match(/<img[^>]*>/g)
+      console.log('imgs', imgs)
+      if (imgs) {
+        let imgparts, newsrc, newimg
+        for (var i = 0; i < imgs.length; i++) {
+          // console.log(`link ${i}:`, links[i])
+          imgparts = RegExp(/<img src="(.+)" alt="(.+)">/g).exec(imgs[i], 'g')
+          console.log('imgparts', imgparts)
+          if (!imgparts) {
+            console.warn(`img ${i} malformed:`, imgs[i])
+          } else {
+            newsrc = `${imgparts[1]}/full/1000,/0/native.jpg`
+            newimg = `<img` +
+              ` src="${newsrc}"` +
+              ` alt="${imgparts[2]}"` +
+              `/>`
+            // console.log('newlink', newlink)
+            this.html = this.html.replace(imgs[i], newimg)
+          }
+        }
       }
     },
     // parsePageBreaks () {

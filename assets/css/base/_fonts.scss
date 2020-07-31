@@ -85,3 +85,9 @@ footer[role="tools"] .row>nav{
   font-weight: 400;
   margin:0;
 }
+
+@mixin fontcaption {
+  @include fontsans;
+  font-size: 0.643em;
+  line-height: 1.1em;
+}
