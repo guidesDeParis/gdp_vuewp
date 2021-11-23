@@ -4,7 +4,7 @@
 #### clone this repos
 #### install
 ```
-npm install
+npm ci
 ```
 #### run dev
 ```
