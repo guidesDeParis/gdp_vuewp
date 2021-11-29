@@ -11,18 +11,18 @@
       <div class="col-3" />
       <div class="col-6 teasers">
         <article>
-          <h1>Le projet de recherche</h1>
-          <p>Conduit au sein du Labex les Passés dans le Présent, le projet des Guides de Paris consiste à numériser, éditer exposer dans le Linked Open Data un corpus de guides des XVIIeet XVIIIesiècles en vue de leur étude.</p>
+          <h1>Lorem ipsum</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales libero turpis, in tincidunt felis feugiat sit amet. Etiam laoreet diam sapien, sit amet ullamcorper magna rhoncus a. Duis sapien ipsum, consectetur ornare luctus eu, tincidunt id magna.</p>
           <span>Lire la suite</span>
         </article>
         <article>
-          <h1>Le projet de recherche</h1>
-          <p>Conduit au sein du Labex les Passés dans le Présent, le projet des Guides de Paris consiste à numériser, éditer exposer dans le Linked Open Data un corpus de guides des XVIIeet XVIIIesiècles en vue de leur étude.</p>
+          <h1>Lorem ipsum</h1>
+          <p>Integer in pulvinar quam, ac porttitor arcu. Nulla tempor tempor risus, vitae eleifend ligula feugiat id. Vivamus at semper ex. Nulla mattis sapien lacus, ut iaculis urna finibus id. Donec elementum purus quis odio scelerisque feugiat. Donec massa lorem, mattis id ullamcorper et, semper luctus magna. Vivamus interdum luctus massa, pharetra consequat libero fermentum non. Quisque nec dolor ut urna efficitur ultrices semper vitae lacus.</p>
           <span>Lire la suite</span>
         </article>
         <article>
-          <h1>Le projet de recherche</h1>
-          <p>Conduit au sein du Labex les Passés dans le Présent, le projet des Guides de Paris consiste à numériser, éditer exposer dans le Linked Open Data un corpus de guides des XVIIeet XVIIIesiècles en vue de leur étude.</p>
+          <h1>Lorem ipsum</h1>
+          <p>Aliquam in viverra metus. Suspendisse pretium eget nisl nec fermentum. Aliquam pellentesque turpis diam, ut congue nulla gravida ac. Vestibulum a tempus mi, ac rhoncus sem. Sed quis ultrices est.</p>
           <span>Lire la suite</span>
         </article>
       </div>
