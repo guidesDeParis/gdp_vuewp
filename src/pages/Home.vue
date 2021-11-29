@@ -22,7 +22,7 @@
         </article>
         <article>
           <h1>Lorem ipsum</h1>
-          <p>Aliquam in viverra metus. Suspendisse pretium eget nisl nec fermentum. Aliquam pellentesque turpis diam, ut congue nulla gravida ac. Vestibulum a tempus mi, ac rhoncus sem. Sed quis ultrices est.</p>
+          <p>Aliquam in viverra metus. Suspendisse pretium eget nisl nec fermentum. Aliquam pellentesque turpis diam, ut congue nulla gravida ac. Vestibulum a tempus mi, ac rhoncus sem. Sed quis ultrices test.</p>
           <span>Lire la suite</span>
         </article>
       </div>

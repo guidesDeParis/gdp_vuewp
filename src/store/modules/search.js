@@ -20,7 +20,7 @@ export default {
       { 'code': 'text', 'label': 'Dans les textes' },
       { 'code': 'persons', 'label': 'Dans les personnes' },
       { 'code': 'places', 'label': 'Dans les lieux' },
-      { 'code': 'objects', 'label': 'Dans les objets' }
+      { 'code': 'objects', 'label': 'Dans les œuvres' }
     ],
     searchTypeValue: { 'code': 'text', 'label': 'Dans les textes' },
     filters: { persons: [], places: [], objects: [], texts: [] },
