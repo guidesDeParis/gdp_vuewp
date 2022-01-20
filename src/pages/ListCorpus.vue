@@ -26,6 +26,7 @@
             <li v-for="text in corpus.editions.content" :key="text.uuid">
               <h3>
                 <a
+                  class="title"
                   :href="text.url"
                   :uuid="text.uuid"
                   @click.prevent="onclick"
@@ -33,6 +34,10 @@
                   v-html="text.title"
                 />
               </h3>
+              <p
+                class="biblio"
+                v-html="text.biblio"
+              />
             </li>
           </ul>
         </section>

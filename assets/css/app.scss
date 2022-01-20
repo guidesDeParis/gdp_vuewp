@@ -212,8 +212,8 @@ section[role="main-content"]{
         margin: 0 0 2em 0;
         header{
           h2{
-            margin:0.4em 0 0.2em;
             @include title1blue;
+            margin:0.4em 0 0.2em;
           }
           h3{
             margin:0.2em 0;
@@ -222,6 +222,17 @@ section[role="main-content"]{
             font-weight: 500;
           }
           margin-bottom: 0.3em;
+        }
+
+        h4{
+          margin:0.1em 0;
+          font-weight: 300;
+          @include fontsans;
+          font-size: 0.756em;
+          &.texts-quantity{
+            color: $rouge;
+            margin: 0.3em 0 0;
+          }
         }
         section.editions{
           div.editions{
@@ -233,17 +244,25 @@ section[role="main-content"]{
             }
           }
         }
-        h4{
-          margin:0.1em 0;
-          font-weight: 300;
-          @include fontsans;
-          font-size: 0.756em;
-          &.texts-quantity{
-            color: $rouge;
-            // &:after{
-            //   content: ">>";
-            //   margin:0 0 0 0.5em;
-            // }
+
+        section.texts{
+
+          
+          ul.texts-list{
+            padding: 0 0 0 1em;
+            li{
+              margin: 0;
+            }
+            h3{
+              @include title2black;
+              margin: 0.7em 0 0.3em;
+            }
+            p{
+              font-weight: 300;
+              @include fontsans;
+              font-size: 0.756em;
+              margin: 0;
+            }
           }
         }
 
@@ -379,7 +398,7 @@ section[role="main-content"]{
           }
         }
         a{
-          @include title4black;
+          @include title4grey;
           color: $grisfonce;
           font-weight: 400;
         }
@@ -597,7 +616,7 @@ section[role="main-content"]{
             }
           }
           .toc-title{
-            @include title4black;
+            @include title4grey;
             &.active,
             &:hover{
               color:$grisfonce;
