@@ -28,8 +28,8 @@ that is currently Firefox-only */
 
 body{
   color: #1a1a1a;
-  // background-image: url('/static/img/grille-ligne-de-base.png');
-  // background-repeat: repeat;
+  background-image: url('/static/img/grille-ligne-de-base.png');
+  background-repeat: repeat;
 }
 
 #root{
@@ -456,6 +456,10 @@ section[role="main-content"]{
           position: relative;
           width: calc(100% - #{$pagenum_w});
 
+          // DEBUG
+          color:chartreuse;
+          &>*{ color: #1A1A1A;}
+
           // @media only screen and (min-width: $small-bp + 1) {
           padding-right: $pagenum_w;
           border-left: 1px dotted $grisclair;
@@ -464,7 +468,9 @@ section[role="main-content"]{
             border-left: 1px dotted $bleuroi;
           }
           // }
-          >h1{@include teititle1blue;}
+          >h1{
+            @include teititle1blue;
+          }
           span.placeName,
           span.objectName,
           span.persName{
@@ -488,6 +494,7 @@ section[role="main-content"]{
               &.active-link{
                 color: $rouge;
                 // text-decoration: underline;
+                line-height: $base-line/2;
               }
               sup.mdi{
                 font-size: 0.630em;
@@ -534,13 +541,15 @@ section[role="main-content"]{
           }
           // front page
           header{
-            padding-top: 1em;
+            padding-top: $base-line;
             h1{
               @include teititlefrontblue;
               .initial{
+                display: inline-block;
                 text-transform: uppercase;
                 font-size: 1.3em;
-                line-height: 1.3em;
+                line-height: $base-line*2;
+                margin: $base-line/2 0;
               }
             }
           }
@@ -570,6 +579,18 @@ section[role="main-content"]{
             figcaption{
               @include fontcaption
               padding: 0.5em;
+            }
+          }
+
+          ul{
+            line-height: $base-line;
+            margin-bottom: $base-line/2;
+          }
+          blockquote{
+            margin: $base-line/2 1em;
+            line-height: $base-line;
+            p{
+              margin: 0;
             }
           }
         }
