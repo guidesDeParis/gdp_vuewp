@@ -4,6 +4,7 @@
 // @import '../fonts/notosans/notosans-condensed.css';
 // @import '../fonts/notosans/notosans-extracondensed.css';
 
+
 @mixin fontsans {
   font-family: "noto_sans";
 }
@@ -33,6 +34,7 @@ footer[role="tools"] .row>nav{
   color: $bleuroi;
   font-weight: 400;
   margin:0;
+  line-height: $base-line;
 }
 
 @mixin title1black {
@@ -92,6 +94,7 @@ footer[role="tools"] .row>nav{
   color: $bleuroi;
   font-weight: 400;
   margin:0;
+  line-height: $base-line;
 }
 
 @mixin fontcaption {
