@@ -17,7 +17,9 @@
       />
     </h2>
     <!-- <p v-if="preview" class="preview" v-html="preview" /> -->
-    <aside>
+    <aside
+      v-if="item.pages"
+    >
       <span>{{ item.pages.prefix }} {{ item.pages.range }}</span> | <span>{{ item.size.quantity }} {{ item.size.unit }}</span>
     </aside>
   </article>

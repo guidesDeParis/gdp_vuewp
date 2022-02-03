@@ -42,6 +42,8 @@
 
 import TocItem from './TocItem'
 
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'TocItem',
   components: {
@@ -57,6 +59,12 @@ export default {
     isOpened: false
   }),
   computed: {
+    ...mapState({
+      editionsbyuuid: state => state.Corpus.editionsbyuuid
+    }),
+    editionTitle () {
+      return this.editionsbyuuid[this.editionid].title
+    },
     children () {
       // check if children exists and if it is an array
       // this shoudn't be necessary
@@ -110,8 +118,19 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      addHistoryItem: 'History/addItem'
+    }),
     onclick (e) {
-      // console.log('clicked on toc text', this.editionid, e)
+      console.log('clicked on toc text', this.item, e)
+      this.addHistoryItem({
+        id: this.editionid,
+        textid: this.item.uuid,
+        title: this.item.title,
+        editionTitle: this.editionTitle
+        // pages: this.item.pages,
+        // size: this.item.size
+      })
       this.$emit('onClickTocItem', e.target.getAttribute('uuid'))
     },
     onClickTocItem (uuid) {

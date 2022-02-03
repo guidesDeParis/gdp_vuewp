@@ -28,8 +28,8 @@ that is currently Firefox-only */
 
 body{
   color: #1a1a1a;
-  background-image: url('/static/img/grille-ligne-de-base.png');
-  background-repeat: repeat;
+  // background-image: url('/static/img/grille-ligne-de-base.png');
+  // background-repeat: repeat;
 }
 
 #root{
@@ -446,7 +446,7 @@ section[role="main-content"]{
       padding-right: 0;
       >.wrapper{
         padding-right: $pagenum_w*2;
-        outline: orange solid thin;
+        // outline: orange solid thin;
       }
       div#text{
         // .infinite-loading-container{
