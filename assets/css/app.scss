@@ -446,6 +446,7 @@ section[role="main-content"]{
       padding-right: 0;
       >.wrapper{
         padding-right: $pagenum_w*2;
+        outline: orange solid thin;
       }
       div#text{
         // .infinite-loading-container{
@@ -509,21 +510,26 @@ section[role="main-content"]{
             font-size: 16px;
             position: relative;
             float:right;
-            width: $pagenum_w; height:0;
+            width: $pagenum_w; height:$base-line/4;
+            border-bottom: 1px solid $bleuroilight;
+            border-right: 1px solid $bleuroilight;
+            // outline: solid red thin;
             // margin-left:calc(100% - #{$pagenum_w * 2});
             // margin-left: 100%;
-            margin-right: - $pagenum_w;
-            &:after{
+            margin-right: - $pagenum_w * 0.7;
+            &:before{
+              // outline: solid green thin;
               content:attr(data-num);
-              border-top: 1px solid $bleuroilight;
-              position: absolute;
-              right:0;
               font-size: 0.630em;
-              width: $pagenum_w*2; height: $pagenum_w;
-              line-height: $pagenum_w;
-              border-right: 1px solid $bleuroilight;
+              line-height: $base-line/3;
+              position: absolute;
+              right: - $pagenum_w * 1.7;
               color: $bleuroi;
-              text-indent: $pagenum_w * 2.5;
+              // top:0;
+              // width: $pagenum_w*2; height: $pagenum_w;
+              // border-top: 1px solid $bleuroilight;
+              // border-right: 1px solid $bleuroilight;
+              // text-indent: $pagenum_w * 2.5;
             }
           }
 
