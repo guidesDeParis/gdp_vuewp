@@ -445,7 +445,7 @@ section[role="main-content"]{
     >section{
       padding-right: 0;
       >.wrapper{
-        padding-right: $pagenum_w*2;
+        padding-right: $pagenum_w*3;
         // outline: orange solid thin;
       }
       div#text{
@@ -561,14 +561,15 @@ section[role="main-content"]{
             // outline: solid red thin;
             // margin-left:calc(100% - #{$pagenum_w * 2});
             // margin-left: 100%;
-            margin-right: - $pagenum_w * 0.7;
+            margin-right: - $pagenum_w * 1.5;
             &:before{
               // outline: solid green thin;
               content:attr(data-num);
               font-size: 0.630em;
               line-height: $base-line/3;
               position: absolute;
-              right: - $pagenum_w * 1.7;
+              right: 0;
+              top:$base-line/2;
               color: $bleuroi;
               // top:0;
               // width: $pagenum_w*2; height: $pagenum_w;
