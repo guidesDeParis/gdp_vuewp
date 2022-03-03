@@ -3,22 +3,22 @@
     <span class="mdi mdi-open-in-new" />
     <div class="popup">
       <button
-        type="button"
-        :title="btnuuidtitle"
-        class="copy-btn"
         v-clipboard:copy="uuid"
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"
+        type="button"
+        :title="btnuuidtitle"
+        class="copy-btn"
       >
         {{ uuid }} <span class="mdi mdi-clipboard-outline" />
       </button>
       <button
-        type="button"
-        :title="btnurltitle"
-        class="copy-btn"
         v-clipboard:copy="linkhref"
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"
+        type="button"
+        :title="btnurltitle"
+        class="copy-btn"
       >
         {{ linkhref }} <span class="mdi mdi-clipboard-outline" />
       </button>

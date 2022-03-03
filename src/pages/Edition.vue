@@ -13,8 +13,17 @@
       <h1>
         <router-link :to="{ name:'edition', params: { id: editionid }}">{{ title }}</router-link>
       </h1>
-
-      <p v-if="meta">{{ meta.author }}</p>
+      <div v-if="biblio" class="biblio">
+        <p v-html="biblio.description" />
+        <a
+          :href="edition_manifestation_href"
+          @click.prevent="onClickManifestation"
+          @keyup.enter="onClickManifestation"
+        >
+          {{ biblio.uuid }}
+        </a>
+      </div>
+      <!-- <p v-if="meta">{{ meta.author }}</p> -->
       <aside
         v-if="indexitem"
         class="index-tooltip"
@@ -132,6 +141,7 @@ export default {
     textsuuids: [],
     metainfotitle: undefined,
     title: undefined,
+    biblio: undefined,
     author: undefined,
     texttitle: undefined,
     //
@@ -156,7 +166,10 @@ export default {
       corpusLoaded: state => state.Corpus.corpusLoaded,
       editionslist: state => state.Corpus.editionslist,
       editionsbyuuid: state => state.Corpus.editionsbyuuid
-    })
+    }),
+    edition_manifestation_href () {
+      return `${this.biblio.path}${this.biblio.uuid}`
+    }
   },
   watch: {
     $route (to, from) {
@@ -217,6 +230,7 @@ export default {
         if (mutation.type === 'Corpus/setEditionsByUUID') {
           // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
           this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
+          this.biblio = state.Corpus.editionsbyuuid[this.editionid].biblio
         }
         if (mutation.type === 'Corpus/setTocs') {
           console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
@@ -241,6 +255,7 @@ export default {
     } else {
       // console.log('');
       this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
+      this.biblio = this.editionsbyuuid[this.editionid].biblio
       this.toc = this.editionsbyuuid[this.editionid].toc
       this.flattoc = this.editionsbyuuid[this.editionid].flattoc
       // if no textid in new route (e.g. edition front)
@@ -393,6 +408,13 @@ export default {
       this.$router.push({
         name: e.target.dataset.index,
         params: { id: e.target.dataset.uuid }
+      })
+    },
+    onClickManifestation (e) {
+      console.log(`onClickManifestation`)
+      this.$router.push({
+        name: 'bibliographieItem',
+        params: { type: 'manifestations', uuid: this.biblio.uuid }
       })
     }
   }
