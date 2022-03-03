@@ -17,8 +17,8 @@
       @input="onClickPaginationItem"
     >
       <template v-slot:option="option">
-        <span v-for="l in option.level" :key="l" class="op-tab" />
-        {{ option.label }}
+        <span v-for="l in option.level" :key="l" class="op-tab">&nbsp;</span>
+        <span v-html="option.label" />
       </template>
     </v-select>
   </div>
@@ -46,10 +46,11 @@ export default {
   //   }
   // },
   methods: {
-    parsePagesToOptions (p, i = 0, l = 0) {
-      // console.log('EdPagination parsePagesToOptions', p)
+    parsePagesToOptions (p, vol = null, i = 0, l = 0) {
+      console.log('EdPagination parsePagesToOptions', p)
       for (var j = 0; j < p.length; j++) {
         // if it is just a section without page like a volume
+        // not used anymore
         if (p[j].text) {
           this.options.push({
             key: i,
@@ -59,18 +60,34 @@ export default {
             level: l
           })
         }
+        // if its a volume
+        if (p[j].vol) {
+          this.options.push({
+            code: p[j].vol.label,
+            label: `<b>${p[j].vol.label}</b>`,
+            disabled: true,
+            level: l
+          })
+        }
         // if it's a real page break
         if (p[j].pageBreak) {
+          let label
+          if (vol) {
+            label = `${vol.unit}${vol.n} page ${p[j].pageNum}`
+          } else {
+            label = p[j].pageNum
+          }
+
           this.options.push({
             key: i,
             code: p[j].pageBreak,
-            label: p[j].pageNum,
+            label: label,
             uuid: p[j].uuid,
             level: l
           })
         }
         if (p[j].pages && p[j].pages.length) {
-          this.parsePagesToOptions(p[j].pages, i++, l + 1)
+          this.parsePagesToOptions(p[j].pages, p[j].vol, i++, l + 1)
         } else {
           i++
         }
