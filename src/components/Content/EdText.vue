@@ -5,7 +5,7 @@
       class="tei"
       :class="{ active: uuid === textid }"
       :data-uuid="uuid"
-      v-html="tei"
+      v-html="teiparsed"
     />
   </div>
 </template>
@@ -25,12 +25,14 @@ export default {
     tei: String,
     uuid: String,
     textid: String,
+    extract: String,
     url: String
   },
   data: () => ({
     template: null,
     html: null,
-    pages: []
+    pages: [],
+    teiparsed: null
   }),
   watch: {
     tei: function (newtei, oldtei) {
@@ -41,7 +43,7 @@ export default {
     }
   },
   beforeMount () {
-    console.log('EdText beforeMount', this.tei)
+    // console.log('EdText beforeMount', this.tei)
     if (this.tei) {
       // this.buildTemplate()
       this.parseTei()
@@ -82,11 +84,15 @@ export default {
     //   // console.log('EdText: builded html', this.html)
     // },
     parseTei () {
+      this.teiparsed = this.tei
       this.parseLinks()
       this.parseFigures()
+      if (this.textid === this.uuid) {
+        this.parseExtract()
+      }
     },
     parseLinks () {
-      let links = this.tei.match(/<a[^<]+<\/a>/g)
+      let links = this.teiparsed.match(/<a[^<]+<\/a>/g)
       // console.log('links', links)
       if (links) {
         // let domparser = new DOMParser()
@@ -118,15 +124,15 @@ export default {
               `<sup class="mdi mdi-message-text-outline" />` +
               `</a>`
             // console.log('newlink', newlink)
-            this.tei = this.tei.replace(links[i], newlink)
+            this.teiparsed = this.teiparsed.replace(links[i], newlink)
           }
         }
         // console.log('this.html', this.html)
       }
     },
     parseFigures () {
-      console.log('parseFigures this.tei', this.tei)
-      let imgs = this.tei.match(/<img[^>]*>/g)
+      // console.log('parseFigures this.tei', this.teiparsed)
+      let imgs = this.teiparsed.match(/<img[^>]*>/g)
       console.log('imgs', imgs)
       if (imgs) {
         let imgparts, newsrc, newimg
@@ -143,10 +149,20 @@ export default {
               ` alt="${imgparts[2]}"` +
               `/>`
             // console.log('newlink', newlink)
-            this.tei = this.tei.replace(imgs[i], newimg)
+            this.teiparsed = this.teiparsed.replace(imgs[i], newimg)
           }
         }
       }
+    },
+    parseExtract () {
+      console.log('Parse extract', this.extract)
+      let regexp = RegExp(this.extract, 'gim')
+      let index = 0
+      function marking (str) {
+        index++
+        return `<mark class="extract" id="mark-${index}">${str}</mark>`
+      }
+      this.teiparsed = this.teiparsed.replace(regexp, marking)
     },
     // parsePageBreaks () {
     //   let pbs = this.html.match(/<span role="pageBreak"[^>]+><\/span>/g)

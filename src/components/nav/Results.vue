@@ -25,7 +25,7 @@
         <div class="wrapper">
           <ul v-if="results.length">
             <li v-for="result in results" :key="result.uuid" class="result">
-              <ResultItem :result="result" />
+              <ResultItem :result="result" :searchedkeys="searchedKeys" />
             </li>
             <infinite-loading
               v-if="offset < resultsQuantity.quantity"

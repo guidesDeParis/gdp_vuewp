@@ -33,6 +33,9 @@ export default {
     result: {
       type: Object,
       required: true
+    },
+    searchedkeys: {
+      type: String
     }
   },
   // data: () => ({
@@ -69,10 +72,11 @@ export default {
         size: this.result.size
       })
       this.$router.push({
-        name: `editiontext`,
+        name: `editiontextextract`,
         params: {
           id: this.result.textId,
-          textid: this.result.uuid
+          textid: this.result.uuid,
+          extract: this.searchedkeys
         }
       })
     }

@@ -43,6 +43,10 @@ export default {
       this.scrollToRef()
     }
   },
+  mounted () {
+    console.log('mounted')
+    this.scrollToRef()
+  },
   methods: {
     onScrollCenter (e) {
       // console.log('mainLayout onScrollCenter: e', e)

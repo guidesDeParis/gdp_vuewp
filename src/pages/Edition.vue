@@ -70,6 +70,7 @@
           :uuid="text.content.uuid"
           :url="text.content.url"
           :textid="textid"
+          :extract="extract"
           @onHoverLink="onHoverLink"
           @onLeaveLink="onLeaveLink"
         />
@@ -177,6 +178,13 @@ export default {
       if (to.params.textid) {
         // change textid when route change
         this.textid = to.params.textid
+        // change also extract if exists
+        if (to.params.extract) {
+          console.log('extract params from route', to.params.extract)
+          this.extract = to.params.extract
+          // scrolling is not working :(
+          this.reftoscrollto = '#mark-1'
+        }
       } else if (this.toc) {
         // if no textid in new route (e.g. edition front)
         // but we have toc
@@ -186,6 +194,9 @@ export default {
       } else {
         this.textid = null
       }
+    },
+    reftoscrollto (newref, oldref) {
+      console.log('reftoscrollto changed', oldref, newref)
     },
     textid (newid, oldid) {
       console.log('textid watcher', this, oldid, newid)
@@ -218,6 +229,13 @@ export default {
     // get the text if textid available
     if (this.$route.params.textid) {
       this.textid = this.$route.params.textid
+    }
+
+    // get the searchkeys from route param (only comming from result item) for text highlighting
+    if (this.$route.params.extract) {
+      this.extract = this.$route.params.extract
+      // scrolling is not working :(
+      this.reftoscrollto = '#mark-1'
     }
 
     // wait for editions list from Corpus Store if not already loaded

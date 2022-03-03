@@ -50,6 +50,11 @@ const routes = [
     component: Edition
   },
   {
+    name: 'editiontextextract',
+    path: '/edition/:id/:textid/:extract',
+    component: Edition
+  },
+  {
     name: 'indexNominum',
     path: '/nominum',
     component: IndexNominum
