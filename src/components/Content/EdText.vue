@@ -1,6 +1,6 @@
 <template>
   <div class="text-wrapper">
-    <EdTextRefLink :uuid="uuid" />
+    <EdTextRefLink :uuid="uuid" :url="url" />
     <div
       class="tei"
       :class="{ active: uuid === textid }"
@@ -24,7 +24,8 @@ export default {
   props: {
     tei: String,
     uuid: String,
-    textid: String
+    textid: String,
+    url: String
   },
   data: () => ({
     template: null,

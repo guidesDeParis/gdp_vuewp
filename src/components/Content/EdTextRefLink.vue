@@ -30,17 +30,19 @@
 export default {
   name: 'EdTextRefLink',
   props: {
-    uuid: String
+    uuid: String,
+    url: String
   },
   computed: {
     linkhref () {
-      return `${window.apipath}/items/${this.uuid}`
+      // return `${window.apipath}/items/${this.uuid}`
+      return this.url
     },
     btnuuidtitle () {
       return `Copy to clipboard ${this.uuid}`
     },
     btnurltitle () {
-      return `Copy to clipboard ${this.linkhref}`
+      return `Copy to clipboard ${this.url}`
     }
   },
   methods: {

@@ -59,6 +59,7 @@
           :key="text.content.uuid"
           :tei="text.content.tei"
           :uuid="text.content.uuid"
+          :url="text.content.url"
           :textid="textid"
           @onHoverLink="onHoverLink"
           @onLeaveLink="onLeaveLink"
