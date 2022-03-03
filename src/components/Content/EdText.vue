@@ -1,9 +1,26 @@
+<template>
+  <div class="text-wrapper">
+    <EdTextRefLink :uuid="uuid" />
+    <div
+      class="tei"
+      :class="{ active: uuid === textid }"
+      :data-uuid="uuid"
+      v-html="tei"
+    />
+  </div>
+</template>
+
 <script>
 
-import Vue from 'vue'
+// import Vue from 'vue'
+
+import EdTextRefLink from './EdTextRefLink'
 
 export default {
   name: 'EdText',
+  components: {
+    EdTextRefLink
+  },
   props: {
     tei: String,
     uuid: String,
@@ -18,51 +35,57 @@ export default {
     tei: function (newtei, oldtei) {
       // console.log('tei watcher', oldtei, newtei)
       // we need this watcher to update display as route is changing
-      this.buildTemplate()
+      // this.buildTemplate()
+      this.parseTei()
     }
   },
   beforeMount () {
-    // console.log('EdText beforeMount')
+    console.log('EdText beforeMount', this.tei)
     if (this.tei) {
-      this.buildTemplate()
+      // this.buildTemplate()
+      this.parseTei()
     }
   },
   // mounted () {
   //   this.$emit('onNewPageBreaks', this.pages)
   // },
   methods: {
-    buildTemplate () {
-      // console.log('EdText buildTemplate: tei', this.tei)
-      // to get Vue.compile working we have to use the full build of vuejs
-      // https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds
-      // in /build/webpack.config.base.js alias -> 'vue': 'vue/dist/vue.js',
-      this.buildHtml()
-      this.template = Vue.compile(this.html)
-      this.$options.staticRenderFns = []
-      this._staticTrees = []
-      this.template.staticRenderFns.map(fn => (this.$options.staticRenderFns.push(fn)))
-    },
-    buildHtml () {
-      this.html = `<div` +
-      ` class="tei${this.uuid === this.textid ? ' active' : ''}"` +
-      ` data-uuid="${this.uuid}"` +
-      `>` +
-      `<a` +
-      ` href="http://${window.apipath}/items/${this.uuid}"` +
-      ` title="Copy to clipboard ${this.uuid}"` +
-      ` class="text-item-link"` +
-      ` @click.prevent="onClickCopyClipboard"` +
-      `>` +
-      `<span class="mdi mdi-open-in-new" />` +
-      `</a>` +
-      `${this.tei}</div>`
+    // buildTemplate () {
+    //   // console.log('EdText buildTemplate: tei', this.tei)
+    //   // to get Vue.compile working we have to use the full build of vuejs
+    //   // https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds
+    //   // in /build/webpack.config.base.js alias -> 'vue': 'vue/dist/vue.js',
+    //   this.buildHtml()
+    //   this.template = Vue.compile(this.html)
+    //   this.$options.staticRenderFns = []
+    //   this._staticTrees = []
+    //   this.template.staticRenderFns.map(fn => (this.$options.staticRenderFns.push(fn)))
+    // },
+    // buildHtml () {
+    //   this.html = `<div` +
+    //   ` class="tei${this.uuid === this.textid ? ' active' : ''}"` +
+    //   ` data-uuid="${this.uuid}"` +
+    //   `>` +
+    //   `<a` +
+    //   ` href="http://${window.apipath}/items/${this.uuid}"` +
+    //   ` title="Copy to clipboard ${this.uuid}"` +
+    //   ` class="text-item-link"` +
+    //   ` @click.prevent="onClickCopyClipboard"` +
+    //   `>` +
+    //   `<span class="mdi mdi-open-in-new" />` +
+    //   `</a>` +
+    //   `${this.tei}</div>`
+    //   this.parseLinks()
+    //   this.parseFigures()
+    //   // this.parsePageBreaks()
+    //   // console.log('EdText: builded html', this.html)
+    // },
+    parseTei () {
       this.parseLinks()
       this.parseFigures()
-      // this.parsePageBreaks()
-      // console.log('EdText: builded html', this.html)
     },
     parseLinks () {
-      let links = this.html.match(/<a[^<]+<\/a>/g)
+      let links = this.tei.match(/<a[^<]+<\/a>/g)
       // console.log('links', links)
       if (links) {
         // let domparser = new DOMParser()
@@ -94,15 +117,15 @@ export default {
               `<sup class="mdi mdi-message-text-outline" />` +
               `</a>`
             // console.log('newlink', newlink)
-            this.html = this.html.replace(links[i], newlink)
+            this.tei = this.tei.replace(links[i], newlink)
           }
         }
         // console.log('this.html', this.html)
       }
     },
     parseFigures () {
-      console.log('parseFigures this.html', this.html)
-      let imgs = this.html.match(/<img[^>]*>/g)
+      console.log('parseFigures this.tei', this.tei)
+      let imgs = this.tei.match(/<img[^>]*>/g)
       console.log('imgs', imgs)
       if (imgs) {
         let imgparts, newsrc, newimg
@@ -119,7 +142,7 @@ export default {
               ` alt="${imgparts[2]}"` +
               `/>`
             // console.log('newlink', newlink)
-            this.html = this.html.replace(imgs[i], newimg)
+            this.tei = this.tei.replace(imgs[i], newimg)
           }
         }
       }
@@ -177,23 +200,24 @@ export default {
     onLeaveLink (e) {
       // console.log('EdText onLeaveLink(e)', e)
       this.$emit('onLeaveLink')
-    },
-    onClickCopyClipboard (e) {
-      e.preventDefault()
-      console.log('onClickCopyClipboard', e)
-      // navigator.clipboard.writeText(e.target.getAttribute('href'))
-      this.$copyText(e.target.getAttribute('href'))
-      return false
     }
-  },
-  render (h) {
-    // console.log('EdText render()')
-    if (!this.template) {
-      return h('span', 'Loading ...')
-    } else {
-      return this.template.render.call(this)
-    }
+    // ,
+    // onClickCopyClipboard (e) {
+    //   e.preventDefault()
+    //   console.log('onClickCopyClipboard', e)
+    //   // navigator.clipboard.writeText(e.target.getAttribute('href'))
+    //   this.$copyText(e.target.getAttribute('href'))
+    //   return false
+    // }
   }
+  // render (h) {
+  //   // console.log('EdText render()')
+  //   if (!this.template) {
+  //     return h('span', 'Loading ...')
+  //   } else {
+  //     return this.template.render.call(this)
+  //   }
+  // }
 }
 </script>
 

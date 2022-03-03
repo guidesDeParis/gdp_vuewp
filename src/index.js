@@ -8,12 +8,14 @@ import VueScrollTo from 'vue-scrollto'
 import VueSelect from 'vue-select'
 import Vue2TouchEvents from 'vue2-touch-events'
 import VueClipboard from 'vue-clipboard2'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 import App from './App'
 
 import 'assets/css/mdi/css/materialdesignicons.css'
 // import 'mdi/font'
 import 'vue-select/src/scss/vue-select.scss'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import 'assets/css/app.scss'
 
 Vue.use(Meta)
@@ -35,6 +37,7 @@ Vue.use(VueScrollTo)
 Vue.component('v-select', VueSelect)
 Vue.use(Vue2TouchEvents)
 Vue.use(VueClipboard)
+Vue.use(VueSweetalert2)
 
 // https://apple.stackexchange.com/questions/17077/add-a-hosts-file-entry-without-jailbreaking
 window.apipath = process.env === 'prod' || window.location.hostname === 'dev.gdp.fr' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'

@@ -453,6 +453,49 @@ section[role="main-content"]{
         //   height:0;
         //   overflow: hidden;
         // }
+        .text-wrapper{
+          // padding-left: 1em;
+          position: relative;
+        }
+        .textrefcopylink{
+          display: block;
+          position: absolute;
+          z-index: 99;
+          span.mdi-open-in-new {
+            position: relative;
+            z-index: 10;
+            margin-left: 1px;
+          }
+          .popup{
+            position: absolute;
+            top:0;
+            left: 1px;
+            // width: 15em;
+            background-color: #fff;
+            border-radius: 3px;
+            padding: 1em 1em 1em 1.5em;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            // display: none;
+            // opacity: 0.1;
+            // outline: 1px solid blue;
+            transition: opacity 2s ease-in-out;
+            button.copy-btn{
+              display: block;
+              padding: 0.5em 0.2em;
+              @include fontcaption;
+              white-space: nowrap;
+              border: none;
+              background: none;
+              cursor: pointer;
+            }
+          }
+          &:hover .popup{
+            display: block;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+          }
+        }
+      
         div.tei{
           position: relative;
           width: calc(100% - #{$pagenum_w});
@@ -465,6 +508,8 @@ section[role="main-content"]{
           padding-right: $pagenum_w;
           border-left: 1px dotted $grisclair;
           padding-left: 1em;
+          margin-left:1.2em;
+          overflow: visible;
           &.active{
             border-left: 1px dotted $bleuroi;
           }
@@ -733,8 +778,6 @@ section[role="main-content"]{
     }
   }
 
-  #text{
-    .tei{}}
 
   #biblio{
     .router-link-active{
