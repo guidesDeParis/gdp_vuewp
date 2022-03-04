@@ -13,6 +13,15 @@
       <h1>
         <router-link :to="{ name:'edition', params: { id: editionid }}">{{ title }}</router-link>
       </h1>
+      <div v-if="author">
+        <p>{{author}}</p>
+      </div>
+      <div v-if="date">
+        <p>{{date}}</p>
+      </div>
+      <div v-if="description">
+        <p v-html="description" />
+      </div>
       <div v-if="biblio" class="biblio">
         <p v-html="biblio.description" />
         <a
@@ -23,7 +32,8 @@
           {{ biblio.uuid }}
         </a>
       </div>
-      <!-- <p v-if="meta">{{ meta.author }}</p> -->
+
+      <!-- displayed on hover entity on texte -->
       <aside
         v-if="indexitem"
         class="index-tooltip"
@@ -145,6 +155,8 @@ export default {
     title: undefined,
     biblio: undefined,
     author: undefined,
+    date: undefined,
+    description: undefined,
     texttitle: undefined,
     //
     indexitem: null,
@@ -250,6 +262,9 @@ export default {
           // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
           this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
           this.biblio = state.Corpus.editionsbyuuid[this.editionid].biblio
+          this.description = state.Corpus.editionsbyuuid[this.editionid].description
+          this.date = state.Corpus.editionsbyuuid[this.editionid].date
+          this.author = state.Corpus.editionsbyuuid[this.editionid].author
         }
         if (mutation.type === 'Corpus/setTocs') {
           console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
@@ -275,6 +290,9 @@ export default {
       // console.log('');
       this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
       this.biblio = this.editionsbyuuid[this.editionid].biblio
+      this.description = this.editionsbyuuid[this.editionid].description
+      this.date = this.editionsbyuuid[this.editionid].date
+      this.author = this.editionsbyuuid[this.editionid].author
       this.toc = this.editionsbyuuid[this.editionid].toc
       this.flattoc = this.editionsbyuuid[this.editionid].flattoc
       // if no textid in new route (e.g. edition front)
