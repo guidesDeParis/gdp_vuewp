@@ -2,9 +2,10 @@
   <section :class="{opened: isopened}">
     <h4>
       <a
-        :href="'/edition/'+ed.item+'/'+oc.uuid"
+        :href="'/edition/'+ed.item+'/'+oc.uuid+'/'+oc.form"
         :uuid="oc.uuid"
         :eduuid="ed.item"
+        :form="oc.form"
         @click.prevent="onGoToText"
         @keyup.enter="onGoToText"
       >
@@ -88,13 +89,24 @@ export default {
           title: this.oc.title,
           editionTitle: this.editionTitle
         })
+        // if (e.target.getAttribute('form')) {
+        //   this.$router.push({
+        //     name: `editiontext`,
+        //     params: {
+        //       id: e.target.getAttribute('eduuid'),
+        //       textid: e.target.getAttribute('uuid')
+        //     }
+        //   })
+        // } else {
         this.$router.push({
-          name: `editiontext`,
+          name: `editiontextextract`,
           params: {
             id: e.target.getAttribute('eduuid'),
-            textid: e.target.getAttribute('uuid')
+            textid: e.target.getAttribute('uuid'),
+            extract: e.target.getAttribute('form')
           }
         })
+        // }
       } else {
         this.$router.push({
           name: `edition`,

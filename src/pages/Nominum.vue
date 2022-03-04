@@ -29,7 +29,7 @@
     <!-- default slot -->
     <IndexItemOcurrences v-if="content" :content="content" />
 
-    <template v-slot:nav>
+    <template v-if="content" v-slot:nav>
       <section v-if="content.attestedForms" class="attested-forms">
         <h3>Attested forms</h3>
         <ul>
@@ -67,13 +67,13 @@ export default {
       title: `Nominum ${this.$route.params.id}`
     }
   },
-  beforeCreate () {
+  created () {
     console.log('nominum this.$route', this.$route)
     REST.get(`${window.apipath}/indexNominum/` + this.$route.params.id, {})
       .then(({ data }) => {
         console.log('nominum REST: data', data)
         if (data.content) {
-          this.content = data.content
+          this.parseOccurences(data.content)
         }
       })
       .catch((error) => {
@@ -84,6 +84,28 @@ export default {
           query: { fullpath: this.$route.path }
         })
       })
+  },
+  methods: {
+    parseOccurences (content) {
+      console.log('parseOccurences', content)
+      for (let i = 0; i < content.occurences.length; i++) {
+        let ed = content.occurences[i]
+        for (let j = 0; j < ed.occurences.length; j++) {
+          let o = ed.occurences[j]
+          const uuid = o.uuid
+          for (let k = 0; k < content.attestedForms.length; k++) {
+            const form = content.attestedForms[k]
+            if (form.uuid.indexOf(uuid) >= 0) {
+              content.occurences[i].occurences[j].form = form.title
+              break
+            }
+            console.warn('no form for occurence', o.uuid, o.title)
+            content.occurences[i].occurences[j].form = ''
+          }
+        }
+      }
+      this.content = content
+    }
   }
 }
 </script>

@@ -138,6 +138,7 @@ export default {
     meta: null,
     editionid: null,
     textid: null,
+    extract: null,
     texts: [],
     textsuuids: [],
     metainfotitle: undefined,
