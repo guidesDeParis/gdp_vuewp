@@ -14,10 +14,10 @@
         <router-link :to="{ name:'edition', params: { id: editionid }}">{{ title }}</router-link>
       </h1>
       <div v-if="author">
-        <p>{{author}}</p>
+        <p>{{ author }}</p>
       </div>
       <div v-if="date">
-        <p>{{date}}</p>
+        <p>{{ date }}</p>
       </div>
       <div v-if="description">
         <p v-html="description" />
