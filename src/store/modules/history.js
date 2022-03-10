@@ -16,7 +16,7 @@ export default {
   // mutations
   mutations: {
     addItem (state, item) {
-      state.items.push(item)
+      state.items.unshift(item)
     },
     setOpened (state, opened) {
       state.opened = opened
