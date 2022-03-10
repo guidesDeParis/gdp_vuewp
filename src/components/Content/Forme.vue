@@ -2,14 +2,16 @@
   <section :class="{opened: isopened}">
     <h4>
       <a
-        :href="'/edition/'+ed.item+'/'+oc.uuid+'/'+oc.form"
+        v-if="oc.title"
+        :href="'/edition/'+oc.ed.uuid+'/'+oc.uuid+'/'+form"
         :uuid="oc.uuid"
-        :eduuid="ed.item"
-        :form="oc.form"
+        :eduuid="oc.ed.uuid"
+        :form="form"
         @click.prevent="onGoToText"
         @keyup.enter="onGoToText"
       >
-        {{ oc.title }} <span v-if="oc.form" class="form">( "{{ oc.form }}" )</span>
+        {{ oc.title }} <span v-if="oc.ed.uuid" class="edition">( {{ editionTitle }} )</span>
+        <!-- <span v-if="oc.form" class="form">( "{{ oc.form }}" )</span> -->
       </a>
     </h4>
     <!-- <span
@@ -43,7 +45,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Occurence',
   props: {
-    ed: Object,
+    form: String,
     oc: Object
   },
   data: () => ({
@@ -56,7 +58,7 @@ export default {
       editionsbyuuid: state => state.Corpus.editionsbyuuid
     }),
     editionTitle () {
-      return this.editionsbyuuid[this.ed.item].title
+      return this.editionsbyuuid[this.oc.ed.uuid].title
     }
   },
   created () {
@@ -80,7 +82,7 @@ export default {
       addHistoryItem: 'History/addItem'
     }),
     onGoToText (e) {
-      console.log('clicked on text occurence', e, this.oc.title, this.ed)
+      console.log('clicked on text occurence', e, this.oc.title, this.oc.ed)
 
       if (e.target.getAttribute('eduuid')) {
         this.addHistoryItem({

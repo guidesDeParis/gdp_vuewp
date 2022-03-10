@@ -51,6 +51,7 @@ footer[role="tools"] .row>nav{
   color: $grisfonce;
   font-weight: 400;
   margin:0;
+  line-height: $base-line / 2;
 }
 
 @mixin title3black {
@@ -59,6 +60,7 @@ footer[role="tools"] .row>nav{
   color: $grisfonce;
   font-weight: 400;
   margin:0;
+  line-height: $base-line / 2;
 }
 
 @mixin title4black {
