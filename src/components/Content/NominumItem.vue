@@ -6,12 +6,10 @@
           :href="item.url"
           @click.prevent="onclick"
           @keyup.enter="onclick"
-          v-html="item.title"
-        />
+        >
+          <span class="title" v-html="item.title" /> <span class="quantity">[{{ item.texts.length }}]</span>
+        </a>
       </h1>
-      <p v-if="item.birth && item.death">
-        <span>{{ item.birth }}</span> -- <span>{{ item.death }}</span>
-      </p>
     </header>
   </article>
 </template>

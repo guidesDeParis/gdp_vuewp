@@ -6,10 +6,10 @@
           :href="item.url"
           @click.prevent="onclick"
           @keyup.enter="onclick"
-          v-html="item.title"
-        />
+        >
+          <span class="title" v-html="item.title" /> <span class="quantity">[{{ item.texts.length }}]</span>
+        </a>
       </h1>
-      <p>{{ item.type }}</p>
     </header>
   </article>
 </template>

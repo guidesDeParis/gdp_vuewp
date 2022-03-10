@@ -194,46 +194,74 @@ section[role="main-content"]{
   }
 
   #list-corpus, .index{
-    >header>h1{
-      font-family: "noto_sans";
-      color: $rouge;
-      font-weight: 400;
+    >header{
+
+      &>h1{
+        @include titleSansRed;
+        margin: 0;
+      }
     }
 
     article.item{
-      margin: 2em 0 0;
-      header h1{
-        font-size: 1.512em;
-        color: $bleuroi;
-        font-weight: 400;
+      // margin: 2em 0 0;
+
+      header{
         margin:0;
-      }
+        h1{
+          margin:0;
+          span.title{
+            @include title1black;
+            color: $bleuroi;
+          }
+          span.quantity{
+            @include title4black;
+          }
+        }
+      } 
+    }
+    &:not(#list-corpus){
+      ul.item-list{
+        li{
+          // margin: 0 0 2em 0;
+          max-height: $base-line * 3;
+          opacity: 1;
+          transition: all 0.3s ease-in-out;
+          &.hidden {
+            // display: none;
+            max-height: 0.01px;
+            opacity: 0;
+          }
+        }
+      }  
     }
     ul.item-list{
       li{
-        margin: 0 0 2em 0;
+        // margin: 0 0 2em 0;
         header{
           h2{
             @include title1blue;
-            margin:0.4em 0 0.2em;
+            // margin:0.4em 0 0.2em;
+            margin-bottom: $base-line / 2;
           }
           h3{
-            margin:0.2em 0;
+            margin:0;
             @include fontsans;
             font-size: 0.756em;
             font-weight: 500;
+            line-height: $base-line / 2;
           }
-          margin-bottom: 0.3em;
+          margin-bottom: $base-line / 2;
         }
 
         h4{
-          margin:0.1em 0;
+          margin:0;
           font-weight: 300;
           @include fontsans;
           font-size: 0.756em;
+          line-height: $base-line / 2;
           &.texts-quantity{
             color: $rouge;
-            margin: 0.3em 0 0;
+            // margin: 0.3em 0 0;
           }
         }
         section.editions{
@@ -253,17 +281,19 @@ section[role="main-content"]{
           ul.texts-list{
             padding: 0 0 0 1em;
             li{
-              margin: 0;
+              margin-bottom: $base-line / 2;
             }
             h3{
               @include title2black;
-              margin: 0.7em 0 0.3em;
+              // margin: 0.7em 0 0.3em;
+              line-height: $base-line / 2;
             }
             p{
               font-weight: 300;
               @include fontsans;
               font-size: 0.756em;
               margin: 0;
+              line-height: $base-line / 2;
             }
           }
         }
@@ -276,6 +306,25 @@ section[role="main-content"]{
               font-weight: 400;
               font-size: 1em;
             }
+          }
+        }
+      }
+    }
+
+    .abc{
+      ul{
+        li{
+          opacity: 1;
+          transition: opacity 0.3s ease-in-out;
+          &.inactive{
+            opacity: 0.4;
+          }
+          span{
+            @include fontcaption;
+            font-variant: small-caps;
+            font-size: 1em;
+            cursor: pointer;
+            line-height: $base-line / 2;
           }
         }
       }

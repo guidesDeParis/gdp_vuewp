@@ -9,7 +9,7 @@
           @click.prevent="onclick"
           @keyup.enter="onclick"
         >
-          {{ item.title }}
+          <span class="title" v-html="item.title" /> <span class="quantity">[{{ item.texts.length }}]</span>
         </a>
         <span v-else class="red">
           {{ item.title }}

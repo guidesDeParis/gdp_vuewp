@@ -36,7 +36,7 @@
               </h3>
               <p
                 class="biblio"
-                v-html="text.biblio"
+                v-html="text.biblio.description"
               />
             </li>
           </ul>

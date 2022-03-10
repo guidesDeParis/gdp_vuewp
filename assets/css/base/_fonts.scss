@@ -43,6 +43,7 @@ footer[role="tools"] .row>nav{
   color: $grisfonce;
   font-weight: 400;
   margin:0;
+  line-height: $base-line;
 }
 
 @mixin title2black {
@@ -69,6 +70,7 @@ footer[role="tools"] .row>nav{
   color: $grisfonce;
   font-weight: 400;
   margin:0;
+  line-height: $base-line / 2;
 }
 
 @mixin title4grey {
@@ -97,6 +99,13 @@ footer[role="tools"] .row>nav{
   color: $bleuroi;
   font-weight: 400;
   margin:0;
+  line-height: $base-line;
+}
+
+@mixin titleSansRed {
+  font-family: "noto_sans";
+  color: $rouge;
+  font-weight: 400;
   line-height: $base-line;
 }
 
