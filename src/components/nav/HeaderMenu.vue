@@ -15,12 +15,12 @@
           Index
         </span>
         <ul>
-          <li><router-link to="/nominum">Personnes</router-link></li>
-          <li><router-link to="/locorum">Lieux</router-link></li>
-          <li><router-link to="/operum">Œuvres</router-link></li>
+          <li><router-link to="/indexNominum">Personnes</router-link></li>
+          <li><router-link to="/indexLocorum">Lieux</router-link></li>
+          <li><router-link to="/indexOperum">Œuvres</router-link></li>
         </ul>
       </li>
-      <li><router-link to="/bibliographie">Bibliographie</router-link></li>
+      <li><router-link to="/bibliography">Bibliographie</router-link></li>
       <li><a href="#">Blog</a></li>
       <li>
         <a href="#" class="mdi mdi-login-variant" title="connexion">

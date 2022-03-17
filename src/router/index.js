@@ -56,47 +56,47 @@ const routes = [
   },
   {
     name: 'indexNominum',
-    path: '/nominum',
+    path: '/indexNominum',
     component: IndexNominum
   },
   {
     name: 'nominum',
-    path: '/nominum/:id',
+    path: '/indexNominum/:id',
     component: Nominum
   },
   {
     name: 'indexLocorum',
-    path: '/locorum',
+    path: '/indexLocorum',
     component: IndexLocorum
   },
   {
     name: 'locorum',
-    path: '/locorum/:id',
+    path: '/indexLocorum/:id',
     component: Locorum
   },
   {
     name: 'indexOperum',
-    path: '/operum',
+    path: '/indexOperum',
     component: IndexOperum
   },
   {
     name: 'operum',
-    path: '/operum/:id',
+    path: '/indexOperum/:id',
     component: Operum
   },
   {
-    path: '/bibliographie',
-    redirect: '/bibliographie/expressions'
+    path: '/bibliography',
+    redirect: '/bibliography/expressions'
   },
   {
     name: 'bibliographie',
-    path: '/bibliographie/:type',
+    path: '/bibliography/:type',
     component: Bibliographie,
     props: true
   },
   {
     name: 'bibliographieItem',
-    path: '/bibliographie/:type/:uuid',
+    path: '/bibliography/:type/:uuid',
     component: Bibliographie,
     props: true
   },
