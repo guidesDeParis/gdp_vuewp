@@ -20,6 +20,10 @@ body{
   width: 100vw;
   max-width: 1920px;
   height:100vh;
+  // ? https://www.bram.us/2020/05/06/100vh-in-safari-on-ios/
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
   margin:0 auto;
   %layout-element{
     width:100vw;
