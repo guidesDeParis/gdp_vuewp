@@ -1,7 +1,7 @@
 <template>
   <div id="search" class="col-11" :class="{ loading: isloading }">
     <form class="search-form row">
-      <fieldset class="search small-col-10 med-col-2 large-col-2">
+      <fieldset class="search small-col-10 med-col-4 large-col-4">
         <div>
           <label for="keys">Search</label>
           <input
@@ -37,7 +37,7 @@
           title="chargement"
         />
       </fieldset>
-      <fieldset v-if="filters.texts.length" class="filters filters-texts small-col-4 med-col-2 large-col-2">
+      <fieldset v-if="filters.texts.length" class="filters filters-texts small-col-4 med-col-4 large-col-4">
         <v-select
           id="filters-texts"
           type="select"
