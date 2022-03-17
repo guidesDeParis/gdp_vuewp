@@ -18,9 +18,12 @@ body{
   display: flex;
   flex-direction: column;
   width: 100vw;
+  max-width: 1920px;
   height:100vh;
+  margin:0 auto;
   %layout-element{
     width:100vw;
+    max-width: 1920px;
     box-sizing:border-box;
   }
   header[role="banner"]{
