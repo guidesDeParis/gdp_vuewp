@@ -31,7 +31,7 @@ body{
     flex: 0 0 auto;
     @extend %layout-element;
     padding:1em $side-padding 1em $side-padding;
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       padding:1em $side-padding/2 0 $side-padding/2;
     }
   }
@@ -52,7 +52,7 @@ body{
       >*{
         @include fade-transition;
       }
-      @media only screen and (max-width: $small-bp) {
+      @media only screen and (max-width: $small-bp), (orientation: portrait) {
         overflow-y: auto;
         padding:0 $side-padding/2 0 $side-padding/2;
       }
@@ -79,7 +79,13 @@ body{
         -webkit-overflow-scrolling: touch;
       }
     }
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
+      .main-content-layout{
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    @media (orientation: portrait) {
       .main-content-layout{
         display: flex;
         flex-direction: column;

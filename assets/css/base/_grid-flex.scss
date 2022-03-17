@@ -6,7 +6,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: stretch;
-  @media only screen and (max-width: $small-bp) {
+  @media only screen and (max-width: $small-bp), (orientation: portrait) {
     flex-wrap:wrap;
   }
 }
@@ -20,7 +20,7 @@
 
 // small
 .small-row {
-  @media only screen and (max-width: $small-bp) {
+  @media only screen and (max-width: $small-bp), (orientation: portrait) {
     @include row;
   }
 }
@@ -68,7 +68,7 @@
 
   // small
   .small-col-#{$c} {
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       @include col($c);
     }
   }

@@ -172,7 +172,7 @@ section[role="main-content"]{
       @include teasersfilet(8em, 0.5em);
       }
     // responsive
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       header{
         h1{
           font-size: 5em;
@@ -530,7 +530,7 @@ section[role="main-content"]{
         time{
           font-weight: 600;
         }
-        @media only screen and (max-width: $small-bp) {
+        @media only screen and (max-width: $small-bp), (orientation: portrait) {
           background-color: #fff;
           padding: 1em;
           box-shadow: 0 0 10px $gris;
@@ -826,7 +826,7 @@ section[role="main-content"]{
       }
     }
     // responsive
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       position: relative;
       >nav{
         $top: 45px;
@@ -976,7 +976,7 @@ footer[role="tools"]{
     z-index: 9;
     background-color: $gris;
     padding:1.2em $side-padding;
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       padding:1.2em $side-padding/2;
     }
     max-height: $list-item-h * 3;
@@ -1026,7 +1026,7 @@ footer[role="tools"]{
     }
 
     // responsive
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       position: relative;
       >header{
         padding:0 0 1em 0;
@@ -1053,7 +1053,7 @@ footer[role="tools"]{
   #footer-bottom{
     z-index: 10;
     padding:0 $side-padding;
-    @media only screen and (max-width: $small-bp) {
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
       padding:0 $side-padding/2;
     }
     background-color: $bleuroi;
@@ -1168,7 +1168,7 @@ footer[role="tools"]{
       }
 
       // responsive
-      @media only screen and (max-width: $small-bp) {
+      @media only screen and (max-width: $small-bp), (orientation: portrait) {
         form{
           fieldset{
             &.search{
