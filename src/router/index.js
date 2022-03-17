@@ -41,17 +41,17 @@ const routes = [
   // },
   {
     name: 'edition',
-    path: '/edition/:id',
+    path: '/texts/:id',
     component: Edition
   },
   {
     name: 'editiontext',
-    path: '/edition/:id/:textid',
+    path: '/texts/:id/:textid',
     component: Edition
   },
   {
     name: 'editiontextextract',
-    path: '/edition/:id/:textid/:extract',
+    path: '/texts/:id/:textid/:extract',
     component: Edition
   },
   {
