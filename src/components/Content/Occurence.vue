@@ -9,7 +9,7 @@
         @click.prevent="onGoToText"
         @keyup.enter="onGoToText"
       >
-        {{ oc.title }} <span v-if="oc.form" class="form">( "{{ oc.form }}" )</span>
+        <span v-html="oc.title" /> <span v-if="oc.form" class="form">( "{{ oc.form }}" )</span>
       </a>
     </h4>
     <!-- <span

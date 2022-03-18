@@ -399,7 +399,7 @@ section[role="main-content"]{
         >li{
           padding:0 0 $base-line / 2 0;
           h3{
-            @include title2black;
+            @include title1black;
             padding:0 0 $base-line / 2 0;
             color: $bleuroi;
           }
@@ -408,9 +408,13 @@ section[role="main-content"]{
               // padding:0 0 0.5em 0;
               section{
                 h4{
-                  @include title3black;
+                  // @include title3black;
+                  @include title4grey;
+                  color: $grisfonce;
+                  font-weight: 400;
                   display: inline-block;
                   a{
+    
                     span.form{
                       font-style: italic;
                     }
@@ -472,15 +476,19 @@ section[role="main-content"]{
         >li{
           margin: 0 0 1em 0;
           h3{
-            @include title2black;
+            @include title1black;
             padding:0 0 $base-line / 2 0;
           }
           li{
             margin: 0 0 0.5em 0;
             h4{
-              @include title3black;
+              // @include title3black;
+              @include title4grey;
+              color: $grisfonce;
+              font-weight: 400;
               display: inline-block;
               a{
+        
                 span.edition{
                   font-style: italic;
                 }
@@ -488,11 +496,6 @@ section[role="main-content"]{
             }
           }
         }
-      }
-      a{
-        @include title4grey;
-        color: $grisfonce;
-        font-weight: 400;
       }
     }
     nav{
