@@ -9,11 +9,11 @@
 
     <section
       class="med-col-6 large-col-6"
-      @scroll.passive="onScrollCenter"
     >
       <div
         ref="scrollablecenter"
         class="wrapper"
+        @scroll.passive="onScrollCenter"
       >
         <slot />
       </div>
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onScrollCenter (e) {
-      // console.log('mainLayout onScrollCenter: e', e)
+      console.log('mainLayout onScrollCenter: e', e)
       this.$emit('onCenterScrolled', e)
     },
     scrollToRef () {

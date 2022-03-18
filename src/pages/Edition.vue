@@ -350,7 +350,7 @@ export default {
         })
     },
     onCenterScrolled (e) {
-      // console.log('Edition centerScrolled(e)', e.target.scrollTop)
+      console.log('Edition centerScrolled(e)', e.target.scrollTop)
       if (!this.center_scrolled && e.target.scrollTop > this.inifinite_load_distance * 1.5) {
         this.center_scrolled = true
       }
