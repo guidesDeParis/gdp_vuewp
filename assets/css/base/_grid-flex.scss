@@ -39,12 +39,13 @@
   }
 }
 
-%col-reset {
-    box-sizing: border-box;
-}
+// %col-reset {
+//     box-sizing: border-box;
+// }
 
 @mixin col($col, $offset: 0, $sum: $default_sum, $gap: $default_gap, $align: top) {
-  @extend %col-reset;
+  // @extend %col-reset;
+  box-sizing: border-box;
   padding-left: $gap*$offset;
   @if $col == $default_sum {
     // if last col, then no gap

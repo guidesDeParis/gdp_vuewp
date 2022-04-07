@@ -50,10 +50,11 @@ export default {
     onCopy (e) {
       this.$swal({
         text: `copié dans le press papier : ${e.text}`,
-        toast: true,
+        toast: false,
         position: 'bottom-end',
         timer: 2000,
-        icon: 'success',
+        icon: null,
+        backdrop: false,
         showConfirmButton: false
       })
     },

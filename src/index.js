@@ -16,6 +16,8 @@ import 'assets/css/mdi/css/materialdesignicons.css'
 // import 'mdi/font'
 import 'vue-select/src/scss/vue-select.scss'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import '@sweetalert2/themes/dark/dark.scss'
+
 import 'assets/css/app.scss'
 
 Vue.use(Meta)

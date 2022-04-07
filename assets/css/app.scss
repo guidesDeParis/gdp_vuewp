@@ -6,6 +6,9 @@
 @import './base/layout';
 @import './base/fonts';
 
+// your-app.scss
+// @import '~@sweetalert2/themes/dark/dark.scss';
+
 /* The emerging W3C standard
 that is currently Firefox-only */
 * {
@@ -357,7 +360,7 @@ section[role="main-content"]{
         margin: 0 0 0.5em 0;
       }
       h3{
-        @include title2black
+        @include title2black;
         margin:0;
       }
       .authors{
@@ -742,7 +745,7 @@ section[role="main-content"]{
               width: 100%;
             }
             figcaption{
-              @include fontcaption
+              @include fontcaption;
               padding: 0.5em;
             }
           }
