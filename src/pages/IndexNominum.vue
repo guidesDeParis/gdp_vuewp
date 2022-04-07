@@ -80,7 +80,8 @@ export default {
           })
         }
         for (let i = 0; i < this.items.length; i++) {
-          if (this.letters.indexOf(this.items[i].letter.toLowerCase()) === -1) {
+          // console.log(typeof this.items[i].letter)
+          if (this.items[i].letter !== '' && this.letters.indexOf(this.items[i].letter.toLowerCase()) === -1) {
             this.letters.push(this.items[i].letter.toLowerCase())
           }
         }

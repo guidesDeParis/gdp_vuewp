@@ -10,6 +10,7 @@
         :title="btnuuidtitle"
         class="copy-btn"
       >
+        <!-- todo better label -->
         {{ uuid }} <span class="mdi mdi-clipboard-outline" />
       </button>
       <button

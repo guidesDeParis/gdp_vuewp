@@ -29,6 +29,7 @@
           @click.prevent="onClickManifestation"
           @keyup.enter="onClickManifestation"
         >
+          // todo better label
           {{ biblio.uuid }}
         </a>
       </div>

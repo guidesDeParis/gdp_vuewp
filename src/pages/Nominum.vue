@@ -36,7 +36,7 @@
 
     <template v-if="content" v-slot:nav>
       <section v-if="content.autorities.length" class="autorities">
-        <h3>Autorities</h3>
+        <h3>Autorités</h3>
         <ul>
           <li v-for="(aut, i) in content.autorities" :key="i">
             <a :href="aut.identifier" target="_blanck">{{ aut.autority }}</a>
