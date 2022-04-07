@@ -55,6 +55,15 @@ footer[role="tools"] .row>nav{
   line-height: $base-line / 2;
 }
 
+@mixin title2blue {
+  @include fontserif;
+  font-size: 1.134em;
+  color: $grisfonce;
+  font-weight: 400;
+  margin:0;
+  line-height: $base-line / 2;
+}
+
 @mixin title3black {
   @include fontserif;
   font-size: 1em;
