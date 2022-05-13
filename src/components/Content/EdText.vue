@@ -85,10 +85,38 @@ export default {
     // },
     parseTei () {
       this.teiparsed = this.tei
+
+      this.parseIndexItems()
       this.parseLinks()
       this.parseFigures()
+
       if (this.textid === this.uuid) {
         this.parseExtract()
+      }
+    },
+    parseIndexItems () {
+      let items = this.teiparsed.match(/<span[^>]*class="(persName|objectName|placeName)"[^>]*>[^<]+<\/span>/g)
+      console.log('items', items)
+      if (items) {
+        let itemparts, icon, newspan
+        for (var i = 0; i < items.length; i++) {
+          itemparts = RegExp(/<span[^>]*class="([^"]+)"[^>]*>.+<\/span>/g).exec(items[i], 'g')
+          console.log('itemparts', itemparts)
+          switch (itemparts[1]) {
+            case 'placeName':
+              icon = '<span class="index-item-icon mdi mdi-map-marker"></span>'
+              break
+            case 'objectName':
+              icon = '<span class="index-item-icon mdi mdi-card-bulleted"></span>'
+              break
+            case 'persName':
+              icon = '<span class="index-item-icon mdi mdi-account"></span>'
+              break
+          }
+          // newspan = `<span class="no-wrap">${items[i]}${icon}</span>`
+          newspan = `${items[i]}&nbsp;${icon}`
+          this.teiparsed = this.teiparsed.replace(items[i], newspan)
+        }
       }
     },
     parseLinks () {

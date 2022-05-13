@@ -684,7 +684,15 @@ section[role="main-content"]{
           span.placeName,
           span.objectName,
           span.persName{
-            font-weight: 600;
+            font-weight: 500;
+          }
+          span.mdi.index-item-icon{
+            font-size: 0.630em;
+            vertical-align: super;
+          }
+
+          span.no-wrap{
+            // white-space: nowrap;
           }
 
 
@@ -696,6 +704,7 @@ section[role="main-content"]{
             font-size: 1.134em;
             line-height: $base-line;
             margin-bottom: $base-line / 2;
+
             span.persName,
             span.placeName,
             span.objectName{
