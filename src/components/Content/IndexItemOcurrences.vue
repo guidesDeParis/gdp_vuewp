@@ -24,7 +24,7 @@
         >
           <h3>
             <a
-              :href="'/edition/'+ed.item"
+              :href="'/texts/'+ed.item"
               :uuid="ed.item"
               v-html="ed.biblio"
             />

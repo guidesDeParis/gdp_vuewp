@@ -25,7 +25,7 @@ export default {
     tei: String,
     uuid: String,
     textid: String,
-    extract: String,
+    extractid: String,
     url: String
   },
   data: () => ({
@@ -155,8 +155,10 @@ export default {
       }
     },
     parseExtract () {
-      console.log('Parse extract', this.extract)
-      let regexp = RegExp(this.extract, 'gim')
+      console.log('Parse extract', this.extractid)
+      // let regexp = RegExp(this.extract, 'gim')
+      let regexp = RegExp(`<span[^>]* id="${this.extractid}"[^>]*>[^<]*</span>`)
+      // let regexp = RegExp(`<(\w+)((?:\s+\w+(?:\s*=\s*(?:"[\s\S]*?"|'[\s\S]*?'|[^'">\s]+))?)+\s*|\s*)>([\s\S]*?)<\/\1>`)
       let index = 0
       function marking (str) {
         index++

@@ -2,12 +2,13 @@
   <section :class="{opened: isopened}">
     <h4>
       <a
-        :href="'/edition/'+ed.item+'/'+oc.uuid+'/'+oc.form"
+        :href="'/texts/'+ed.item+'/'+oc.uuid+'/'+oc.ids[0]"
         :uuid="oc.uuid"
         :eduuid="ed.item"
         :form="oc.form"
-        @click.prevent="onGoToText"
-        @keyup.enter="onGoToText"
+        :ocid="oc.ids[0]"
+        @click.prevent="onGoToText($event, ed.item, oc.uuid, oc.ids[0])"
+        @keyup.enter="onGoToText($event, ed.item, oc.uuid, oc.ids[0])"
       >
         <span v-html="oc.title" /> <span v-if="oc.form" class="form">( "{{ oc.form }}" )</span>
       </a>
@@ -79,15 +80,16 @@ export default {
     ...mapActions({
       addHistoryItem: 'History/addItem'
     }),
-    onGoToText (e) {
-      console.log('clicked on text occurence', e, this.oc.title, this.ed)
+    onGoToText (e, edid, textid, ocid) {
+      console.log('clicked on text occurence', e, edid, textid, ocid)
 
-      if (e.target.getAttribute('eduuid')) {
+      if (textid) {
         this.addHistoryItem({
-          id: e.target.getAttribute('eduuid'),
-          textid: e.target.getAttribute('uuid'),
+          id: edid,
+          textid: textid,
           title: this.oc.title,
-          editionTitle: this.editionTitle
+          editionTitle: this.editionTitle,
+          ocid: ocid
         })
         // if (e.target.getAttribute('form')) {
         //   this.$router.push({
@@ -101,9 +103,9 @@ export default {
         this.$router.push({
           name: `editiontextextract`,
           params: {
-            id: e.target.getAttribute('eduuid'),
-            textid: e.target.getAttribute('uuid'),
-            extract: e.target.getAttribute('form')
+            id: edid,
+            textid: textid,
+            ocid: ocid
           }
         })
         // }
@@ -111,7 +113,7 @@ export default {
         this.$router.push({
           name: `edition`,
           params: {
-            id: e.target.getAttribute('uuid')
+            id: edid
           }
         })
       }

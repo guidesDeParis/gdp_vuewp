@@ -51,7 +51,7 @@ const routes = [
   },
   {
     name: 'editiontextextract',
-    path: '/texts/:id/:textid/:extract',
+    path: '/texts/:id/:textid/:ocid',
     component: Edition
   },
   {

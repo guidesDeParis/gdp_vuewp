@@ -81,7 +81,7 @@
           :uuid="text.content.uuid"
           :url="text.content.url"
           :textid="textid"
-          :extract="extract"
+          :extractid="extractid"
           @onHoverLink="onHoverLink"
           @onLeaveLink="onLeaveLink"
         />
@@ -195,7 +195,7 @@ export default {
         // change also extract if exists
         if (to.params.extract) {
           console.log('extract params from route', to.params.extract)
-          this.extract = to.params.extract
+          this.extractid = to.params.ocid
           // scrolling is not working :(
           this.reftoscrollto = '#mark-1'
         }
@@ -246,8 +246,8 @@ export default {
     }
 
     // get the searchkeys from route param (only comming from result item) for text highlighting
-    if (this.$route.params.extract) {
-      this.extract = this.$route.params.extract
+    if (this.$route.params.ocid) {
+      this.extractid = this.$route.params.ocid
       // scrolling is not working :(
       this.reftoscrollto = '#mark-1'
     }
@@ -351,7 +351,7 @@ export default {
         })
     },
     onCenterScrolled (e) {
-      console.log('Edition centerScrolled(e)', e.target.scrollTop)
+      // console.log('Edition centerScrolled(e)', e.target.scrollTop)
       if (!this.center_scrolled && e.target.scrollTop > this.inifinite_load_distance * 1.5) {
         this.center_scrolled = true
       }
