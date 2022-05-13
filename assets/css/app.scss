@@ -681,19 +681,6 @@ section[role="main-content"]{
           >h1{
             @include teititle1blue;
           }
-          span.placeName,
-          span.objectName,
-          span.persName{
-            font-weight: 500;
-          }
-          span.mdi.index-item-icon{
-            font-size: 0.630em;
-            vertical-align: super;
-          }
-
-          span.no-wrap{
-            // white-space: nowrap;
-          }
 
 
           h1{ font-size: 1.512em; 
@@ -708,21 +695,26 @@ section[role="main-content"]{
             span.persName,
             span.placeName,
             span.objectName{
-              font-weight: 600;
+              font-weight: 500;
             }
+            span.mdi.index-item-icon{
+              font-size: 0.630em;
+              vertical-align: super;
+            }
+  
             a{
-              font-weight: 600;
+              font-weight: 500;
               &.active-link{
-                color: $rouge;
+                // color: $rouge;
                 // text-decoration: underline;
-                line-height: $base-line/2;
+                // line-height: $base-line/2;
               }
-              sup.mdi{
-                font-size: 0.630em;
-                vertical-align: super;
-                // line-height: 0.1;
-                padding: 0 0.2em;
-              }
+              // sup.mdi{
+              //   font-size: 0.630em;
+              //   vertical-align: super;
+              //   // line-height: 0.1;
+              //   padding: 0 0.2em;
+              // }
             }
           }
 

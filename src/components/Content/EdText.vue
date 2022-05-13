@@ -149,7 +149,7 @@ export default {
               ` v-touch:tap.prevent="onTapLink"` +
               ` v-touch-class="'tapped'"` +
               `>${linkparts[4]}` +
-              `<sup class="mdi mdi-message-text-outline" />` +
+              // `<sup class="mdi mdi-message-text-outline" />` +
               `</a>`
             // console.log('newlink', newlink)
             this.teiparsed = this.teiparsed.replace(links[i], newlink)
