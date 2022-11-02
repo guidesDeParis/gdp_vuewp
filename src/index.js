@@ -42,7 +42,14 @@ Vue.use(VueClipboard)
 Vue.use(VueSweetalert2)
 
 // https://apple.stackexchange.com/questions/17077/add-a-hosts-file-entry-without-jailbreaking
-window.apipath = process.env === 'prod' || window.location.hostname === 'dev.gdp.fr' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
+// window.apipath = process.env === 'prod' || window.location.hostname === 'dev.gdp.fr' ? `http://${window.location.hostname}/api` : 'http://localhost:8984'
+if (process.env === 'prod') {
+  window.apipath = `https://api.guidesdeparis.fr`
+} else if (window.location.hostname === 'dev.gdp.fr') {
+  window.apipath = `http://${window.location.hostname}/api`
+} else {
+  window.apipath = 'http://localhost:8984'
+}
 // if (window.location.hostname === 'dev.gdp.fr') {
 //   window.apipath = `http://${window.location.hostname}/api`
 // }
