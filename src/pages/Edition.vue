@@ -193,6 +193,7 @@ export default {
         // change textid when route change
         this.textid = to.params.textid
         // change also extract if exists
+        this.extractid = null
         if (to.params.extract) {
           console.log('extract params from route', to.params.extract)
           this.extractid = to.params.ocid
@@ -351,9 +352,10 @@ export default {
         })
     },
     onCenterScrolled (e) {
-      // console.log('Edition centerScrolled(e)', e.target.scrollTop)
+      console.log('Edition centerScrolled(e)', e.target.scrollTop)
       if (!this.center_scrolled && e.target.scrollTop > this.inifinite_load_distance * 1.5) {
         this.center_scrolled = true
+        // this.$store.commit('History/setOpened', false)
       }
       this.indexitem = null
     },

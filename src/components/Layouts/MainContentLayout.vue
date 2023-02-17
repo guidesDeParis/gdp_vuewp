@@ -49,13 +49,29 @@ export default {
   },
   methods: {
     onScrollCenter (e) {
-      // console.log('mainLayout onScrollCenter: e', e)
+      console.log('mainLayout onScrollCenter: e', e)
       this.$emit('onCenterScrolled', e)
+      // attribute scrollToRef is created then removed by this.$scrollTo()
+      // we want to close the history panle only when user scroll the center
+      // not when we click on toc item
+      if (!e.currentTarget.hasAttribute('scrollToRef')) {
+        this.$store.commit('History/setOpened', false)
+      }
     },
     scrollToRef () {
       console.log('scrollToRef', this.reftoscrollto, this.$refs)
       this.$scrollTo(this.reftoscrollto, 500, {
-        container: this.$refs.scrollablecenter
+        container: this.$refs.scrollablecenter,
+        onStart: function (e) {
+          console.log('$scrollTo start', e, this)
+          this.setAttribute('scrollToRef', true)
+        }.bind(this.$refs.scrollablecenter),
+        onDone: function (e) {
+          setTimeout(function () {
+            console.log('$scrollTo done', e, this)
+            this.removeAttribute('scrollToRef')
+          }.bind(this), 100)
+        }.bind(this.$refs.scrollablecenter)
       })
     }
   }
