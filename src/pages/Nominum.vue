@@ -29,12 +29,6 @@
           </li>
         </ul>
       </section>
-    </template>
-
-    <!-- default slot -->
-    <IndexItemOcurrences v-if="content" :content="content" />
-
-    <template v-if="content" v-slot:nav>
       <section v-if="content.autorities.length" class="autorities">
         <h3>Autorités</h3>
         <ul>
@@ -43,6 +37,13 @@
           </li>
         </ul>
       </section>
+
+    </template>
+
+    <!-- default slot -->
+    <IndexItemOcurrences v-if="content" :content="content" />
+
+    <template v-if="content" v-slot:nav>
     </template>
   </MainContentLayout>
 </template>
