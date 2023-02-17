@@ -356,12 +356,18 @@ section[role="main-content"]{
         @include title1black;
         margin:0 0 0.3em;
       }
+      section{
+        margin-bottom: 1em;
+        
+        h3{
+          @include title2black;
+          margin:0;
+          font-weight: 600;
+        }
+
+      }
       p{
         margin: 0 0 0.5em 0;
-      }
-      h3{
-        @include title2black;
-        margin:0;
       }
       .authors{
         a{
