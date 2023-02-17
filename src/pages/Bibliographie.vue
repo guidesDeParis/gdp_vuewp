@@ -86,8 +86,11 @@
       <div class="biblio-item">
         <h2>{{ item.authors }}</h2>
         <p v-if="item.dates" class="date">{{ item.dates }}</p>
+        <p class="lieu">{{ item.lieu }}</p>
         <p class="titles">{{ item.titles }}</p>
-        <p class="tei">{{ item.tei }}</p>
+        <p class="edition">{{ item.edition }}</p>
+        <p class="extent">{{ item.extent }}</p>
+        <p class="tei" v-html="item.tei"/>
         <ul vi-if="item.manifestations.length" class="item-list">
           <li v-for="manif in item.manifestations" :key="manif.uuid">
             <router-link
@@ -101,6 +104,7 @@
             <a :href="id.url">{{ id.type }}: {{ id.url }}</a>
           </li>
         </ul>
+
       </div>
     </template>
     <template #nav>
