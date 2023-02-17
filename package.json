@@ -21,6 +21,7 @@
     "@popperjs/core": "^2.11.2",
     "@sweetalert2/themes": "^5.0.10",
     "axios": "^0.18.1",
+    "truncate-html": "^1.0.4",
     "vue": "^2.6.14",
     "vue-clipboard2": "^0.3.3",
     "vue-infinite-loading": "^2.4.5",

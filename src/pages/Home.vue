@@ -7,23 +7,22 @@
       <h1>Les Guides de Paris</h1>
       <h2>Corpus des XVII et XVIII<sup>E</sup> siècles</h2>
     </header>
-    <section class="row">
+    <section v-if="colophonHome.length && colophonHome.length > 0" class="row">
       <div class="col-3" />
       <div class="col-6 teasers">
-        <article>
-          <h1>Lorem ipsum</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales libero turpis, in tincidunt felis feugiat sit amet. Etiam laoreet diam sapien, sit amet ullamcorper magna rhoncus a. Duis sapien ipsum, consectetur ornare luctus eu, tincidunt id magna.</p>
-          <span>Lire la suite</span>
-        </article>
-        <article>
-          <h1>Lorem ipsum</h1>
-          <p>Integer in pulvinar quam, ac porttitor arcu. Nulla tempor tempor risus, vitae eleifend ligula feugiat id. Vivamus at semper ex. Nulla mattis sapien lacus, ut iaculis urna finibus id. Donec elementum purus quis odio scelerisque feugiat. Donec massa lorem, mattis id ullamcorper et, semper luctus magna. Vivamus interdum luctus massa, pharetra consequat libero fermentum non. Quisque nec dolor ut urna efficitur ultrices semper vitae lacus.</p>
-          <span>Lire la suite</span>
-        </article>
-        <article>
-          <h1>Lorem ipsum</h1>
-          <p>Aliquam in viverra metus. Suspendisse pretium eget nisl nec fermentum. Aliquam pellentesque turpis diam, ut congue nulla gravida ac. Vestibulum a tempus mi, ac rhoncus sem. Sed quis ultrices test.</p>
-          <span>Lire la suite</span>
+        <article
+          v-for="page in colophonHome"
+          :key="page.uuid"
+        >
+          <!-- <h1>{{ page.title }}</h1> -->
+          <div v-html="trimedTei(page.tei)" />
+          <a
+            :href="page.url"
+            @click.prevent="onclick(page.uuid)"
+            @keyup.enter="onclick(page.uuid)"
+          >
+            <span>Lire la suite</span>
+          </a>
         </article>
       </div>
       <div class="col-3" />
@@ -34,6 +33,51 @@
 
 <script>
 
+import { mapState, mapActions } from 'vuex'
+import truncate from 'truncate-html'
+
 export default {
+  name: 'Home',
+  metaInfo: {
+    title: 'Home'
+  },
+  // data: () => ({
+  //   // editionslist: []
+  // }),
+  computed: {
+    ...mapState({
+      colophonHome: state => state.Colophon.colophonHome
+    })
+  },
+  created () {
+    if (!this.colophonHome.length) {
+      this.getColophon()
+    }
+  },
+  methods: {
+    ...mapActions({
+      getColophon: 'Colophon/getColophon'
+    }),
+    trimedTei (tei) {
+      return truncate(tei, 30, {
+        byWords: true,
+        stripTags: false,
+        reserveLastWord: 10
+      })
+    },
+    onclick (uuid) {
+      console.log('clicked on home teaser', uuid)
+      this.$router.push({
+        name: uuid
+      })
+    }
+
+  }
 }
 </script>
+
+<style lang="scss">
+  // a{
+  //   z-index: 100;
+  // }
+</style>

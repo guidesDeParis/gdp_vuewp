@@ -14,6 +14,7 @@ import Locorum from 'pages/Locorum'
 import Operum from 'pages/Operum'
 import Bibliographie from 'pages/Bibliographie'
 import NotFound from 'pages/NotFound'
+import Static from 'pages/Static'
 
 Vue.use(Router)
 
@@ -23,12 +24,26 @@ const routes = [
     path: '/',
     component: Home
   },
-  // {
-  //   name: 'item',
-  //   path: '/babar/:uuid',
-  //   component: Item,
-  //   props: true
-  // },
+  {
+    name: 'credits',
+    path: '/credits',
+    component: Static
+  },
+  {
+    name: 'guide',
+    path: '/guide',
+    component: Static
+  },
+  {
+    name: 'schema',
+    path: '/schema',
+    component: Static
+  },
+  {
+    name: 'api',
+    path: '/api',
+    component: Static
+  },
   {
     name: 'listcorpus',
     path: '/corpus',

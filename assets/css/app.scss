@@ -125,11 +125,13 @@ section[role="main-content"]{
       padding-top: 8em;
     }
     @mixin teasersfilet($filet_space, $decallage){
+      z-index: 1;
       &:before, &:after{
         z-index: 0;
         content: "";
         position: absolute;
         opacity: 0.4;
+        pointer-events: none;
       }
       &:before{
         border:1px solid $or;

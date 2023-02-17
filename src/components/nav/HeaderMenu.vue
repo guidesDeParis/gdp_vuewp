@@ -21,7 +21,7 @@
         </ul>
       </li>
       <li><router-link to="/bibliography">Bibliographie</router-link></li>
-      <li><a href="#">Blog</a></li>
+      <li><router-link to="/schema">Schema</router-link></li>
       <li>
         <a href="#" class="mdi mdi-login-variant" title="connexion">
           <span class="visualy-hidden">connexion</span>
