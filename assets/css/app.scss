@@ -724,6 +724,13 @@ section[role="main-content"]{
           blockquote{
             padding: 0 1em;
           }
+          ul, ol{
+            padding: 0 0 0 2em;
+            li{
+              list-style: disc;
+            }
+
+          }
           span.mdi.index-item-icon{
             font-size: 14px;
             vertical-align: super;
