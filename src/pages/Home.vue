@@ -8,8 +8,8 @@
       <h2>Corpus des XVII et XVIII<sup>E</sup> siècles</h2>
     </header>
     <section v-if="colophonHome.length && colophonHome.length > 0" class="row">
-      <div class="col-3" />
-      <div class="col-6 teasers">
+      <div class="col-2" />
+      <div class="col-8 teasers">
         <article
           v-for="page in colophonHome"
           :key="page.uuid"
@@ -20,12 +20,13 @@
             :href="page.url"
             @click.prevent="onclick(page.uuid)"
             @keyup.enter="onclick(page.uuid)"
+            class="readmore"
           >
             <span>Lire la suite</span>
           </a>
         </article>
       </div>
-      <div class="col-3" />
+      <div class="col-2" />
     </section>
 
   </div>
