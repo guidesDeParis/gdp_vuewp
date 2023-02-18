@@ -705,10 +705,6 @@ section[role="main-content"]{
             span.objectName{
               font-weight: 500;
             }
-            span.mdi.index-item-icon{
-              font-size: 0.630em;
-              vertical-align: super;
-            }
   
             a{
               font-weight: 500;
@@ -726,6 +722,10 @@ section[role="main-content"]{
             }
           }
 
+          span.mdi.index-item-icon{
+            font-size: 14px;
+            vertical-align: super;
+          }
           span[role="pageNum"]{
             font-size: 16px;
             position: relative;

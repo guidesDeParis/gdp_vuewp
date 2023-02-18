@@ -146,7 +146,7 @@ export default {
       return Promise.all(state.editionsuuids.map(function (uuid) {
         return REST.get(`${window.apipath}/texts/${uuid}/toc`, {})
           .then(({ data }) => {
-            // console.log('corpus getEditionsTocs REST: uuid, data', uuid, data)
+            console.log('corpus getEditionsTocs REST: uuid, data', uuid, data)
             // work arround
             // if (!Array.isArray(data.content)) {
             //   data.content = [data.content]
