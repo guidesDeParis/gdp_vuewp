@@ -721,7 +721,9 @@ section[role="main-content"]{
               // }
             }
           }
-
+          blockquote{
+            padding: 0 1em;
+          }
           span.mdi.index-item-icon{
             font-size: 14px;
             vertical-align: super;
