@@ -149,7 +149,7 @@ section[role="main-content"]{
       }
 
     }
-    div.teasers{
+    div.teasers>.wrapper{
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
