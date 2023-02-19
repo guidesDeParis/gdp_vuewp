@@ -27,10 +27,13 @@
         <div
           v-if="$route.name === 'home' && (!searchResults || !searchResults.length)"
           id="logos"
-          class="col-7"
+          class="small-col-12 med-col-7 large-col-7"
         >
-          <img src="/static/img/logos/labex.jpg" alt="">
-          <img src="/static/img/logos/PIA logo.png" alt="">
+          <div class="wrapper">
+            <img src="/static/img/logos/labex.jpg" alt="Labex">
+            <img src="/static/img/logos/PIA logo.png" alt="PIA">
+            <img src="/static/img/logos/Logo-HAR-Unite-de-recherche.png" alt="HAR">
+          </div>
         </div>
       </div>
     </footer>

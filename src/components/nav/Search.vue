@@ -116,9 +116,9 @@ export default {
     wrapperClass () {
       console.log('this.$route.name', this.$route.name)
       if (this.$route.name === 'home' && (!this.results || !this.results.length)) {
-        return 'col-4'
+        return 'small-col-11 med-col-4 large-col-4'
       } else {
-        return 'col-11'
+        return 'med-col-11 large-col-11'
       }
     },
     firstFieldsetClass () {
