@@ -10,7 +10,8 @@ export default {
     editionslist: [],
     editionsbyuuid: {},
     editionsuuids: [],
-    corpusLoaded: false
+    corpusLoaded: false,
+    numTocsItem: 0
   },
 
   // getters
@@ -45,6 +46,7 @@ export default {
         // console.log('recurseFlatToc', a)
         a.forEach((item, i) => {
           state.editionsbyuuid[eduuid].flattoc.push(item.uuid)
+          state.numTocsItem++
           if (item.children && item.children.length) {
             recurseFlatToc(state, eduuid, item.children)
           }
@@ -56,6 +58,7 @@ export default {
         recurseFlatToc(state, eduuid, state.editionsbyuuid[eduuid].toc)
         // console.log('buildFlatTocs DONE', eduuid, state.editionsbyuuid[eduuid].flattoc)
       })
+      console.log('numTocsItem', state.numTocsItem)
     },
     setPaginations (state, paginationslist) {
       // console.log('setPaginations', paginationslist)

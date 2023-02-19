@@ -90,7 +90,7 @@
         <p class="titles">{{ item.titles }}</p>
         <p class="edition">{{ item.edition }}</p>
         <p class="extent">{{ item.extent }}</p>
-        <p class="tei" v-html="item.tei"/>
+        <p class="tei" v-html="item.tei" />
         <ul vi-if="item.manifestations.length" class="item-list">
           <li v-for="manif in item.manifestations" :key="manif.uuid">
             <router-link

@@ -47,8 +47,7 @@
     <!-- default slot -->
     <IndexItemOcurrences v-if="content" :content="content" />
 
-    <template v-if="content" v-slot:nav>
-    </template>
+    <template v-if="content" v-slot:nav />
   </MainContentLayout>
 </template>
 

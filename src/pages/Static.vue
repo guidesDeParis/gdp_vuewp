@@ -31,6 +31,18 @@ export default {
     // page () {
     // }
   },
+  watch: {
+    $route (n, o) {
+      console.log('static route changed', n, o)
+      this.uuid = n.name
+      if (this.colophon && this.colophon.length > 0) {
+        this.setPage()
+      }
+    },
+    colophon (n, o) {
+      this.setPage()
+    }
+  },
   beforeCreate () {
 
   },
@@ -41,18 +53,6 @@ export default {
     console.log('Static created', this.$route)
     this.uuid = this.$route.name
     if (this.colophon && this.colophon.length > 0) {
-      this.setPage()
-    }
-  },
-  watch: {
-    $route (n, o) {
-      console.log('static route changed', n, o)
-      this.uuid = n.name
-      if (this.colophon && this.colophon.length > 0) {
-        this.setPage()
-      }
-    },
-    colophon (n, o) {
       this.setPage()
     }
   },

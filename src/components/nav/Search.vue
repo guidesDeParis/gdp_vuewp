@@ -1,7 +1,7 @@
 <template>
-  <div id="search" class="col-11" :class="{ loading: isloading }">
+  <div id="search" class="" :class="[isloading ? loading : '', wrapperClass]">
     <form class="search-form row">
-      <fieldset class="search small-col-10 med-col-4 large-col-4">
+      <fieldset class="" :class="['search', 'small-col-10', firstFieldsetClass]">
         <div>
           <label for="keys">Search</label>
           <input
@@ -103,19 +103,31 @@ export default {
   data: () => ({
   }),
   computed: {
-    // TODO: do not synch keys instantetly (infinite loading will drop)
-    keys: {
-      get () { return this.$store.state.Search.keys },
-      set (value) { this.$store.commit('Search/setKeys', value) }
-    },
     ...mapState({
       isloading: state => state.Search.isloading,
       searchTypeOptions: state => state.Search.searchTypeOptions,
       searchTypeValue: state => state.Search.searchTypeValue,
       filters: state => state.Search.filters,
       activeFilters: state => state.Search.activeFilters,
-      corpusLoaded: state => state.Corpus.corpusLoaded
+      corpusLoaded: state => state.Corpus.corpusLoaded,
+      results: state => state.Corpus.results
     }),
+    // TODO: do not synch keys instantetly (infinite loading will drop)
+    wrapperClass () {
+      console.log('this.$route.name', this.$route.name)
+      if (this.$route.name === 'home' && (!this.results || !this.results.length)) {
+        return 'col-4'
+      } else {
+        return 'col-11'
+      }
+    },
+    firstFieldsetClass () {
+      return (this.$route.name === 'home' && (!this.results || !this.results.length)) ? 'med-col-10 large-col-10' : 'med-col-4 large-col-4'
+    },
+    keys: {
+      get () { return this.$store.state.Search.keys },
+      set (value) { this.$store.commit('Search/setKeys', value) }
+    },
     personsOptions () {
       return this.filters.persons.filter(option => !this.activeFilters.persons.includes(option))
     },
@@ -128,6 +140,7 @@ export default {
     textsOptions () {
       return this.filters.texts.filter(option => !this.activeFilters.texts.includes(option))
     }
+
   },
   methods: {
     ...mapMutations({

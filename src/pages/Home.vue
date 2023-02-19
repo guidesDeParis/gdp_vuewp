@@ -18,9 +18,9 @@
           <div v-html="trimedTei(page.tei)" />
           <a
             :href="page.url"
+            class="readmore"
             @click.prevent="onclick(page.uuid)"
             @keyup.enter="onclick(page.uuid)"
-            class="readmore"
           >
             <span>Lire la suite</span>
           </a>
@@ -30,6 +30,7 @@
     </section>
 
   </div>
+
 </template>
 
 <script>

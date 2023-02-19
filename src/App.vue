@@ -24,6 +24,14 @@
       <div id="footer-bottom" class="row">
         <FooterTabs />
         <Search />
+        <div
+          v-if="$route.name === 'home' && (!searchResults || !searchResults.length)"
+          id="logos"
+          class="col-7"
+        >
+          <img src="/static/img/logos/labex.jpg" alt="">
+          <img src="/static/img/logos/PIA logo.png" alt="">
+        </div>
       </div>
     </footer>
   </div>
@@ -58,7 +66,8 @@ export default {
   computed: {
     ...mapState({
       resultsOpened: state => state.Search.opened,
-      editionslist: state => state.Corpus.editionslist
+      editionslist: state => state.Corpus.editionslist,
+      searchResults: state => state.Corpus.results
     })
   },
   created () {
