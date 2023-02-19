@@ -5,7 +5,7 @@ const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 // ERROR in vendor.js from UglifyJs
 // RangeError: Maximum call stack size exceeded
 
@@ -15,22 +15,23 @@ module.exports = merge(baseConfig, {
     publicPath: '/'
   },
   optimization: {
-    // minimizer: [
-    //   new UglifyJSPlugin({
-    //     uglifyOptions: {
-    //       // Eliminate comments
-    //       comments: false,
-    //       // remove warnings
-    //       warnings: false,
-    //       minimize: false,
-    //       mangle: false,
-    //       compress: {
-    //         // Drop console statements
-    //         drop_console: true,
-    //       }
-    //     }
-    //   })
-    // ],
+    minimize: true,
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          // Eliminate comments
+          comments: false,
+          // remove warnings
+          // warnings: false,
+          minimize: false,
+          mangle: false,
+          compress: {
+            // Drop console statements
+            drop_console: true,
+          }
+        }
+      })
+    ],
     splitChunks: {
       cacheGroups: {
         commons: {

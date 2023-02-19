@@ -10,7 +10,7 @@
     <section class="row">
       <div class="col-2" />
       <div class="col-8 teasers">
-        <div  v-if="colophonHome.length && colophonHome.length > 0" class="wrapper">
+        <div v-if="colophonHome.length && colophonHome.length > 0" class="wrapper">
           <article
             v-for="page in colophonHome"
             :key="page.uuid"
