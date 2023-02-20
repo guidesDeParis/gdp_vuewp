@@ -2,13 +2,15 @@
   <section
     :uuid="item.uuid"
     :level="level"
+    :type="item.type"
+    class="tocitem"
   >
     <component
       :is="titlelevel"
       v-if="title"
       class="toc-title"
       :uuid="item.uuid"
-      :class="{active: isActive, loaded: isLoaded}"
+      :class="{active: isActive, loaded: isLoaded, notitle: noTitle}"
     >
       <a
         :href="'/edition/'+editionid+'/'+item.uuid"
@@ -56,7 +58,8 @@ export default {
     loadedtextsuuids: Array
   },
   data: () => ({
-    isOpened: false
+    isOpened: false,
+    noTitle: false
   }),
   computed: {
     ...mapState({
@@ -74,8 +77,11 @@ export default {
       // this shoudn't be necessary
       if (this.item.title && Array.isArray(this.item.title)) {
         return this.item.title.join(' ')
-      } else {
+      } else if (this.item.title) {
         return this.item.title
+      } else {
+        console.log('TOC no title', this.item)
+        return this.item.type
       }
     },
     titlelevel () {
@@ -115,6 +121,12 @@ export default {
   beforeMount () {
     if (typeof this.$route.params.textid !== 'undefined') {
       this.isOpened = this.$route.params.textid.indexOf(this.item.uuid) >= 0
+    }
+    if (['book', 'volume'].indexOf(this.item.type) >= 0) {
+      this.isOpened = true
+    }
+    if (!this.item.title) {
+      this.noTitle = true
     }
   },
   methods: {

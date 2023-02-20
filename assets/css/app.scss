@@ -818,6 +818,17 @@ section[role="main-content"]{
         overflow-x: hidden;
         overflow-y: auto;
         line-height: $base-line / 2;
+        section.tocitem{
+          position: relative;
+          &:after{
+            display: block;
+            position:absolute;
+            top:0; right:0;
+            color: red;
+            content: attr(type);
+            font-size: 11px;
+          }
+        }
         >ul{
           ul{
             li{
@@ -858,6 +869,9 @@ section[role="main-content"]{
             }
             &.loaded{
               color:$grisfonce;
+            }
+            &.notitle{
+              color: red;
             }
           }
           h2.toc-title{font-size: 1.1em;}
