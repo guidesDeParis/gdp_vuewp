@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import { REST } from 'api/rest-axios'
+
 import Home from 'pages/Home'
 // import Item from 'pages/Item'
 import ListCorpus from 'pages/ListCorpus'
@@ -114,6 +116,29 @@ const routes = [
     path: '/bibliography/:type/:uuid',
     component: Bibliographie,
     props: true
+  },
+  {
+    name: 'items',
+    path: '/items/:uuid',
+    beforeEnter: async (to, from, next) => {
+      console.log('items before enter', from, to, next)
+
+      let item = await REST.get(`${window.apipath}/items/` + to.params.uuid, {})
+        .then(({ data }) => {
+          // console.log('corpus getEditionsList REST: author, data', author, data)
+          return data.content
+        })
+        .catch((error) => {
+          console.warn('Issue with getEditionsList', error)
+          // Promise.reject(error)
+        })
+      console.log('items : item', item)
+      // item.textid = 'gdpSauval1724'
+      // this named route does not replace the url
+      // next({ name: 'editiontext', params: { id: item.textid, textid: item.uuid }, replace: true })
+      next({ path: `/texts/${item.textid}/${item.uuid}`, replace: true })
+    },
+    component: { render: () => null }
   },
   {
     name: 'notfound',
