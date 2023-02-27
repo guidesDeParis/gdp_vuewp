@@ -13,7 +13,7 @@
       :class="{active: isActive, loaded: isLoaded, notitle: noTitle}"
     >
       <a
-        :href="'/edition/'+editionid+'/'+item.uuid"
+        :href="'/texts/'+editionid+'/'+item.uuid"
         :uuid="item.uuid"
         @click.prevent="onclick"
         @keyup.enter="onclick"

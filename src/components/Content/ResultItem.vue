@@ -2,7 +2,7 @@
   <article class="result item">
     <h1>
       <a
-        :href="'/edition/'+result.textId+'/'+result.uuid"
+        :href="'/texts/'+result.textId+'/'+result.uuid"
         @click.prevent="onclick"
         @keyup.enter="onclick"
         v-html="result.title"
@@ -10,7 +10,7 @@
     </h1>
     <h2>
       <a
-        :href="'/edition/'+result.textId+'/'+result.uuid"
+        :href="'/texts/'+result.textId+'/'+result.uuid"
         @click.prevent="onclick"
         @keyup.enter="onclick"
         v-html="editionTitle"
