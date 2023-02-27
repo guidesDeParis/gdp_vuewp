@@ -45,10 +45,12 @@ export default {
       let recurseFlatToc = (state, eduuid, a) => {
         // console.log('recurseFlatToc', a)
         a.forEach((item, i) => {
-          state.editionsbyuuid[eduuid].flattoc.push(item.uuid)
-          state.numTocsItem++
-          if (item.children && item.children.length) {
-            recurseFlatToc(state, eduuid, item.children)
+          if (item) {
+            state.editionsbyuuid[eduuid].flattoc.push(item.uuid)
+            state.numTocsItem++
+            if (item.children && item.children.length) {
+              recurseFlatToc(state, eduuid, item.children)
+            }
           }
         })
       }
