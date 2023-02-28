@@ -136,7 +136,7 @@ const routes = [
       // item.textid = 'gdpSauval1724'
       // this named route does not replace the url
       // next({ name: 'editiontext', params: { id: item.textid, textid: item.uuid }, replace: true })
-      next({ path: `/texts/${item.textid}/${item.uuid}`, replace: true })
+      next({ path: `/texts/${item.textId}/${item.uuid}`, replace: true })
     },
     component: { render: () => null }
   },
