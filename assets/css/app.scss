@@ -735,6 +735,25 @@ section[role="main-content"]{
             font-size: 14px;
             vertical-align: super;
           }
+          span[role="pageBreak"]{
+            display: block;
+            height:1.5em;
+          }
+          span.simpleLine + span[role="pageBreak"]{
+            height:0em;
+            margin-top: -1em;
+          }
+          span.metamark.typographicalPiece + span[role="pageBreak"]{
+            height:0em;
+          }
+          span.metamark.typographicalPiece{
+            display: block;
+            height: 1.5em;
+          }
+          span.metamark.typographicalPiece + span.metamark.typographicalPiece{
+            display: none;
+          }
+
           span[role="pageNum"]{
             font-size: 16px;
             position: relative;
