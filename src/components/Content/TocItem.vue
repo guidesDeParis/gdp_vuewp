@@ -4,13 +4,14 @@
     :level="level"
     :type="item.type"
     class="tocitem"
+    :class="{active: isActive, loaded: isLoaded, notitle: noTitle, init_opened: isInitOpened, opened: isOpened}"
   >
     <component
       :is="titlelevel"
       v-if="title"
       class="toc-title"
       :uuid="item.uuid"
-      :class="{active: isActive, loaded: isLoaded, notitle: noTitle}"
+      :class="{active: isActive, loaded: isLoaded, notitle: noTitle, init_opened: isInitOpened, opened: isOpened}"
     >
       <a
         :href="'/texts/'+editionid+'/'+item.uuid"
@@ -24,7 +25,9 @@
     <ul
       v-if="children.length"
       class="toc-list"
-      :class="{opened: isOpened}"
+      :level="level"
+      :type="item.type"
+      :class="{init_opened: isInitOpened, opened: isOpened}"
     >
       <li v-for="child in children" :key="child.uuid">
         <TocItem
@@ -58,6 +61,7 @@ export default {
     loadedtextsuuids: Array
   },
   data: () => ({
+    isInitOpened: false,
     isOpened: false,
     noTitle: false
   }),
@@ -80,8 +84,9 @@ export default {
       } else if (this.item.title) {
         return this.item.title
       } else {
-        console.log('TOC no title', this.item)
-        return this.item.type
+        // console.log('TOC no title', this.item)
+        // return this.item.type
+        return null
       }
     },
     titlelevel () {
@@ -122,8 +127,11 @@ export default {
     if (typeof this.$route.params.textid !== 'undefined') {
       this.isOpened = this.$route.params.textid.indexOf(this.item.uuid) >= 0
     }
-    if (['book', 'volume'].indexOf(this.item.type) >= 0) {
-      this.isOpened = true
+    // if (this.level <= 2 && ['book', 'volume'].indexOf(this.item.type) === -1) {
+    if (this.level === 1 ||
+      (this.level === 2 && ['part', 'book', 'volume', 'front', 'body', 'back', 'div'].indexOf(this.item.type) >= 0)
+    ) {
+      this.isInitOpened = true
     }
     if (!this.item.title) {
       this.noTitle = true
