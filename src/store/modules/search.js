@@ -87,7 +87,7 @@ export default {
                 if (filters[filter][i].uuid && filters[filter][i].title) {
                   state.filters[filter].push({
                     code: filters[filter][i].uuid,
-                    label: `${filters[filter][i].title} (${filters[filter][i].quantity})`
+                    label: `${filters[filter][i].title} [${filters[filter][i].quantity}]`
                   })
                 }
               }
