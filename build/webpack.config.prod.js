@@ -1,9 +1,12 @@
 'use strict'
 
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
+
+const utils = require('./utils')
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 // ERROR in vendor.js from UglifyJs
@@ -11,6 +14,11 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
+  // resolve: {
+  //   alias: {
+  //     'static': utils.resolve('static')
+  //   }
+  // },
   output: {
     publicPath: '/'
   },
@@ -66,6 +74,11 @@ module.exports = merge(baseConfig, {
     }),
     new webpack.DefinePlugin({
       "process.env": "'prod'"
-    })
+    }),
+    new CopyWebpackPlugin([{
+      from: utils.resolve('static/.htaccess'),
+      to: utils.resolve('dist/.htaccess'),
+      toType: 'file'
+    }])
   ]
 })
