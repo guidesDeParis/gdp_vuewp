@@ -1134,8 +1134,10 @@ footer[role="tools"]{
     article.item{
         h1{
           @include title3black;
+          font-size: 0.9em;
           font-weight: 600;
           max-width: 95%;
+          word-break:normal;
         }
         h2{
           @include title3black;

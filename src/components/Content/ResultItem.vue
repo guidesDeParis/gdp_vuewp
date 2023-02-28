@@ -5,7 +5,7 @@
         :href="'/texts/'+result.textId+'/'+result.uuid"
         @click.prevent="onclick"
         @keyup.enter="onclick"
-        v-html="result.title"
+        v-html="shorted_title"
       />
     </h1>
     <h2>
@@ -49,14 +49,21 @@ export default {
       return this.editionsbyuuid[this.result.textId].title
     }
   },
-  // created () {
+  created () {
+    let max = 40
+    if (this.result.title.length > max) {
+      let subString = this.result.title.substr(0, max)
+      this.shorted_title = subString.substr(0, subString.lastIndexOf(' ')) + '&nbsp&hellip;'
+    } else {
+      this.shorted_title = this.result.title
+    }
   //   if (this.result.extract) {
   //     const subString = this.result.extract.substr(0, 80)
   //     this.preview = subString.substr(0, subString.lastIndexOf(' ')) + ' &hellip;'
   //   } else {
   //     console.warn(`No extract for ${this.result.textId}/${this.result.uuid}`)
   //   }
-  // },
+  },
   methods: {
     ...mapActions({
       addHistoryItem: 'History/addItem'
