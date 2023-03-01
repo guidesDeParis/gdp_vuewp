@@ -4,14 +4,28 @@
     :level="level"
     :type="item.type"
     class="tocitem"
-    :class="{active: isActive, loaded: isLoaded, notitle: noTitle, init_opened: isInitOpened, opened: isOpened}"
+    :class="{
+      active: isActive,
+      loaded: isLoaded,
+      notitle: noTitle,
+      init_opened: isInitOpened,
+      opened: isOpened,
+      disabled: isDisabled
+    }"
   >
     <component
       :is="titlelevel"
       v-if="title"
       class="toc-title"
       :uuid="item.uuid"
-      :class="{active: isActive, loaded: isLoaded, notitle: noTitle, init_opened: isInitOpened, opened: isOpened}"
+      :class="{
+        active: isActive,
+        loaded: isLoaded,
+        notitle: noTitle,
+        init_opened: isInitOpened,
+        opened: isOpened,
+        disabled: isDisabled
+      }"
     >
       <a
         :href="'/texts/'+editionid+'/'+item.uuid"
@@ -35,6 +49,7 @@
           :level="nextLevel"
           :editionid="editionid"
           :loadedtextsuuids="loadedtextsuuids"
+          :selectedindex="selectedindex"
           @onClickTocItem="onClickTocItem"
           @onScrollToRef="onScrollToRef"
         />
@@ -58,7 +73,8 @@ export default {
     item: Object,
     level: Number,
     editionid: String,
-    loadedtextsuuids: Array
+    loadedtextsuuids: Array,
+    selectedindex: Object
   },
   data: () => ({
     isInitOpened: false,
@@ -108,6 +124,16 @@ export default {
       // but not for isOpened (had to use a watcher + beforeMount)
       // don't now why ?
       return this.loadedtextsuuids.indexOf(this.item.uuid) !== -1
+    },
+    isDisabled () {
+      let disabled = false
+      if (this.selectedindex &&
+        (!this.flat_indexes.length || this.flat_indexes.indexOf(this.selectedindex.code) === -1)
+      ) {
+        // console.log('tocitem disabled ?', this.selectedindex.code)
+        disabled = true
+      }
+      return disabled
     }
   },
   watch: {
@@ -122,6 +148,15 @@ export default {
         this.onOpened()
       }
     }
+  },
+  created () {
+    this.flat_indexes = []
+    Object.keys(this.item.indexes[0]).forEach(index => {
+      this.item.indexes[0][index].forEach(element => {
+        this.flat_indexes.push(element.uuid)
+      })
+    })
+    console.log('tocItem created flat_indexes', this.flat_indexes)
   },
   beforeMount () {
     if (typeof this.$route.params.textid !== 'undefined') {

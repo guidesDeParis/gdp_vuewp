@@ -12,6 +12,7 @@
         :calculate-position="dropDownMenuPos"
         :options="opts"
         :clearable="true"
+        :value="getSeletedValue(key)"
         @input="onClickIndexItem"
       >
         <template v-slot:option="option">
@@ -33,29 +34,32 @@ export default {
   },
   data: () => ({
     options: {},
-    persons_selected: '',
-    objects_selected: '',
-    places_selected: ''
+    indexes_keys: [],
+    persons_selected: null,
+    objects_selected: null,
+    places_selected: null
   }),
   created () {
     this.parseIndexesToOptions()
   },
-  // watch: {
-  //   loadedtextsuuids (n, o) {
-  //     console.log('EdToc watch loadedtxtsuuids', o, n)
-  //   }
-  // },
+  watch: {
+    persons_selected (n, o) {
+      console.log('EdIndexes watch persons_selected', o, n)
+    }
+  },
   methods: {
     parseIndexesToOptions () {
       console.log('EdIndexes parseIndexesToOptions', this.indexes)
       Object.keys(this.indexes).forEach(key => {
         // console.log('OPTION', key)
+        this.indexes_keys.push(key)
         this.options[key] = []
         Object.keys(this.indexes[key]).forEach(uuid => {
           // console.log('OPTIONS ITEM', key, uuid)
           this.options[key].push({
             code: uuid,
-            label: `${this.indexes[key][uuid].title} [${this.indexes[key][uuid].quantity}]`
+            label: `${this.indexes[key][uuid].title} [${this.indexes[key][uuid].quantity}]`,
+            index: key
           })
         })
         if (!this.options[key].length) {
@@ -105,9 +109,20 @@ export default {
        */
       return () => popper.destroy()
     },
+    getSeletedValue (key) {
+      return this[`${key}_selected`]
+    },
     onClickIndexItem (o) {
+      console.log('onClickIndexItem', o)
+      this.indexes_keys.forEach(key => {
+        if (o && key === o.index) {
+          this[`${key}_selected`] = o
+        } else {
+          this[`${key}_selected`] = null
+        }
+      })
       // this.page_selected = o
-      // this.$emit('onClickPaginationItem', o)
+      this.$emit('onClickIndexItem', o)
     }
   }
 }

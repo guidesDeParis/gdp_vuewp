@@ -880,6 +880,7 @@ section[role="main-content"]{
 
         .toc-title{
           @include title4grey;
+          color: $grismoyen;
           &.active,
           &:hover{
             color:$grisfonce;
@@ -890,6 +891,10 @@ section[role="main-content"]{
           }
           &.notitle{
             color: red;
+          }
+          &.disabled{
+            color: $grisclair;
+            pointer-events: none;
           }
         }
         h2.toc-title{font-size: 1.1em;}

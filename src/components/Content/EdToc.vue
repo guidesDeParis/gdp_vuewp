@@ -10,6 +10,7 @@
           :level="1"
           :editionid="$route.params.id"
           :loadedtextsuuids="loadedtextsuuids"
+          :selectedindex="selectedindex"
           @onClickTocItem="onClickTocItem"
           @onScrollToRef="onScrollToRef"
         />
@@ -29,7 +30,8 @@ export default {
   },
   props: {
     toc: Array,
-    loadedtextsuuids: Array
+    loadedtextsuuids: Array,
+    selectedindex: Object
   },
   // watch: {
   //   reftoscrollto: function (newref, oldref) {

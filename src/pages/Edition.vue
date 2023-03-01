@@ -107,12 +107,14 @@
         id="toc"
         :toc="toc"
         :loadedtextsuuids="textsuuids"
+        :selectedindex="selectedindex"
         @onClickTocItem="onClickTocItem"
       />
       <EdIndexes
         v-if="indexes"
         id="indexes-filters"
         :indexes="indexes"
+        @onClickIndexItem="onClickIndexItem"
       />
       <EdPagination
         v-if="pagination"
@@ -181,6 +183,7 @@ export default {
     flattoc: null,
     //
     indexes: null,
+    selectedindex: null,
     //
     pagination: null,
     //
@@ -430,6 +433,9 @@ export default {
           }
         })
       }
+    },
+    onClickIndexItem (o) {
+      this.selectedindex = o
     },
     onClickPaginationItem (o) {
       console.log('onClickPaginationItem', o)
