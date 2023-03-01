@@ -109,6 +109,11 @@
         :loadedtextsuuids="textsuuids"
         @onClickTocItem="onClickTocItem"
       />
+      <EdIndexes
+        v-if="indexes"
+        id="indexes-filters"
+        :indexes="indexes"
+      />
       <EdPagination
         v-if="pagination"
         id="page-nav"
@@ -129,6 +134,7 @@ import { mapState, mapActions } from 'vuex'
 import MainContentLayout from '../components/Layouts/MainContentLayout'
 import EdText from '../components/Content/EdText'
 import EdToc from '../components/Content/EdToc'
+import EdIndexes from '../components/Content/EdIndexes'
 import EdPagination from '../components/Content/EdPagination'
 
 export default {
@@ -143,6 +149,7 @@ export default {
     MainContentLayout,
     EdText,
     EdToc,
+    EdIndexes,
     EdPagination
   },
   data: () => ({
@@ -150,6 +157,7 @@ export default {
     editionid: null,
     textid: null,
     extract: null,
+    extractid: null,
     texts: [],
     textsuuids: [],
     metainfotitle: undefined,
@@ -171,6 +179,8 @@ export default {
     //
     toc: null,
     flattoc: null,
+    //
+    indexes: null,
     //
     pagination: null,
     //
@@ -272,8 +282,8 @@ export default {
           console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
           this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
         }
-        if (mutation.type === 'Corpus/buildFlatTocs') {
-          console.log('Edition Corpus/buildFlatTocs', this.editionid, state.Corpus.editionsbyuuid)
+        if (mutation.type === 'Corpus/buildFlatTocsAndFilters') {
+          console.log('Edition Corpus/buildFlatTocsAndFilters', this.editionid, state.Corpus.editionsbyuuid)
           this.flattoc = state.Corpus.editionsbyuuid[this.editionid].flattoc
           // launch infinitloading
           this.inifinite_load_id += 1
@@ -282,6 +292,8 @@ export default {
           // get the first item
           // will be replaced by front page of edition
           if (!this.textid) { this.textid = this.flattoc[1] }
+          //
+          this.indexes = state.Corpus.editionsbyuuid[this.editionid].indexes
         }
         if (mutation.type === 'Corpus/setPaginations') {
           // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
@@ -302,6 +314,7 @@ export default {
       // get the first item
       // will be replaced by front page of edition
       if (!this.textid) { this.textid = this.toc[0].children[0].uuid }
+      this.indexes = this.editionsbyuuid[this.editionid].indexes
       this.pagination = this.editionsbyuuid[this.editionid].pagination
     }
   },

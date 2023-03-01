@@ -953,6 +953,18 @@ section[role="main-content"]{
         // }
       }
 
+      div#indexes-filters{
+        // height:$pager_h;
+        overflow: hidden;
+        box-sizing: content-box;
+        padding:1em 0 0 1.5em;
+        select{
+          option{
+            padding:0;
+          }
+        }
+      }
+
       div#page-nav{
         height:$pager_h;
         overflow: hidden;

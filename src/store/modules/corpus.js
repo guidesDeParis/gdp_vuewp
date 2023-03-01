@@ -41,24 +41,51 @@ export default {
       })
       // console.log('corpus editionsbyuuid', state.editionsbyuuid)
     },
-    buildFlatTocs (state, eeuid) {
-      let recurseFlatToc = (state, eduuid, a) => {
-        // console.log('recurseFlatToc', a)
+    buildFlatTocsAndFilters (state) {
+      let recurseToc = (state, eduuid, a) => {
+        // console.log('recurseToc', a)
         a.forEach((item, i) => {
           if (item) {
+            // flatToc
             state.editionsbyuuid[eduuid].flattoc.push(item.uuid)
             state.numTocsItem++
+
+            // filters
+            let indexes = item.indexes[0]
+            for (const key in indexes) {
+              // loop through indexes (objects, persons, places)
+              if (Object.hasOwnProperty.call(indexes, key)) {
+                indexes[key].forEach(element => {
+                  // loop through index elements
+                  if (!(element.uuid in state.editionsbyuuid[eduuid].indexes[key])) {
+                    state.editionsbyuuid[eduuid].indexes[key][element.uuid] = element
+                  }
+                })
+              }
+            }
+
+            // recursive loop
             if (item.children && item.children.length) {
-              recurseFlatToc(state, eduuid, item.children)
+              recurseToc(state, eduuid, item.children)
             }
           }
         })
       }
       state.editionsuuids.forEach((eduuid, i) => {
-        // console.log('buildFlatTocs', i, eduuid)
+        // console.log('buildFlatTocsAndFilters', i, eduuid)
         state.editionsbyuuid[eduuid].flattoc = []
-        recurseFlatToc(state, eduuid, state.editionsbyuuid[eduuid].toc)
-        // console.log('buildFlatTocs DONE', eduuid, state.editionsbyuuid[eduuid].flattoc)
+        state.editionsbyuuid[eduuid].indexes = {
+          objects: {},
+          persons: {},
+          places: {}
+        }
+        recurseToc(state, eduuid, state.editionsbyuuid[eduuid].toc)
+        console.log('buildFlatTocsAndFilters DONE',
+          eduuid,
+          `places: ${Object.keys(state.editionsbyuuid[eduuid].indexes['places']).length}`,
+          `objects: ${Object.keys(state.editionsbyuuid[eduuid].indexes['objects']).length}`,
+          `persons: ${Object.keys(state.editionsbyuuid[eduuid].indexes['persons']).length}`,
+          state.editionsbyuuid[eduuid].indexes)
       })
       console.log('numTocsItem', state.numTocsItem)
     },
@@ -73,6 +100,7 @@ export default {
       console.info('corpusLoaded')
       state.corpusLoaded = true
     }
+
   },
 
   // actions
@@ -84,11 +112,6 @@ export default {
           .then(({ data }) => {
             // console.log('getCorpuses authors data', data)
             commit('setAuthors', data.content)
-            // get the texts list for each corpus (aka author)
-            // let authorsUuids = []
-            // for (let author of data.content) {
-            //   authorsUuids.push(author.uuid)
-            // }
             dispatch('getEditionsList', data.content)
               .then((editionslist) => {
                 console.log('all texts returned: editionslist', editionslist)
@@ -99,9 +122,7 @@ export default {
                   .then((tocslist) => {
                     console.log('all tocs returned: tocslist', tocslist)
                     commit('setTocs', tocslist)
-                    // this.methods.testMethod()
-                    // dispatch('buildFlatTocs')
-                    commit('buildFlatTocs')
+                    commit('buildFlatTocsAndFilters')
                     dispatch('getEditionsPaginations')
                       .then((paginationslist) => {
                         console.log('all paginations returned: paginationslist', paginationslist)
@@ -188,38 +209,6 @@ export default {
           })
       }))
     }
-    // ,
-    // buildFlatTocs ({ dispatch, commit, state }) {
-    //   state.editionsuuids.forEach((eduuid, i) => {
-    //     // console.log('buildFlatTocs', i, eduuid)
-    //     dispatch('recurseFlatToc', state.editionsbyuuid[eduuid].toc)
-    //       .then((ft) => {
-    //         console.log('buildFlatTocs DONE', eduuid, ft)
-    //         state.editionsbyuuid[eduuid].flattoc = ft
-    //       })
-    //   })
-    // },
-    // recurseFlatToc ({ dispatch, commit, state }, a) {
-    //   // console.log('recurseFlatToc', a)
-    //   let na = []
-    //   // a.forEach((item, i) => {
-    //   return Promise.all(a.map(function (item) {
-    //     console.log('item', item)
-    //     na.push(item.uuid)
-    //     if (item.children && item.children.length) {
-    //       return dispatch('recurseFlatToc', item.children)
-    //         .then((nna) => {
-    //           console.log('recurseFlatToc: na, nna', na, nna)
-    //           na.concat(nna)
-    //         })
-    //     }
-    //     //  else {
-    //     //   return na
-    //     // }
-    //   }))
-    //   // })
-    //   // return na
-    // }
   },
   methods: {
     testMethod () {
