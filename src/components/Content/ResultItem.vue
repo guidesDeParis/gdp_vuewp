@@ -2,7 +2,7 @@
   <article class="result item">
     <h1>
       <a
-        :href="'/texts/'+result.textId+'/'+result.uuid"
+        :href="'/texts/'+result.textId+'/'+result.uuid+'/'+searchedkeys"
         @click.prevent="onclick"
         @keyup.enter="onclick"
         v-html="shorted_title"
@@ -10,7 +10,7 @@
     </h1>
     <h2>
       <a
-        :href="'/texts/'+result.textId+'/'+result.uuid"
+        :href="'/texts/'+result.textId+'/'+result.uuid+'/'+searchedkeys"
         @click.prevent="onclick"
         @keyup.enter="onclick"
         v-html="editionTitle"
@@ -78,14 +78,15 @@ export default {
         pages: this.result.pages,
         size: this.result.size
       })
-      this.$router.push({
-        name: `editiontextextract`,
-        params: {
-          id: this.result.textId,
-          textid: this.result.uuid,
-          extract: this.searchedkeys
-        }
-      })
+      // this.$router.push({
+      //   name: `editiontextextract`,
+      //   params: {
+      //     id: this.result.textId,
+      //     textid: this.result.uuid,
+      //     extract: this.searchedkeys
+      //   }
+      // })
+      this.$router.push({ path: `/texts/${this.result.textId}/${this.result.uuid}/${this.searchedkeys}` })
     }
   }
 }

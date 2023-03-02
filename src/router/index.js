@@ -117,6 +117,7 @@ const routes = [
     component: Bibliographie,
     props: true
   },
+  // redirects /items/uuid to /texts/[edid]/[textid]
   {
     name: 'items',
     path: '/items/:uuid',
