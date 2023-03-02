@@ -144,7 +144,8 @@ export default {
   metaInfo () {
     // console.log('metainfo', this.meta)
     return {
-      title: this.metainfotitle
+      title: this.metainfotitle,
+      meta: this.meta
     }
   },
   components: {
@@ -155,7 +156,7 @@ export default {
     EdPagination
   },
   data: () => ({
-    meta: null,
+    meta: [],
     editionid: null,
     textid: null,
     extract: null,
@@ -227,6 +228,7 @@ export default {
       console.log('reftoscrollto changed', oldref, newref)
     },
     textid (newid, oldid) {
+      // triggered when route change (when TOC item clicked)
       console.log('textid watcher', this, oldid, newid)
       this.texts = []
       this.textsuuids = []
@@ -237,10 +239,10 @@ export default {
         this.inifinite_load_id += 1
       }
     },
-    textdata (newtxtdata, oldtxtdata) {
-      console.log('textdata watcher', oldtxtdata, newtxtdata)
-      this.metainfotitle = `${this.title} ${newtxtdata.meta.title}`
-    },
+    // textdata (newtxtdata, oldtxtdata) {
+    //   console.log('textdata watcher', oldtxtdata, newtxtdata)
+    //   this.metainfotitle = `${this.title} ${newtxtdata.meta.title}`
+    // },
     page_selected (newp, oldp) {
       console.log('page_selected watcher', oldp, newp)
       this.scrollToPage(newp)
@@ -276,6 +278,11 @@ export default {
         if (mutation.type === 'Corpus/setEditionsByUUID') {
           // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
           this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
+
+          this.meta = [
+            { name: 'test', content: 'edition chargé' }
+          ]
+
           this.biblio = state.Corpus.editionsbyuuid[this.editionid].biblio
           this.description = state.Corpus.editionsbyuuid[this.editionid].description
           this.date = state.Corpus.editionsbyuuid[this.editionid].date
@@ -306,6 +313,11 @@ export default {
     } else {
       // console.log('');
       this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
+
+      this.meta = [
+        { name: 'test', content: 'edition deja là' }
+      ]
+
       this.biblio = this.editionsbyuuid[this.editionid].biblio
       this.description = this.editionsbyuuid[this.editionid].description
       this.date = this.editionsbyuuid[this.editionid].date
@@ -342,8 +354,13 @@ export default {
             this.textsuuids.unshift(data.content.uuid)
           }
           if ($state) {
+            // triggered by infinite scroll
             $state.loaded()
             this.next_loaded = true
+          } else {
+            // triggered by TOC item click
+            // UPDATE METATAGS
+            this.updateMetaData(data.meta.metadata)
           }
         })
         .catch((error) => {
@@ -366,6 +383,22 @@ export default {
           //   query: { fullpath: this.$route.path }
           // })
         })
+    },
+    updateMetaData (metadata) {
+      this.meta = []
+      metadata.forEach(m => {
+        let o = {}
+        o.name = m.name
+        if (Array.isArray(m.content)) {
+          o.content = m.content.join(', ')
+        } else {
+          o.content = m.content
+        }
+        if (typeof m.scheme !== 'undefined') {
+          o.scheme = m.scheme
+        }
+        this.meta.push(o)
+      })
     },
     onCenterScrolled (e) {
       console.log('Edition centerScrolled(e)', e.target.scrollTop)
@@ -433,6 +466,7 @@ export default {
           }
         })
       }
+      this.meta.push({ name: 'itemclicked', content: 'alors ?' })
     },
     onClickIndexItem (o) {
       this.selectedindex = o

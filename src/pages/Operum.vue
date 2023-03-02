@@ -53,11 +53,15 @@ export default {
     IndexItemOcurrences
   },
   data: () => ({
-    content: null
+    content: null,
+    meta: [],
+    metainfotitle: undefined
   }),
   metaInfo () {
+    // console.log('metainfo', this.meta)
     return {
-      title: `Operum ${this.$route.params.id}`
+      title: this.metainfotitle,
+      meta: this.meta
     }
   },
   beforeCreate () {
@@ -67,7 +71,9 @@ export default {
         console.log('operum REST: data', data)
         if (data.content) {
           this.content = data.content
+          this.metainfotitle = data.content.title
         }
+        this.updateMetaData(data.meta.metadata)
       })
       .catch((error) => {
         console.warn('Issue with operum', error)
@@ -77,6 +83,24 @@ export default {
           query: { fullpath: this.$route.path }
         })
       })
+  },
+  methods: {
+    updateMetaData (metadata) {
+      this.meta = []
+      metadata.forEach(m => {
+        let o = {}
+        o.name = m.name
+        if (Array.isArray(m.content)) {
+          o.content = m.content.join(', ')
+        } else {
+          o.content = m.content
+        }
+        if (typeof m.scheme !== 'undefined') {
+          o.scheme = m.scheme
+        }
+        this.meta.push(o)
+      })
+    }
   }
 }
 </script>

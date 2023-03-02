@@ -64,11 +64,15 @@ export default {
     IndexItemOcurrences
   },
   data: () => ({
-    content: null
+    content: null,
+    meta: [],
+    metainfotitle: undefined
   }),
   metaInfo () {
+    // console.log('metainfo', this.meta)
     return {
-      title: `Nominum ${this.$route.params.id}`
+      title: this.metainfotitle,
+      meta: this.meta
     }
   },
   created () {
@@ -78,7 +82,9 @@ export default {
         console.log('nominum REST: data', data)
         if (data.content) {
           this.parseOccurences(data.content)
+          this.metainfotitle = data.content.title
         }
+        this.updateMetaData(data.meta.metadata)
       })
       .catch((error) => {
         console.warn('Issue with nominum', error)
@@ -90,6 +96,22 @@ export default {
       })
   },
   methods: {
+    updateMetaData (metadata) {
+      this.meta = []
+      metadata.forEach(m => {
+        let o = {}
+        o.name = m.name
+        if (Array.isArray(m.content)) {
+          o.content = m.content.join(', ')
+        } else {
+          o.content = m.content
+        }
+        if (typeof m.scheme !== 'undefined') {
+          o.scheme = m.scheme
+        }
+        this.meta.push(o)
+      })
+    },
     parseOccurences (content) {
       console.log('parseOccurences', content)
       // ! parsing occurences
