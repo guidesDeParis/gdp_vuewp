@@ -466,7 +466,6 @@ export default {
           }
         })
       }
-      this.meta.push({ name: 'itemclicked', content: 'alors ?' })
     },
     onClickIndexItem (o) {
       this.selectedindex = o

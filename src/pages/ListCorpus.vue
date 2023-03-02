@@ -10,6 +10,7 @@
         <header>
           <h2>{{ corpus.author.title }}</h2>
           <h3>{{ corpus.author.date }}</h3>
+          <section class="notice" v-html="corpus.author.note" />
         </header>
         <section class="editions">
           <h4 class="editions-quantity">

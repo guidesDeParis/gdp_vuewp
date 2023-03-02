@@ -205,6 +205,7 @@ section[role="main-content"]{
         @include titleSansRed;
         margin: 0;
       }
+
     }
 
     article.item{
@@ -242,6 +243,7 @@ section[role="main-content"]{
     ul.item-list{
       li{
         // margin: 0 0 2em 0;
+        margin-bottom: $base-line;
         header{
           h2{
             @include title1blue;
@@ -255,6 +257,13 @@ section[role="main-content"]{
             font-weight: 500;
             line-height: $base-line / 2;
           }
+
+          section.notice{
+            @include fontsans;
+            font-size: 0.756em;
+            font-weight: 300;
+            line-height: $base-line / 2;
+          }
           margin-bottom: $base-line / 2;
         }
 
@@ -266,7 +275,7 @@ section[role="main-content"]{
           line-height: $base-line / 2;
           &.texts-quantity{
             color: $rouge;
-            // margin: 0.3em 0 0;
+            margin-bottom: $base-line / 4;
           }
         }
         section.editions{
@@ -284,7 +293,7 @@ section[role="main-content"]{
 
           
           ul.texts-list{
-            padding: 0 0 0 1em;
+            // padding: 0 0 0 1em;
             li{
               margin-bottom: $base-line / 2;
             }
@@ -305,7 +314,7 @@ section[role="main-content"]{
 
         ul {
           li{
-            margin:0 0 0 1em;
+            // margin:0 0 0 1em;
             h3{
               margin: 0.5em 0;
               font-weight: 400;

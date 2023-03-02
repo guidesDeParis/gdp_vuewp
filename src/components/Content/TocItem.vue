@@ -156,7 +156,7 @@ export default {
         this.flat_indexes.push(element.uuid)
       })
     })
-    console.log('tocItem created flat_indexes', this.flat_indexes)
+    // console.log('tocItem created flat_indexes', this.flat_indexes)
   },
   beforeMount () {
     if (typeof this.$route.params.textid !== 'undefined') {
