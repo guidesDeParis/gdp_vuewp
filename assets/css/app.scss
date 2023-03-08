@@ -335,7 +335,7 @@ section[role="main-content"]{
           &.inactive{
             opacity: 0.4;
           }
-          span{
+          span.tout, span.letter{
             @include fontcaption;
             font-variant: small-caps;
             font-size: 1em;
@@ -348,8 +348,11 @@ section[role="main-content"]{
             text-align: center;
           }
 
-          &:not(:first-of-type) span{
+          &:not(:first-of-type) span.letter{
             width: 1.1em; height: 1.1em;
+          }
+          span.quantity{
+            font-size: 0.765em;
           }
         }
       }

@@ -20,18 +20,22 @@
         <ul>
           <li :class="{ inactive: activeLetter }">
             <span
+              class="tout"
               @click.prevent="onClickLetter(null)"
               @keyup.enter="onClickLetter(null)"
             >tout</span>
+            <span class="quantity">[{{ items.length }}]</span>
           </li>
           <li
-            v-for="l in letters" :key="l"
-            :class="{ inactive: activeLetter && l !== activeLetter }"
+            v-for="l in letters" :key="l.l"
+            :class="{ inactive: activeLetter && l.l !== activeLetter }"
           >
             <span
-              @click.prevent="onClickLetter(l)"
-              @keyup.enter="onClickLetter(l)"
-            >{{ l }}</span>
+              class="letter"
+              @click.prevent="onClickLetter(l.l)"
+              @keyup.enter="onClickLetter(l.l)"
+            >{{ l.l }}</span>
+            <span class="quantity">[{{ l.q }}]</span>
           </li>
         </ul>
 
@@ -57,7 +61,7 @@ export default {
   },
   data: () => ({
     items: [],
-    letters: [],
+    letters: {},
     activeLetter: null
   }),
   beforeCreate () {
@@ -78,11 +82,30 @@ export default {
           })
         }
         for (let i = 0; i < this.items.length; i++) {
-          if (this.letters.indexOf(this.items[i].letter.toLowerCase()) === -1) {
-            this.letters.push(this.items[i].letter.toLowerCase())
+          // console.log(typeof this.items[i].letter)
+          if (this.items[i].letter !== '') {
+            let letter = this.items[i].letter.toLowerCase()
+            console.log(letter)
+            if (Object.keys(this.letters).indexOf(letter) === -1) {
+              this.letters[letter] = {
+                l: letter,
+                q: 1
+              }
+            } else {
+              this.letters[letter].q += 1
+            }
           }
         }
-        this.letters = this.letters.sort()
+        console.log(this.letters)
+        this.letters = this.letters.sort((a, b) => {
+          if (a.l < b.l) {
+            return -1
+          } else if (a.l > b.l) {
+            return 1
+          } else {
+            return 0
+          }
+        })
       })
       .catch((error) => {
         console.warn('Issue with index locorum', error)
