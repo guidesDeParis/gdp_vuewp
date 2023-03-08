@@ -7,7 +7,7 @@
       <v-select
         :id="key"
         type="select"
-        :placeholder="key"
+        :placeholder="placeholders[key]"
         append-to-body
         :calculate-position="dropDownMenuPos"
         :options="opts"
@@ -37,7 +37,12 @@ export default {
     indexes_keys: [],
     persons_selected: null,
     objects_selected: null,
-    places_selected: null
+    places_selected: null,
+    placeholders: {
+      objects: 'Filtrer par œuvres',
+      persons: 'Filtrer par personnes',
+      places: 'Filtrer par lieux'
+    }
   }),
   created () {
     this.parseIndexesToOptions()
