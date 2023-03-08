@@ -41,7 +41,7 @@
         <v-select
           id="filters-texts"
           type="select"
-          placeholder="filtrer par texte"
+          placeholder="Filtrer par textes"
           append-to-body
           :calculate-position="dropDownMenuPos"
           :options="textsOptions"
@@ -53,7 +53,7 @@
         <v-select
           id="filters-nominum"
           type="select"
-          placeholder="filtrer par personne"
+          placeholder="Filtrer par personnes"
           append-to-body
           :calculate-position="dropDownMenuPos"
           :options="personsOptions"
@@ -66,7 +66,7 @@
         <v-select
           id="filters-locorum"
           type="select"
-          placeholder="filtrer par lieux"
+          placeholder="Filtrer par lieux"
           append-to-body
           :calculate-position="dropDownMenuPos"
           :options="placesOptions"
@@ -79,7 +79,7 @@
         <v-select
           id="filters-operum"
           type="select"
-          placeholder="filtrer par objet"
+          placeholder="Filtrer par œuvres"
           append-to-body
           :calculate-position="dropDownMenuPos"
           :options="objectsOptions"
