@@ -228,14 +228,15 @@ section[role="main-content"]{
     &:not(#list-corpus){
       ul.item-list{
         li{
-          // margin: 0 0 2em 0;
+          margin-bottom: $base-line;
           max-height: $base-line * 3;
           opacity: 1;
           transition: all 0.3s ease-in-out;
           &.hidden {
             // display: none;
-            max-height: 0.01px;
+            max-height: 0.001px;
             opacity: 0;
+            margin-bottom: 0.001px;
           }
         }
       }  
