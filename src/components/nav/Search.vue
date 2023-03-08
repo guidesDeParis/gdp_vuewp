@@ -3,12 +3,12 @@
     <form class="search-form row">
       <fieldset class="" :class="['search', 'small-col-10', firstFieldsetClass]">
         <div>
-          <label for="keys">Search</label>
+          <label for="keys">Recherche</label>
           <input
             id="keys"
             v-model="keys"
             type="text"
-            placeholder="search"
+            placeholder="Rechercher"
             @keydown.enter.prevent="submit"
           >
           <v-select
