@@ -113,8 +113,8 @@ export default {
               icon = '<span class="index-item-icon mdi mdi-account"></span>'
               break
           }
-          // newspan = `<span class="no-wrap">${items[i]}${icon}</span>`
-          newspan = `${items[i]}&nbsp;${icon}`
+          newspan = `<span class="no-wrap">${items[i]}&nbsp;${icon}</span>`
+          // newspan = `${items[i]}&nbsp;${icon}`
           this.teiparsed = this.teiparsed.replace(items[i], newspan)
         }
       }
