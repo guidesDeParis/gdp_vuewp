@@ -260,7 +260,7 @@ export default {
   // render (h) {
   //   // console.log('EdText render()')
   //   if (!this.template) {
-  //     return h('span', 'Loading ...')
+  //     return h('span', 'Chargement ...')
   //   } else {
   //     return this.template.render.call(this)
   //   }

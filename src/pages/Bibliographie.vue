@@ -1,7 +1,7 @@
 <template>
   <MainContentLayout id="biblio">
     <template v-if="!content" #header>
-      <span class="loading">Loading ...</span>
+      <span class="loading">Chargement ...</span>
     </template>
     <template #header>
       <h1>

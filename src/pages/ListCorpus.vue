@@ -2,7 +2,7 @@
   <MainContentLayout id="list-corpus">
     <template v-slot:header>
       <h1>Corpus</h1>
-      <span v-if="!editionslist.length" class="loading">Loading ...</span>
+      <span v-if="!editionslist.length" class="loading">Chargement ...</span>
     </template>
 
     <ul v-if="editionslist.length" class="item-list">

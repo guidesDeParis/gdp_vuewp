@@ -1,7 +1,7 @@
 <template>
   <MainContentLayout id="locorum" class="index-item">
     <template v-if="!content" v-slot:header>
-      <span class="loading">Loading ...</span>
+      <span class="loading">Chargement ...</span>
     </template>
 
     <template v-if="content" v-slot:header>

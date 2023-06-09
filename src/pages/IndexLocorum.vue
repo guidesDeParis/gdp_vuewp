@@ -2,7 +2,7 @@
   <MainContentLayout id="index-locorum" class="index">
     <template v-slot:header>
       <h1>Lieux</h1>
-      <span v-if="!items.length" class="loading">Loading ...</span>
+      <span v-if="!items.length" class="loading">Chargement ...</span>
     </template>
 
     <ul v-if="items.length" class="item-list">

@@ -7,7 +7,7 @@
   >
     <!-- <transition name="fade" mode="out-in"> -->
     <template v-if="!corpusLoaded" #header>
-      <span class="loading">Loading ...</span>
+      <span class="loading">Chargement ...</span>
     </template>
     <template v-else #header>
       <h1>
@@ -44,7 +44,7 @@
         @click.prevent="onClickTooltip"
         @keyup.enter="onClickTooltip"
       >
-        <span v-if="indexitem == 'loading'" class="loading">Loading ...</span>
+        <span v-if="indexitem == 'loading'" class="loading">Chargement ...</span>
         <template v-if="indexitem !== 'loading'">
           <h1 v-html="indexitem.title" />
           <p v-if="indexitem.birthDate" class="birthdeath">

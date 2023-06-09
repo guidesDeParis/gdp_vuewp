@@ -1,9 +1,9 @@
 <template>
   <nav id="header-menu">
-    <!-- <span v-if="!corpusLoaded" class="loading">Loading ...</span> -->
+    <!-- <span v-if="!corpusLoaded" class="loading">Chargement ...</span> -->
     <ul>
       <li>
-        <span v-if="!corpusLoaded" class="loading">Loading ...</span>
+        <span v-if="!corpusLoaded" class="loading">Chargement ...</span>
         <router-link v-else to="/corpus">Corpus</router-link>
       </li>
       <li class="has-submenu" :class="{ opened: indexOpened }">

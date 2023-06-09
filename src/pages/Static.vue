@@ -1,7 +1,7 @@
 <template>
   <MainContentLayout id="not-found" class="">
     <template v-slot:header>
-      <span v-if="!page" class="loading">Loading ...</span>
+      <span v-if="!page" class="loading">Chargement ...</span>
       <h1 v-else>{{ page.title }}</h1>
     </template>
 

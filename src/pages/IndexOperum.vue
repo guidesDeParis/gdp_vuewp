@@ -2,7 +2,7 @@
   <MainContentLayout id="index-operum" class="index">
     <template v-slot:header>
       <h1>Œuvres</h1>
-      <span v-if="!items.length" class="loading">Loading ...</span>
+      <span v-if="!items.length" class="loading">Chargement ...</span>
     </template>
 
     <ul v-if="items.length" class="item-list">
