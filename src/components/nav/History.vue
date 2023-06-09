@@ -20,7 +20,7 @@
       <nav class="col-1 tools">
         <span
           class="mdi mdi-close"
-          title="close"
+          title="Fermer l'historique de consultation"
           @click.prevent="close"
           @keydown.enter.prevent="close"
         />

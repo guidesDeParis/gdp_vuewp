@@ -38,7 +38,7 @@
       <nav class="col-1 tools">
         <span
           class="mdi mdi-close"
-          title="close"
+          title="Fermer les résultats de recherche"
           @click.prevent="close"
           @keydown.enter.prevent="close"
         />
