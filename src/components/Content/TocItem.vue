@@ -96,9 +96,9 @@ export default {
     title () {
       // this shoudn't be necessary
       if (this.item.title && Array.isArray(this.item.title)) {
-        return this.item.title.join(' ')
+        return this.truncate(this.item.title.join(' '), 50, true)
       } else if (this.item.title) {
-        return this.item.title
+        return this.truncate(this.item.title, 80, true)
       } else {
         // console.log('TOC no title', this.item)
         // return this.item.type
@@ -176,6 +176,13 @@ export default {
     ...mapActions({
       addHistoryItem: 'History/addItem'
     }),
+    truncate (str, n, useWordBoundary) {
+      if (str.length <= n) { return str }
+      const subString = str.slice(0, n - 1) // the original check
+      return (useWordBoundary
+        ? subString.slice(0, subString.lastIndexOf(' '))
+        : subString) + ' ...'
+    },
     onclick (e) {
       console.log('clicked on toc text', this.item, e)
       this.addHistoryItem({
