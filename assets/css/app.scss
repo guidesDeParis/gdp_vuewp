@@ -1053,9 +1053,24 @@ section[role="main-content"]{
 
 
   #biblio{
-    .router-link-active{
-      font-weight: 600;
+    >header{
+
+      &>h1{
+        @include titleSansRed;
+        margin: 0;
+      }
+      
+      li{
+        margin: 0.5em 0 0;
+        a{
+          @include title2black;
+          &.router-link-active{
+            font-weight: 600;
+          }
+        }
+      }
     }
+
     ul.item-list{
       margin:0;
       padding:0;
@@ -1065,6 +1080,7 @@ section[role="main-content"]{
         h2{
           margin:0;
           @include title1black;
+          color: $bleuroi;
         }
         p{
           margin:0;
