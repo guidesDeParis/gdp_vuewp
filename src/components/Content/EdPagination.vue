@@ -64,7 +64,7 @@ export default {
         if (p[j].vol) {
           this.options.push({
             code: p[j].vol.label,
-            label: `<b>${p[j].vol.label}</b>`,
+            label: `<h3 class="vol-label">${p[j].vol.label}</h3>`,
             disabled: true,
             level: l
           })
