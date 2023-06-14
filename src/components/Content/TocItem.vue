@@ -26,15 +26,16 @@
         opened: isOpened,
         disabled: isDisabled
       }"
+      :type="item.type"
+      :level="level"
     >
       <a
         :href="'/texts/'+editionid+'/'+item.uuid"
         :uuid="item.uuid"
+        v-html="title"
         @click.prevent="onclick"
         @keyup.enter="onclick"
-      >
-        {{ title }}
-      </a>
+      />
     </component>
     <ul
       v-if="children.length"
@@ -96,7 +97,7 @@ export default {
     title () {
       // this shoudn't be necessary
       if (this.item.title && Array.isArray(this.item.title)) {
-        return this.truncate(this.item.title.join(' '), 50, true)
+        return this.truncate(this.item.title.join(' '), 80, true)
       } else if (this.item.title) {
         return this.truncate(this.item.title, 80, true)
       } else {
@@ -150,6 +151,7 @@ export default {
     }
   },
   created () {
+    console.log('TocItem created', this.item)
     this.flat_indexes = []
     Object.keys(this.item.indexes[0]).forEach(index => {
       this.item.indexes[0][index].forEach(element => {
@@ -181,7 +183,7 @@ export default {
       const subString = str.slice(0, n - 1) // the original check
       return (useWordBoundary
         ? subString.slice(0, subString.lastIndexOf(' '))
-        : subString) + ' ...'
+        : subString) + '&nbsp;...'
     },
     onclick (e) {
       console.log('clicked on toc text', this.item, e)
