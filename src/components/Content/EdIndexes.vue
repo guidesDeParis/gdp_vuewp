@@ -44,13 +44,13 @@ export default {
       places: 'Filtrer par lieux'
     }
   }),
-  created () {
-    this.parseIndexesToOptions()
-  },
   watch: {
     persons_selected (n, o) {
       console.log('EdIndexes watch persons_selected', o, n)
     }
+  },
+  created () {
+    this.parseIndexesToOptions()
   },
   methods: {
     parseIndexesToOptions () {

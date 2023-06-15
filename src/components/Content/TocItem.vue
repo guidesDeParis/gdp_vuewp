@@ -32,9 +32,9 @@
       <a
         :href="'/texts/'+editionid+'/'+item.uuid"
         :uuid="item.uuid"
-        v-html="title"
         @click.prevent="onclick"
         @keyup.enter="onclick"
+        v-html="title"
       />
     </component>
     <ul

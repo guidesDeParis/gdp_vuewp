@@ -18,9 +18,11 @@
     </h2>
     <!-- <p v-if="preview" class="preview" v-html="preview" /> -->
     <aside
-      v-if="item.pages"
+      v-if="item.pages || item.size"
     >
-      <span>{{ item.pages.prefix }} {{ item.pages.range }}</span> | <span>{{ item.size.quantity }} {{ item.size.unit }}</span>
+      <span v-if="item.pages">{{ item.pages.prefix }} {{ item.pages.range }}</span>
+      <span v-if="item.pages && item.size"> | </span>
+      <span v-if="item.size">{{ item.size.quantity }} {{ item.size.unit }}</span>
     </aside>
   </article>
 </template>
