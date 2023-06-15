@@ -1,11 +1,11 @@
 <template>
-  <MainContentLayout id="not-found" class="">
+  <MainContentLayout id="static" class="">
     <template v-slot:header>
       <span v-if="!page" class="loading">Chargement ...</span>
       <h1 v-else>{{ page.title }}</h1>
     </template>
 
-    <div v-if="page" v-html="page.tei" />
+    <div v-if="page" v-html="page.tei_parsed" />
 
   </MainContentLayout>
 </template>
@@ -66,6 +66,12 @@ export default {
           this.page = this.colophon[i]
         }
       }
+      this.parseContentImages()
+    },
+    parseContentImages () {
+      console.log('parseContentImages')
+      this.page.tei_parsed = this.page.tei.replace(/src="\/gdp\/static\/images\/(\w+)\.jpg"/g, `src="${window.apipath}/gdp/static/images/$1.jpg"`)
+      console.log(this.page.tei_parsed)
     }
   },
   metaInfo () {

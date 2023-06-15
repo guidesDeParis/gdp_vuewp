@@ -1174,6 +1174,19 @@ section[role="main-content"]{
       }
     }
   }
+
+  #static{
+    figure{
+      margin: 2em 0;
+      img{
+        max-width: 100%;
+      }
+      figcaption{
+        @include fontcaption;
+        padding: 1em 0; 
+      }
+    }
+  }
 }
 
 footer[role="tools"]{
