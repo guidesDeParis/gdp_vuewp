@@ -37,7 +37,7 @@
           title="chargement"
         />
       </fieldset>
-      <fieldset v-if="filters.texts.length" class="filters filters-texts small-col-4 med-col-4 large-col-4">
+      <fieldset v-if="filters.texts.length && searchOpened" class="filters filters-texts small-col-4 med-col-4 large-col-4">
         <v-select
           id="filters-texts"
           type="select"
@@ -49,7 +49,7 @@
           @input="onFiltersTextSelected"
         />
       </fieldset>
-      <fieldset v-if="filters.persons.length" class="filters filters-nominum small-col-4 med-col-2 large-col-2">
+      <fieldset v-if="filters.persons.length && searchOpened" class="filters filters-nominum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-nominum"
           type="select"
@@ -62,7 +62,7 @@
           @input="onFiltersNominumSelected"
         />
       </fieldset>
-      <fieldset v-if="filters.places.length" class="filters filters-locorum small-col-4 med-col-2 large-col-2">
+      <fieldset v-if="filters.places.length && searchOpened" class="filters filters-locorum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-locorum"
           type="select"
@@ -75,7 +75,7 @@
           @input="onFiltersLocorumSelected"
         />
       </fieldset>
-      <fieldset v-if="filters.objects.length" class="filters filters-operum small-col-4 med-col-2 large-col-2">
+      <fieldset v-if="filters.objects.length && searchOpened" class="filters filters-operum small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-operum"
           type="select"
@@ -103,12 +103,17 @@ export default {
   data: () => ({
   }),
   computed: {
+    // searchOpened: {
+    //   get () { return this.$store.state.Search.opened },
+    //   set (value) { this.$store.commit('Search/setOpened', value) }
+    // },
     ...mapState({
       isloading: state => state.Search.isloading,
       searchTypeOptions: state => state.Search.searchTypeOptions,
       searchTypeValue: state => state.Search.searchTypeValue,
       filters: state => state.Search.filters,
       activeFilters: state => state.Search.activeFilters,
+      searchOpened: state => state.Search.opened,
       corpusLoaded: state => state.Corpus.corpusLoaded,
       results: state => state.Corpus.results
     }),
