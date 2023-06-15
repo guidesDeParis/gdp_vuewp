@@ -840,15 +840,18 @@ section[role="main-content"]{
     }
 
     >nav{
-      $pager_h:2em;
+      $filter_m: 0.3em;
+      $pager_h:18px;
       display: flex;
       flex-direction: column;
       span.nav-title{ display:none; }
 
       section#toc{
+        $m:0.5em;
         box-sizing: content-box;
         padding:0 0 1em 1.5em;
-        height:calc(100% - #{$pager_h});
+        margin-bottom: $m;
+        height:calc(100% - #{$pager_h} - #{$m} - #{$filter_m});
         overflow-x: hidden;
         overflow-y: auto;
         line-height: $base-line / 2;
@@ -989,7 +992,8 @@ section[role="main-content"]{
         // height:$pager_h;
         overflow: hidden;
         box-sizing: content-box;
-        padding:1em 0 0 1.5em;
+        padding:0 0 0 1.5em;
+        margin: 0 0 $filter_m 0;
         select{
           option{
             padding:0;
@@ -1001,7 +1005,7 @@ section[role="main-content"]{
         height:$pager_h;
         overflow: hidden;
         box-sizing: content-box;
-        padding:1em 0 0 1.5em;
+        padding:0 0 0 1.5em;
         select{
           option{
             padding:0;
@@ -1271,6 +1275,14 @@ footer[role="tools"]{
     max-height: $list-item-h * 3;
     @include accordeon-transition($list-item-h * 3);
     >header{
+      >*{
+        padding:0 0 5px;
+        // line-height: $base-line / 2;
+        &.v-select{
+          padding-top:5px;
+        }
+      }
+
       .search-keys{
         font-size: 0.756em;
         font-weight: 500;
@@ -1558,6 +1570,10 @@ footer[role="tools"]{
   }
   .vs__selected-options{
     background-color: #fff;
+    height:18px;
+    >input{
+      height:100%;
+    }
   }
   .vs__actions{
     padding:1px 3px;
