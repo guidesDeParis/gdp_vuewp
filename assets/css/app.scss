@@ -1247,6 +1247,12 @@ section[role="main-content"]{
         }
       }
     }
+    >nav{
+      aside.expression-links{
+        position: absolute;
+        bottom: 0;
+      }
+    }
   }
 
   #static{

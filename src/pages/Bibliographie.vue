@@ -87,18 +87,16 @@
     <!-- or item -->
     <template v-else>
       <div class="biblio-item">
-        <h2>{{ item.authors }}</h2>
-        <p v-if="item.dates" class="date">{{ item.dates }}</p>
-        <p class="lieu">{{ item.lieu }}</p>
-        <p class="titles">{{ item.titles }}</p>
-        <p class="edition">{{ item.edition }}</p>
-        <p class="extent">{{ item.extent }}</p>
-        <p class="tei" v-html="item.tei" />
+        <h2>{{ item.type }}</h2>
+        <p class="author">Auteur: {{ item.authors }}</p>
+        <p v-if="item.dates" class="date">Dates : {{ item.dates }}</p>
+        <h3>Liste des manifestations :</h3>
         <ul vi-if="item.manifestations.length" class="item-list">
           <li v-for="manif in item.manifestations" :key="manif.uuid">
+            <p v-html="manif.tei"/>
             <router-link
               :to="{ name:'bibliographieItem', params:{ type:'manifestations', uuid:manif.uuid } }"
-              v-html="manif.tei"
+              v-html="manif.path"
             />
           </li>
         </ul>
@@ -110,8 +108,9 @@
 
       </div>
     </template>
-    <template #nav>
-      <ul v-if="!uuid && type === 'manifestations'" class="authors-filters">
+
+    <template  v-if="!uuid && type === 'manifestations'" #nav>
+      <ul class="authors-filters">
         <li
           v-for="author in authors" :key="author"
         >
@@ -122,6 +121,16 @@
           >{{ author }}</span>
         </li>
       </ul>
+    </template>
+    <template  v-else #nav>
+      <aside class="expression-links">
+        <p>
+          Permalien:<br/><a :href="`${item.url}`">{{ item.url }}</a>
+        </p>
+        <p>
+          JSON:<br/><a :href="`${apipath}${item.path}${item.uuid}`">{{ apipath }}{{ item.path }}{{ item.uuid }}</a>
+        </p>
+      </aside>
     </template>
   </MainContentLayout>
 </template>
@@ -152,6 +161,9 @@ export default {
     item: Array
   }),
   computed: {
+    apipath () {
+      return window.apipath
+    }
   },
   watch: {
     $route (to, from) {
