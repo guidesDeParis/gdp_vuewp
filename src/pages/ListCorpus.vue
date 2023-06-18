@@ -10,18 +10,15 @@
         <header>
           <h2>{{ corpus.author.title }}</h2>
           <h3>{{ corpus.author.date }}</h3>
-          <section class="notice" v-html="corpus.author.note" />
-        </header>
-        <section class="editions">
           <h4 class="editions-quantity">
             {{ corpus.author.editionsQuantity.quantity }} {{ corpus.author.editionsQuantity.unit }}
           </h4>
-          <!-- <div v-if="corpus.author.editions" class="editions" v-html="corpus.author.editions"/> -->
-        </section>
+          <section v-if="corpus.author.note" class="notice" v-html="corpus.author.note" />
+        </header>
         <section class="texts">
           <h4 class="texts-quantity">
             {{ corpus.author.textsQuantity.quantity }}
-            {{ corpus.author.textsQuantity.unit }}
+            {{ corpus.author.textsQuantity.unit }} :
           </h4>
           <ul class="texts-list">
             <li v-for="text in corpus.editions.content" :key="text.uuid">
