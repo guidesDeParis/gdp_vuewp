@@ -1728,6 +1728,7 @@ footer[role="tools"]{
     box-sizing: content-box;
     display: inline-block;
     width: calc(100% - 12px);
+    @include fontsans;
     // &>*:not(button){
     //   display: inline-block;
     //   width:70%;
