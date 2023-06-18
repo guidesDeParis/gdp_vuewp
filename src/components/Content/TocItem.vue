@@ -191,9 +191,9 @@ export default {
         id: this.editionid,
         textid: this.item.uuid,
         title: this.item.title,
-        editionTitle: this.editionTitle
-        // pages: this.item.pages,
-        // size: this.item.size
+        editionTitle: this.editionTitle,
+        pages: this.item.pages,
+        size: this.item.size
       })
       this.$emit('onClickTocItem', e.target.getAttribute('uuid'))
     },

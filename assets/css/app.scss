@@ -1401,19 +1401,23 @@ footer[role="tools"]{
     @include accordeon-transition($list-item-h * 3);
     >header{
       >*{
-        padding:0 0 5px;
+        // padding:0 0 5px;
         // line-height: $base-line / 2;
         &.v-select{
           padding-top:5px;
         }
       }
 
-      .search-keys{
-        font-size: 0.756em;
-        font-weight: 500;
-      }
-      .results-count{
-        font-size: 0.756em;
+      div.results-details{
+        line-height: $base-line * 0.5;
+        .search-keys{
+          font-size: 0.756em;
+          font-weight: 500;
+        }
+        .results-count{
+          white-space:nowrap;
+          font-size: 0.756em;
+        }
       }
     }
     .results-list{

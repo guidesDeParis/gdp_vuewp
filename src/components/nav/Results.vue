@@ -8,8 +8,8 @@
     >
       <header class="small-col-12 med-col-1 large-col-1">
         <h2>Resultats</h2>
-        <div>
-          <span class="search-keys">{{ searchedKeys }}</span>
+        <div class="results-details">
+          <span class="search-keys">{{ searchedKeys }}</span><br>
           <span v-if="resultsQuantity" class="results-count">{{ resultsCount }}</span>
         </div>
         <v-select
@@ -111,7 +111,7 @@ export default {
        * above.
        */
       const popper = createPopper(component.$refs.toggle, dropdownList, {
-        placement: 'top',
+        placement: 'bottom',
         modifiers: [
           {
             name: 'offset',
@@ -124,7 +124,7 @@ export default {
             enabled: true,
             phase: 'write',
             fn ({ state }) {
-              component.$el.classList.toggle('drop-up', state.placement === 'top')
+              component.$el.classList.toggle('drop-up', state.placement === 'bottom')
             }
           }]
       })
