@@ -511,6 +511,10 @@ section[role="main-content"]{
     
                     span.form{
                       font-style: italic;
+                      margin-top: 0;
+                      font-size: 1.134em;
+                      line-height: $base-line * 0.7;
+                      // margin-bottom: $base-line;
                     }
                   }
                 }
@@ -583,6 +587,10 @@ section[role="main-content"]{
               display: inline-block;
               a{
         
+                font-style: italic;
+                margin-top: 0;
+                font-size: 1.134em;
+                line-height: $base-line * 0.7;
                 span.edition{
                   font-style: italic;
                 }

@@ -6,33 +6,21 @@
 
     <template v-if="content" v-slot:header>
       <h1 v-html="content.title" />
-      <p>
-        {{ content.birthDate }}, {{ content.birthPlace }}<br>
-        {{ content.deathDate }}, {{ content.deathPlace }}
+      <h2 v-html="content.rubrique" />
+      <p v-if="content.occupation"><em>{{ content.occupation }}</em></p>
+      <p><span class="label">Nom : </span>{{ content.surname }}, {{ content.surname }}</p>
+      <p><span class="label">Prénom : </span>{{ content.forename }}, {{ content.forename }}</p>
+      <p><span class="label">Sexe : </span>
+        <span v-if="content.sexe === 1">Masculin</span>
+        <span v-if="content.sexe === 0">Feminin</span>
       </p>
-      <section v-if="content.occupation">
-        <h3>Occupation</h3>
-        <p>{{ content.occupation }}</p>
-      </section>
-
+      <p><span class="label">Naissance : </span>{{ content.birthPlace }}, {{ content.birthDate }}</p>
+      <p><span class="label">Mort : </span>{{ content.deathPlace }}, {{ content.deathDate }}</p>
       <section v-if="content.note && content.note.length > 0" class="notes">
         <h3>Notes</h3>
         <div v-for="(note, i) in content.note" :key="i" class="note" v-html="note" />
       </section>
 
-      <section v-if="content.attestedForms && content.attestedForms.length > 0" class="attested-forms">
-        <h3>formes attestées</h3>
-        <ul>
-          <li v-for="(af, i) in content.attestedForms" :key="i">
-            <span class="form">{{ af.title }}</span>
-            <!-- <ul>
-              <li v-for="(uuid, j) in af.uuid" :key="j">
-                <a href="#">{{ uuid }}</a>
-              </li>
-            </ul> -->
-          </li>
-        </ul>
-      </section>
       <section v-if="content.autorities && content.autorities.length > 0" class="autorities">
         <h3>Autorités</h3>
         <ul>

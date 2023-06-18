@@ -10,7 +10,7 @@
         @click.prevent="onGoToText($event, ed.item, oc.uuid, oc.ids[0])"
         @keyup.enter="onGoToText($event, ed.item, oc.uuid, oc.ids[0])"
       >
-        <span v-html="oc.title" /> <span v-if="oc.form" class="form">( "{{ oc.form }}" )</span>
+        <span v-html="oc.title" /> <span v-if="oc.form" class="form" v-html="'( &laquo;'+oc.form+'&raquo; )'" />
       </a>
     </h4>
     <!-- <span
