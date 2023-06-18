@@ -1152,7 +1152,11 @@ section[role="main-content"]{
         }
       }
     }
-
+    .biblio-item{
+      h2{
+        color: $bleuroi;
+      }
+    }
     ul.item-list{
       margin:0;
       padding:0;

@@ -12,6 +12,7 @@
           <li>
             <router-link
               :to="{ name:'bibliographie', params: { type: 'expressions'}}"
+              title="Consulter la liste des expressions"
             >
               {{ expressions.meta.quantity.quantity }} {{ expressions.meta.quantity.unit }}
             </router-link>
@@ -19,6 +20,7 @@
           <li>
             <router-link
               :to="{ name:'bibliographie', params: { type: 'manifestations'}}"
+              title="Consulter toutes les manifestations"
             >
             {{ manifestations.meta.quantity.quantity }} {{ manifestations.meta.quantity.unit }}
             </router-link>
@@ -36,6 +38,7 @@
             <router-link
               v-if="item.authors"
               :to="{ name:'bibliographieItem', params:{ type:type, uuid:item.uuid } }"
+              title="Consulter la notice de l'expression"
             >
               {{ item.authors }}
             </router-link>
@@ -47,7 +50,7 @@
             <h5
               @click.prevent="onToggleManifs"
               @keyup.enter="onToggleManifs"
-            >Manifestations</h5>
+            >Afficher les manifestations</h5>
             <ul>
               <li v-for="manif in item.manifestations" :key="manif.uuid">
                 <span class="date">{{ manif.dates }} </span>
