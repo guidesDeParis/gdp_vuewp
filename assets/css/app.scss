@@ -609,7 +609,13 @@ section[role="main-content"]{
     >header{
       position: relative;
       h1{
-        @include title1black;
+        @include title1blue;
+      }
+      aside.notice{
+        // margin-top: 0;
+        // font-size: 1em;
+        // line-height: $base-line *0.5;
+        // margin-bottom: $base-line / 2;
       }
       aside.index-tooltip{
         z-index:10;

@@ -13,26 +13,28 @@
       <h1>
         <router-link :to="{ name:'edition', params: { id: editionid }}">{{ title }}</router-link>
       </h1>
-      <div v-if="author">
-        <p>{{ author }}</p>
-      </div>
-      <div v-if="date">
-        <p>{{ date }}</p>
-      </div>
-      <div v-if="description">
-        <p v-html="description" />
-      </div>
-      <div v-if="biblio" class="biblio">
-        <p v-html="biblio.description" />
-        <a
-          :href="edition_manifestation_href"
-          @click.prevent="onClickManifestation"
-          @keyup.enter="onClickManifestation"
-        >
-          // todo better label
-          {{ biblio.uuid }}
-        </a>
-      </div>
+      <aside class="notice opened">
+        <div v-if="description">
+          <p v-html="description" />
+        </div>
+        <div v-if="author">
+          <p>{{ author }}</p>
+        </div>
+        <!-- <div v-if="date">
+          <p>{{ date }}</p>
+        </div> -->
+        <div v-if="biblio" class="biblio">
+          <p v-html="biblio.description" />
+          <a
+            :href="edition_manifestation_href"
+            @click.prevent="onClickManifestation"
+            @keyup.enter="onClickManifestation"
+          >
+            <!-- // todo better label
+            {{ biblio.uuid }} -->
+          </a>
+        </div>
+      </aside>
 
       <!-- displayed on hover entity on texte -->
       <aside
