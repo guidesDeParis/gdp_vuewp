@@ -1,6 +1,6 @@
 <template>
   <MainContentLayout id="biblio">
-    <template v-if="!content" #header>
+    <template v-if="!expressions.meta || !manifestations.meta" #header>
       <span class="loading">Chargement ...</span>
     </template>
     <template v-else #header>
@@ -22,7 +22,7 @@
               :to="{ name:'bibliographie', params: { type: 'manifestations'}}"
               title="Consulter toutes les manifestations"
             >
-            {{ manifestations.meta.quantity.quantity }} {{ manifestations.meta.quantity.unit }}
+              {{ manifestations.meta.quantity.quantity }} {{ manifestations.meta.quantity.unit }}
             </router-link>
           </li>
         </ul>
@@ -46,7 +46,7 @@
           </h2>
           <p class="date">{{ item.dates }}</p>
           <em class="titles">{{ item.titles }}</em>
-          <aside v-if="item.manifestations.length">
+          <aside v-if="item.manifestations && item.manifestations.length">
             <h5
               @click.prevent="onToggleManifs"
               @keyup.enter="onToggleManifs"
@@ -84,24 +84,46 @@
         </li>
       </ul>
     </template>
-    <!-- or item -->
+    <!-- or expression / manifestation item -->
     <template v-else>
       <div class="biblio-item">
         <h2>{{ item.type }}</h2>
+        <h2 v-html="item.tei" />
         <p class="author">Auteur: {{ item.authors }}</p>
         <p v-if="item.dates" class="date">Dates : {{ item.dates }}</p>
-        <h3>Liste des manifestations :</h3>
-        <ul vi-if="item.manifestations.length" class="item-list">
+        <p v-if="item.edition" class="date">Édition : {{ item.edition }}</p>
+        <p v-if="item.editeur" class="date" v-html="'Éditeur : ' + item.editeur" />
+        <p v-if="item.lieu" class="date">Lieu de publication : {{ item.lieu }}</p>
+        <p v-if="item.extent" class="date">Format : {{ item.extent }}</p>
+        <!-- manifestation -->
+        <h3 v-if="item.manifestations && item.manifestations.length">Liste des manifestations :</h3>
+        <ul v-if="item.manifestations && item.manifestations.length" class="item-list">
           <li v-for="manif in item.manifestations" :key="manif.uuid">
-            <p v-html="manif.tei"/>
+            <p v-html="manif.tei" />
             <router-link
               :to="{ name:'bibliographieItem', params:{ type:'manifestations', uuid:manif.uuid } }"
               v-html="manif.path"
             />
           </li>
         </ul>
-        <ul vi-if="item.idno.length" class="item-list">
-          <li v-for="id in item.idno" :key="id.url">
+        <!-- note -->
+        <h3 v-if="item.notes && item.notes.length">Note :</h3>
+        <ul v-if="item.notes && item.notes.length" class="notes-list">
+          <li v-for="note in item.notes" :key="note.uuid">
+            <p v-html="note.tei" />
+          </li>
+        </ul>
+        <!-- BNF -->
+        <h3 v-if="noticesbnf.length">Notices BnF :</h3>
+        <ul v-if="noticesbnf.length" class="item-list">
+          <li v-for="id in noticesbnf" :key="id.url">
+            <a :href="id.url">{{ id.type }}: {{ id.url }}</a>
+          </li>
+        </ul>
+        <!-- GALLICA -->
+        <h3 v-if="noticesgallica.length">Exemplaires sur Gallica :</h3>
+        <ul v-if="noticesgallica.length" class="item-list">
+          <li v-for="id in noticesgallica" :key="id.url">
             <a :href="id.url">{{ id.type }}: {{ id.url }}</a>
           </li>
         </ul>
@@ -109,7 +131,7 @@
       </div>
     </template>
 
-    <template  v-if="!uuid && type === 'manifestations'" #nav>
+    <template v-if="!uuid && type === 'manifestations'" #nav>
       <ul class="authors-filters">
         <li
           v-for="author in authors" :key="author"
@@ -122,13 +144,13 @@
         </li>
       </ul>
     </template>
-    <template  v-else #nav>
+    <template v-else #nav>
       <aside class="expression-links">
         <p>
-          Permalien:<br/><a :href="`${item.url}`">{{ item.url }}</a>
+          Permalien:<br><a :href="`${item.url}`">{{ item.url }}</a>
         </p>
         <p>
-          JSON:<br/><a :href="`${apipath}${item.path}${item.uuid}`">{{ apipath }}{{ item.path }}{{ item.uuid }}</a>
+          JSON:<br><a :href="`${apipath}${item.path}${item.uuid}`">{{ apipath }}{{ item.path }}{{ item.uuid }}</a>
         </p>
       </aside>
     </template>
@@ -163,6 +185,28 @@ export default {
   computed: {
     apipath () {
       return window.apipath
+    },
+    noticesbnf (item) {
+      let n = []
+      if (this.item && this.item.idno && this.item.idno.length) {
+        this.item.idno.forEach(id => {
+          if (id.type === 'catBnf') {
+            n.push(id)
+          }
+        })
+      }
+      return n
+    },
+    noticesgallica (item) {
+      let n = []
+      if (this.item && this.item.idno && this.item.idno.length) {
+        this.item.idno.forEach(id => {
+          if (id.type === 'gallica') {
+            n.push(id)
+          }
+        })
+      }
+      return n
     }
   },
   watch: {
@@ -227,6 +271,7 @@ export default {
           console.log('Biblio REST item: data', data)
           if (data.content) {
             this.item = data.content
+            console.log('getItem item', this.item)
           }
         })
         .catch((error) => {
@@ -260,7 +305,7 @@ export default {
 
       this.authors = []
       this.manifestations.content.forEach(manif => {
-        // console.log('this.authors', this.authors)
+        // console.log('manif', manif)
         if (this.authors.indexOf(manif.authors) === -1) {
           this.authors.push(manif.authors)
           this.activeAuthors.push(manif.authors)
@@ -278,7 +323,7 @@ export default {
         this.expressions.content[i].manifestations = manifs
       })
       this.content = this.expressions.content
-      console.log('content parsed', this.expressions, this.manifestations)
+      console.log('Biblio content parsed', this.expressions, this.manifestations)
     },
     onToggleManifs (e) {
       console.log('togle manifs', e)
