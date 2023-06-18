@@ -3,7 +3,7 @@
     <template v-if="!content" #header>
       <span class="loading">Chargement ...</span>
     </template>
-    <template #header>
+    <template v-else #header>
       <h1>
         <router-link :to="{ name:'bibliographie'}">Bibliographie</router-link>
       </h1>
@@ -13,14 +13,14 @@
             <router-link
               :to="{ name:'bibliographie', params: { type: 'expressions'}}"
             >
-              Expressions
+              {{ expressions.meta.quantity.quantity }} {{ expressions.meta.quantity.unit }}
             </router-link>
           </li>
           <li>
             <router-link
               :to="{ name:'bibliographie', params: { type: 'manifestations'}}"
             >
-              Manifestations
+            {{ manifestations.meta.quantity.quantity }} {{ manifestations.meta.quantity.unit }}
             </router-link>
           </li>
         </ul>
@@ -31,7 +31,7 @@
     <!-- expressions list -->
     <template v-if="!uuid && type === 'expressions'">
       <ul class="item-list">
-        <li v-for="item in expressions" :key="item.uuid">
+        <li v-for="item in expressions.content" :key="item.uuid">
           <h2>
             <router-link
               v-if="item.authors"
@@ -66,7 +66,7 @@
     <template v-if="!uuid && type === 'manifestations'">
       <ul class="item-list manifestations">
         <li
-          v-for="item in manifestations" :key="item.uuid"
+          v-for="item in manifestations.content" :key="item.uuid"
           :class="isInActiveAuthors(item.authors)"
         >
           <div class="wrapper">
@@ -174,12 +174,12 @@ export default {
         .then(({ data }) => {
           console.log('Biblio REST expressions: data', data)
           if (data.content) {
-            this.expressions = data.content
+            this.expressions = data
             REST.get(`${window.apipath}/bibliography/manifestations`, {})
               .then(({ data }) => {
                 console.log('Biblio REST manifestations: data', data)
                 if (data.content) {
-                  this.manifestations = data.content
+                  this.manifestations = data
                 }
                 this.parseContents()
               })
@@ -220,7 +220,7 @@ export default {
         })
     },
     parseContents () {
-      this.expressions = this.expressions.sort((a, b) => {
+      this.expressions.content = this.expressions.content.sort((a, b) => {
         let Adate = parseInt(a.dates)
         let Bdate = parseInt(b.dates)
         if (Adate < Bdate) {
@@ -231,7 +231,7 @@ export default {
           return 0
         }
       })
-      this.manifestations = this.manifestations.sort((a, b) => {
+      this.manifestations.content = this.manifestations.content.sort((a, b) => {
         let Adate = parseInt(a.dates)
         let Bdate = parseInt(b.dates)
         if (Adate < Bdate) {
@@ -244,7 +244,7 @@ export default {
       })
 
       this.authors = []
-      this.manifestations.forEach(manif => {
+      this.manifestations.content.forEach(manif => {
         // console.log('this.authors', this.authors)
         if (this.authors.indexOf(manif.authors) === -1) {
           this.authors.push(manif.authors)
@@ -253,17 +253,17 @@ export default {
         // console.log('authors', this.authors)
       })
 
-      this.expressions.forEach((expr, i) => {
+      this.expressions.content.forEach((expr, i) => {
         let manifs = []
-        this.manifestations.forEach((manif, j) => {
+        this.manifestations.content.forEach((manif, j) => {
           if (manif.authors !== '' && manif.authors === expr.authors) {
             manifs.push(manif)
           }
         })
-        this.expressions[i].manifestations = manifs
+        this.expressions.content[i].manifestations = manifs
       })
-      this.content = this.expressions
-      // console.log(this.expressions)
+      this.content = this.expressions.content
+      console.log('content parsed', this.expressions, this.manifestations)
     },
     onToggleManifs (e) {
       console.log('togle manifs', e)
