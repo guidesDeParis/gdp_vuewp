@@ -36,6 +36,23 @@
         </div>
       </aside>
 
+      <nav class="entities-hide-show">
+        <span
+          v-if="entities_displayed"
+          @click.prevent="onCLickEntitiesDisplay"
+          @keyup.enter="onCLickEntitiesDisplay"
+        >
+          <span class="mdi mdi-eye-outline" /> Afficher les marques d'entités dans les textes
+        </span>
+        <span
+          v-if="!entities_displayed"
+          @click.prevent="onCLickEntitiesDisplay"
+          @keyup.enter="onCLickEntitiesDisplay"
+        >
+        <span class="mdi mdi-eye-off-outline" /> Masquer les marques d'entités dans les textes
+        </span>
+      </nav>
+
       <!-- displayed on hover entity on texte -->
       <aside
         v-if="indexitem"
@@ -65,7 +82,7 @@
     </template>
     <!-- </transition> -->
     <!-- default slot -->
-    <div id="text">
+    <div id="text" :class="{ 'entities-displayed': !entities_displayed, 'entities-hidden': entities_displayed }">
       <template v-if="texts.length">
         <infinite-loading
           v-if="flattoc && center_scrolled"
@@ -190,7 +207,9 @@ export default {
     //
     pagination: null,
     //
-    navopened: false
+    navopened: false,
+    //
+    entities_displayed: false
   }),
   computed: {
     ...mapState({
@@ -510,6 +529,10 @@ export default {
         name: 'bibliographieItem',
         params: { type: 'manifestations', uuid: this.biblio.uuid }
       })
+    },
+    onCLickEntitiesDisplay (e) {
+      console.log('onCLickEntitiesDisplay')
+      this.entities_displayed = !this.entities_displayed
     }
   }
 }

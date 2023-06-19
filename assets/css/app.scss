@@ -639,6 +639,15 @@ section[role="main-content"]{
         // line-height: $base-line *0.5;
         // margin-bottom: $base-line / 2;
       }
+      nav.entities-hide-show{
+        position: absolute;
+        bottom: 1em;
+        span{
+          @include fontsans;
+          font-size: 0.882em;
+          cursor: pointer;
+        }
+      }
       aside.index-tooltip{
         z-index:10;
         margin-top: -1.75em;
@@ -837,6 +846,7 @@ section[role="main-content"]{
           span.mdi.index-item-icon{
             font-size: 14px;
             vertical-align: super;
+            line-height: 0;
           }
           // span[role="pageBreak"]{
           //   display: block;
@@ -923,6 +933,10 @@ section[role="main-content"]{
               margin: 0;
             }
           }
+        }
+
+        &.entities-hidden{
+          span.mdi.index-item-icon{ display: none;}
         }
       }
     }
