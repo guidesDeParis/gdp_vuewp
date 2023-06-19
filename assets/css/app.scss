@@ -98,12 +98,14 @@ header[role="banner"]{
 section[role="main-content"]{
   #home{
     header{
+      margin:15vh 0 0;
       text-align: center;
+      padding: 1em 0;
       h1{
         color: $bleuroi;
         font-size: 8em;
         font-weight: 300;
-        margin:15vh 0 0;
+        margin: 0;
       }
       h2{
         color: $or;
@@ -420,12 +422,6 @@ section[role="main-content"]{
     }
   }
 
-  #corpus{
-  }
-
-  .index{
-  }
-
   .index-item{
     header{
       h1{
@@ -631,6 +627,7 @@ section[role="main-content"]{
   #edition{
     >header{
       position: relative;
+      span.header-title{ display:none; }
       h1{
         @include title1blue;
       }
@@ -674,7 +671,59 @@ section[role="main-content"]{
           }
         }
       }
+      
     }
+    // responsive
+    @media only screen and (max-width: $small-bp), (orientation: portrait) {
+      >header{
+        $top: 45px;
+        z-index: 110;
+        position: absolute;
+        top:$top;
+        left:0;
+        background-color: #fff;
+        width:percentage(5/$default_sum);
+        box-sizing: border-box;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        height:calc(100% - #{$top});
+
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+
+        span.header-title{
+          display: block;
+          position: absolute;
+          top:4.5em; right:-1em;
+          transform: rotateZ(-90deg);
+          transform-origin: center;
+          @include fontsans;
+          font-size: 0.600em;
+          cursor: pointer;
+          color: $bleuroi;
+          svg{
+            vertical-align: bottom;
+            transform-origin: center;
+            transform: scale(0.8) rotate(0);
+            transition: transform 0.3s ease-in-out;
+            path{
+              fill: $bleuroi;
+            }
+          }
+        }
+
+        &.opened{
+          box-shadow: 3px 3px 5px $grisclair;
+          transform: translateX(0);
+          span.header-title{
+            svg{
+              transform: scale(0.7) rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+
 
     $pagenum_w:1em;
     >section{
@@ -724,6 +773,7 @@ section[role="main-content"]{
               cursor: pointer;
             }
           }
+          // todo what about touch is hover will work ?
           &:hover .popup{
             display: block;
             opacity: 1;
@@ -1337,11 +1387,66 @@ section[role="main-content"]{
         margin-bottom: $base-line * 0.4;
       }
       nav.toc{
+        span.sommaire-title{ display:none; }
         li{
           a{
             font-size: 1em;
             line-height: $base-line * 0.7;
             font-weight: 300;
+          }
+        }
+        // responsive
+        @media only screen and (max-width: $small-bp), (orientation: portrait) {
+          $top: 80px;
+          z-index: 110;
+          position: absolute;
+          top:$top;
+          left:0;
+          background-color: #fff;
+          width:percentage(7/$default_sum);
+          box-sizing: border-box;
+          padding-top: 1em;
+          padding-bottom: 1em;
+          height:calc(100% - #{$top});
+          overflow-y: auto;
+
+          transform: translateX(-100%);
+          transition: transform 0.3s ease-in-out;
+
+          >div.wrapper{
+            padding-right: 2em;
+            height: 100%;
+            overflow-y: auto;
+          }
+          span.sommaire-title{
+            display: block;
+            position: absolute;
+            top:4.5em; right:-2em;
+            transform: rotateZ(-90deg);
+            transform-origin: center;
+            @include fontsans;
+            font-size: 0.600em;
+            cursor: pointer;
+            color: $bleuroi;
+            svg{
+              vertical-align: bottom;
+              transform-origin: center;
+              transform: scale(0.8) rotate(0);
+              transition: transform 0.3s ease-in-out;
+              path{
+                fill: $bleuroi;
+              }
+            }
+          }
+
+          &.opened{
+            box-shadow: 3px 3px 5px $grisclair;
+            transform: translateX(0);
+            span.sommaire-title{
+              svg{
+                transform: scale(0.7) rotate(180deg);
+              }
+            }
           }
         }
       }
@@ -1483,6 +1588,9 @@ footer[role="tools"]{
 
       div.results-details{
         line-height: $base-line * 0.5;
+        >*{
+          display: block;
+        }
         .search-keys{
           font-size: 0.756em;
           font-weight: 500;
@@ -1537,6 +1645,14 @@ footer[role="tools"]{
           display: inline-block;
           margin-right: 1em;
         }
+        div.results-details{
+          >*{
+            display: inline-block;
+            &:not(:last-child){
+              padding-right: 1em;
+            }
+          }
+        }
         #sorting{
           width:10em;
         }
@@ -1558,6 +1674,7 @@ footer[role="tools"]{
     padding:0 $side-padding;
     @media only screen and (max-width: $small-bp), (orientation: portrait) {
       padding:0 $side-padding/2;
+      flex-wrap: nowrap;
     }
     background-color: $bleuroi;
     &>*{
@@ -1580,6 +1697,9 @@ footer[role="tools"]{
             width: calc(100% + $side-padding);
             margin-left:-$side-padding;
             padding:0.3em 0.5em 0.3em $side-padding;
+            @media only screen and (max-width: $small-bp), (orientation: portrait) {
+              padding: 0.3em 0em 0.3em 2em;
+            }
           }
           &.history .wrapper{
             background-color: $or;

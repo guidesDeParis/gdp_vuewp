@@ -9,7 +9,7 @@
       <header class="small-col-12 med-col-1 large-col-1">
         <h2>Resultats</h2>
         <div class="results-details">
-          <span class="search-keys">{{ searchedKeys }}</span><br>
+          <span class="search-keys">{{ searchedKeys }}</span>
           <span v-if="resultsQuantity" class="results-count">{{ resultsCount }}</span>
         </div>
         <v-select

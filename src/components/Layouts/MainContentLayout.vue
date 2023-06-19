@@ -3,7 +3,7 @@
     :id="id"
     class="full-width med-row large-row main-content-layout"
   >
-    <header class="med-col-3 large-col-3">
+    <header class="med-col-3 large-col-3" :class="{ opened: headeropened }">
       <slot name="header" />
     </header>
 
@@ -35,6 +35,7 @@ export default {
       required: true
     },
     reftoscrollto: { type: String },
+    headeropened: { type: Boolean },
     navopened: { type: Boolean }
   },
   watch: {

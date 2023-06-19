@@ -93,6 +93,7 @@ body{
       .main-content-layout{
         display: flex;
         flex-direction: column;
+        flex-wrap: nowrap;
       }
     }
   }

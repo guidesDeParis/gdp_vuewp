@@ -10,22 +10,27 @@
     <section class="row">
       <div class="col-2" />
       <div class="col-8 teasers">
-        <div v-if="colophonHome.length && colophonHome.length > 0" class="wrapper">
-          <article
-            v-for="page in colophonHome"
-            :key="page.uuid"
-          >
-            <!-- <h1>{{ page.title }}</h1> -->
-            <div v-html="trimedTei(page.tei)" />
-            <a
-              :href="page.url"
-              class="readmore"
-              @click.prevent="onclick(page.uuid)"
-              @keyup.enter="onclick(page.uuid)"
+        <div class="wrapper">
+          <template v-if="!colophonHome || colophonHome.length <= 0">
+            <span class="loading">Chargement ...</span>
+          </template>
+          <template v-else>
+            <article
+              v-for="page in colophonHome"
+              :key="page.uuid"
             >
-              <span>Lire la suite</span>
-            </a>
-          </article>
+              <!-- <h1>{{ page.title }}</h1> -->
+              <div v-html="trimedTei(page.tei)" />
+              <a
+                :href="page.url"
+                class="readmore"
+                @click.prevent="onclick(page.uuid)"
+                @keyup.enter="onclick(page.uuid)"
+              >
+                <span>Lire la suite</span>
+              </a>
+            </article>
+          </template>
         </div>
       </div>
       <div class="col-2" />
