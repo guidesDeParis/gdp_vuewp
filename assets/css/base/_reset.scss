@@ -22,6 +22,9 @@ li{
   list-style: none;
 }
 
+sup{
+  line-height: 0;
+}
 .visualy-hidden {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);
