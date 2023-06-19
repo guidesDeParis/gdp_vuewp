@@ -618,6 +618,13 @@ section[role="main-content"]{
         color: $bleuroi;
       }
     }
+    >nav{
+      aside.links{
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
   }
 
   #edition{
@@ -1268,7 +1275,7 @@ section[role="main-content"]{
       }
     }
     >nav{
-      aside.expression-links{
+      aside.links{
         position: absolute;
         bottom: 0;
       }

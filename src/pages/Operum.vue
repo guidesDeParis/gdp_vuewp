@@ -6,22 +6,16 @@
 
     <template v-if="content" v-slot:header>
       <h1 v-html="content.title" />
-      <section v-if="content.author.length" class="authors">
-        <ul>
-          <li v-for="author in content.author" :key="author.uuid">
-            <router-link
-              :to="{ name:'nominum', params: { id: author.uuid }}"
-            >
-              {{ author.name }}
-            </router-link>
+      <h2 v-html="content.rubrique" />
+      <p><em>{{ content.type }}</em></p>
+      <p v-if="content.location"><span class="label">Adresse :</span> {{ content.location }}</p>
+      <p v-if="content.description">{{ content.description }}</p>
 
-          </li>
-        </ul>
-      </section>
-      <section class="notes">
+      <section v-if="content.notes && content.notes.length" class="notes">
+        <h3>Notes</h3>
         <div v-for="(note, i) in content.note" :key="i" class="note" v-html="note" />
       </section>
-      <section v-if="content.autorities.length" class="autorities">
+      <section v-if="content.autorities && content.autorities.length" class="autorities">
         <h3>Autorities</h3>
         <ul>
           <li v-for="(aut, i) in content.autorities" :key="i">
@@ -32,11 +26,22 @@
           </li>
         </ul>
       </section>
+
     </template>
 
     <!-- default slot -->
     <IndexItemOcurrences v-if="content" :content="content" />
 
+    <template #nav>
+      <aside class="links">
+        <p>
+          Permalien:<br><a :href="`${content.url}`">{{ content.url }}</a>
+        </p>
+        <p>
+          JSON:<br><a :href="`${apipath}${content.path}${content.uuid}`">{{ apipath }}{{ content.path }}{{ content.uuid }}</a>
+        </p>
+      </aside>
+    </template>
   </MainContentLayout>
 </template>
 

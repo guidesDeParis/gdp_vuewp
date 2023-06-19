@@ -31,6 +31,17 @@
     <!-- default slot -->
     <IndexItemOcurrences v-if="content" :content="content" />
 
+    <template #nav>
+      <aside class="links">
+        <p>
+          Permalien:<br><a :href="`${content.url}`">{{ content.url }}</a>
+        </p>
+        <p>
+          JSON:<br><a :href="`${apipath}${content.path}${content.uuid}`">{{ apipath }}{{ content.path }}{{ content.uuid }}</a>
+        </p>
+      </aside>
+    </template>
+
   </MainContentLayout>
 </template>
 

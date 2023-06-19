@@ -145,7 +145,7 @@
       </ul>
     </template>
     <template v-else #nav>
-      <aside class="expression-links">
+      <aside class="links">
         <p>
           Permalien:<br><a :href="`${item.url}`">{{ item.url }}</a>
         </p>
