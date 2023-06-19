@@ -20,9 +20,9 @@
     <aside
       v-if="item.pages || item.size"
     >
-      <span v-if="item.pages">{{ item.pages.prefix }} {{ item.pages.range }}</span>
-      <span v-if="item.pages && item.size"> | </span>
-      <span v-if="item.size">{{ item.size.quantity }} {{ item.size.unit }}</span>
+      <span v-if="item.pages && item.pages.range">{{ item.pages.prefix }} {{ item.pages.range }}</span>
+      <span v-if="item.pages && item.size && item.pages.range && item.size.quantity"> | </span>
+      <span v-if="item.size && item.size.quantity">{{ item.size.quantity }} {{ item.size.unit }}</span>
     </aside>
   </article>
 </template>
