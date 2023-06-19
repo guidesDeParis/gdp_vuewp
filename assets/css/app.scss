@@ -775,10 +775,18 @@ section[role="main-content"]{
             text-align: center;
             font-style: italic;
             padding-bottom: 1em;
+            color: $bleuroi;
+            &:last-of-type{
+              padding-bottom: $base-line*2;
+            }
           }
           .docImprint{
             text-align: center;
             // padding-bottom: 1em;
+            color: $bleuroi;
+            font-size: 1.3em;
+            line-height: $base-line;
+
             .pubPlace{
               display: block;
             }
@@ -787,15 +795,38 @@ section[role="main-content"]{
             }
             .docDate{
               display: block;
-              margin-top: $base-line / 2;
+              // margin-top: $base-line / 2;
+              font-weight: 700;
             }
+          }
+          .docEdition{
+            display: block;
+            text-align: center;
+            color: $bleuroi;
+            font-size: 1.3em;
+            line-height: $base-line;
+          }
+          span.epigraph{
+            display: block;
+            text-align: center;
+            color: $bleuroi;
+            font-size: 1em;
+            line-height: $base-line;
+            border-top: 1px $gris solid;
+            border-bottom: 1px $gris solid;
           }
           .imprimatur{
             text-align: center;
             font-style: italic;
+            color: $bleuroi;
+            font-size: 1.3em;
+            line-height: $base-line;
             padding-bottom: $base-line;
-
+            &:last-of-type{
+              padding-bottom: $base-line*2;
+            }
           }
+
 
           >h1{
             @include teititle1blue;
