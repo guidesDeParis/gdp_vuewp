@@ -25,7 +25,10 @@
         <h3>Autorités</h3>
         <ul>
           <li v-for="(aut, i) in content.autorities" :key="i">
-            <a :href="aut.identifier" target="_blanck">{{ aut.autority }}</a>
+            <a :href="aut.identifier" target="_blanck">
+              {{ aut.autority }}
+              <span class="mdi mdi-open-in-new" />
+            </a>
           </li>
         </ul>
       </section>

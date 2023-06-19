@@ -6,14 +6,16 @@
 
     <template v-if="content" v-slot:header>
       <h1 v-html="content.title" />
-      <p>{{ content.country }}</p>
-      <p>{{ content.ville }}</p>
-      <p>{{ content.type }}</p>
+      <h2 v-html="content.rubrique" />
+      <p><em>{{ content.type }}</em></p>
+      <p v-if="content.country"><span class="label">Pays :</span> {{ content.country }}</p>
+      <p v-if="content.ville"><span class="label">Ville :</span> {{ content.ville }}</p>
 
-      <section class="notes">
+      <section v-if="content.notes && content.notes.length" class="notes">
+        <h3>Notes</h3>
         <div v-for="(note, i) in content.note" :key="i" class="note" v-html="note" />
       </section>
-      <section v-if="content.autorities.length" class="autorities">
+      <section v-if="content.autorities && content.autorities.length" class="autorities">
         <h3>Autorities</h3>
         <ul>
           <li v-for="(aut, i) in content.autorities" :key="i">
