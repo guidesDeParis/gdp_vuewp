@@ -51,11 +51,15 @@ export default {
   },
   created () {
     let max = 40
-    if (this.result.title.length > max) {
-      let subString = this.result.title.substr(0, max)
-      this.shorted_title = subString.substr(0, subString.lastIndexOf(' ')) + '&nbsp&hellip;'
+    if (this.result.title) {
+      if (this.result.title.length > max) {
+        let subString = this.result.title.substr(0, max)
+        this.shorted_title = subString.substr(0, subString.lastIndexOf(' ')) + '&nbsp&hellip;'
+      } else {
+        this.shorted_title = this.result.title
+      }
     } else {
-      this.shorted_title = this.result.title
+      console.warn(`no result title for ${this.result.uuid}`, this.result)
     }
   //   if (this.result.extract) {
   //     const subString = this.result.extract.substr(0, 80)

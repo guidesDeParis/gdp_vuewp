@@ -224,6 +224,9 @@ export default {
   watch: {
     $route (to, from) {
       console.log('Edition Watcher $route', from, to)
+      if (to.params.id !== this.editionid) {
+        this.setValues()
+      }
       if (to.params.textid) {
         // change textid when route change
         this.textid = to.params.textid
@@ -274,90 +277,96 @@ export default {
     }
   },
   created () {
-    // console.log('Edition this.$route.params.id', this.$route.params.id)
-    this.editionid = this.$route.params.id
-
-    // get the text if textid available
-    if (this.$route.params.textid) {
-      this.textid = this.$route.params.textid
-    }
-
-    // get the searchkeys from route param (only comming from result item) for text highlighting
-    if (this.$route.params.ocid) {
-      this.extractid = this.$route.params.ocid
-      // scrolling is not working :(
-      this.reftoscrollto = '#mark-1'
-    }
-
-    // wait for editions list from Corpus Store if not already loaded
-    if (!this.corpusLoaded) {
-      // this.getCorpuses()
-      // subsribe to store to get the editionbyuuid list
-      // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
-      this.edUuuidsUnsubscribe = this.$store.subscribe((mutation, state) => {
-        // console.log('Edition store subscribe', mutation.type)
-        if (mutation.type === 'Corpus/setEditionsByUUID') {
-          // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
-          this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
-
-          this.meta = [
-            { name: 'test', content: 'edition chargé' }
-          ]
-
-          this.biblio = state.Corpus.editionsbyuuid[this.editionid].biblio
-          this.description = state.Corpus.editionsbyuuid[this.editionid].description
-          this.date = state.Corpus.editionsbyuuid[this.editionid].date
-          this.author = state.Corpus.editionsbyuuid[this.editionid].author
-        }
-        if (mutation.type === 'Corpus/setTocs') {
-          console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
-          this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
-        }
-        if (mutation.type === 'Corpus/buildFlatTocsAndFilters') {
-          console.log('Edition Corpus/buildFlatTocsAndFilters', this.editionid, state.Corpus.editionsbyuuid)
-          this.flattoc = state.Corpus.editionsbyuuid[this.editionid].flattoc
-          // launch infinitloading
-          this.inifinite_load_id += 1
-          // if no textid in new route (e.g. edition front)
-          // but we have toc
-          // get the first item
-          // will be replaced by front page of edition
-          if (!this.textid) { this.textid = this.flattoc[1] }
-          //
-          this.indexes = state.Corpus.editionsbyuuid[this.editionid].indexes
-        }
-        if (mutation.type === 'Corpus/setPaginations') {
-          // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
-          this.pagination = state.Corpus.editionsbyuuid[this.editionid].pagination
-        }
-      })
-    } else {
-      // console.log('');
-      this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
-
-      this.meta = [
-        { name: 'test', content: 'edition deja là' }
-      ]
-
-      this.biblio = this.editionsbyuuid[this.editionid].biblio
-      this.description = this.editionsbyuuid[this.editionid].description
-      this.date = this.editionsbyuuid[this.editionid].date
-      this.author = this.editionsbyuuid[this.editionid].author
-      this.toc = this.editionsbyuuid[this.editionid].toc
-      this.flattoc = this.editionsbyuuid[this.editionid].flattoc
-      // if no textid in new route (e.g. edition front)
-      // but we have toc
-      // get the first item
-      // will be replaced by front page of edition
-      if (!this.textid) { this.textid = this.toc[0].children[0].uuid }
-      this.indexes = this.editionsbyuuid[this.editionid].indexes
-      this.pagination = this.editionsbyuuid[this.editionid].pagination
-    }
+    this.setValues()
   },
+  // updated () {
+  //   this.setValues()
+  // },
   methods: {
     ...mapActions({
       getCorpuses: 'Corpus/getCorpuses'
     }),
+    setValues () {
+      // console.log('Edition this.$route.params.id', this.$route.params.id)
+      this.editionid = this.$route.params.id
+
+      // get the text if textid available
+      if (this.$route.params.textid) {
+        this.textid = this.$route.params.textid
+      }
+
+      // get the searchkeys from route param (only comming from result item) for text highlighting
+      if (this.$route.params.ocid) {
+        this.extractid = this.$route.params.ocid
+        // scrolling is not working :(
+        this.reftoscrollto = '#mark-1'
+      }
+
+      // wait for editions list from Corpus Store if not already loaded
+      if (!this.corpusLoaded) {
+        // this.getCorpuses()
+        // subsribe to store to get the editionbyuuid list
+        // https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
+        this.edUuuidsUnsubscribe = this.$store.subscribe((mutation, state) => {
+          // console.log('Edition store subscribe', mutation.type)
+          if (mutation.type === 'Corpus/setEditionsByUUID') {
+            // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+            this.title = this.metainfotitle = state.Corpus.editionsbyuuid[this.editionid].title
+
+            this.meta = [
+              { name: 'test', content: 'edition chargé' }
+            ]
+
+            this.biblio = state.Corpus.editionsbyuuid[this.editionid].biblio
+            this.description = state.Corpus.editionsbyuuid[this.editionid].description
+            this.date = state.Corpus.editionsbyuuid[this.editionid].date
+            this.author = state.Corpus.editionsbyuuid[this.editionid].author
+          }
+          if (mutation.type === 'Corpus/setTocs') {
+            console.log('Edition Corpus/setTocs', this.editionid, state.Corpus.editionsbyuuid)
+            this.toc = state.Corpus.editionsbyuuid[this.editionid].toc
+          }
+          if (mutation.type === 'Corpus/buildFlatTocsAndFilters') {
+            console.log('Edition Corpus/buildFlatTocsAndFilters', this.editionid, state.Corpus.editionsbyuuid)
+            this.flattoc = state.Corpus.editionsbyuuid[this.editionid].flattoc
+            // launch infinitloading
+            this.inifinite_load_id += 1
+            // if no textid in new route (e.g. edition front)
+            // but we have toc
+            // get the first item
+            // will be replaced by front page of edition
+            if (!this.textid) { this.textid = this.flattoc[1] }
+            //
+            this.indexes = state.Corpus.editionsbyuuid[this.editionid].indexes
+          }
+          if (mutation.type === 'Corpus/setPaginations') {
+            // console.log('Edition state.Coprus.editionsbyuuid', this.editionid, state.Corpus.editionsbyuuid)
+            this.pagination = state.Corpus.editionsbyuuid[this.editionid].pagination
+          }
+        })
+      } else {
+        // console.log('');
+        this.title = this.metainfotitle = this.editionsbyuuid[this.editionid].title
+
+        this.meta = [
+          { name: 'test', content: 'edition deja là' }
+        ]
+
+        this.biblio = this.editionsbyuuid[this.editionid].biblio
+        this.description = this.editionsbyuuid[this.editionid].description
+        this.date = this.editionsbyuuid[this.editionid].date
+        this.author = this.editionsbyuuid[this.editionid].author
+        this.toc = this.editionsbyuuid[this.editionid].toc
+        this.flattoc = this.editionsbyuuid[this.editionid].flattoc
+        // if no textid in new route (e.g. edition front)
+        // but we have toc
+        // get the first item
+        // will be replaced by front page of edition
+        if (!this.textid) { this.textid = this.toc[0].children[0].uuid }
+        this.indexes = this.editionsbyuuid[this.editionid].indexes
+        this.pagination = this.editionsbyuuid[this.editionid].pagination
+      }
+    },
     getTextContent (textid, $state = null, direction = 'next') {
       console.log('getTextContent', textid)
       let params = {

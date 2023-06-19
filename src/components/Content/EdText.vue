@@ -101,7 +101,7 @@ export default {
         let itemparts, icon, newspan
         for (var i = 0; i < items.length; i++) {
           itemparts = RegExp(/<span[^>]*class="([^"]+)"[^>]*>.+<\/span>/g).exec(items[i], 'g')
-          console.log('itemparts', itemparts)
+          // console.log('itemparts', itemparts)
           switch (itemparts[1]) {
             case 'placeName':
               icon = '<span class="index-item-icon mdi mdi-map-marker"></span>'
