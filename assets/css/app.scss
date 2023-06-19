@@ -428,6 +428,11 @@ section[role="main-content"]{
   .index-item{
     header{
       h1{
+        @include title1blue;
+        line-height: $base-line * 1.2;
+        // margin:0 0 0.3em;
+      }
+      h2{
         @include title1black;
         margin:0 0 0.3em;
       }
@@ -436,13 +441,15 @@ section[role="main-content"]{
         
         h3{
           @include title2black;
-          margin:0;
+          margin:0 0 0.3em;
           font-weight: 600;
         }
 
       }
+
       p{
         margin: 0 0 0.5em 0;
+        span.label{ font-weight: 600; }
       }
       .authors{
         a{
@@ -1163,6 +1170,11 @@ section[role="main-content"]{
     .biblio-item{
       h2{
         color: $bleuroi;
+      }
+      p{
+        span.label{
+          font-weight: 600;
+        }
       }
     }
     ul.item-list{

@@ -85,16 +85,16 @@
       </ul>
     </template>
     <!-- or expression / manifestation item -->
-    <template v-else>
+    <template v-if="uuid">
       <div class="biblio-item">
         <h2>{{ item.type }}</h2>
         <h2 v-html="item.tei" />
-        <p class="author">Auteur: {{ item.authors }}</p>
-        <p v-if="item.dates" class="date">Dates : {{ item.dates }}</p>
-        <p v-if="item.edition" class="date">Édition : {{ item.edition }}</p>
-        <p v-if="item.editeur" class="date" v-html="'Éditeur : ' + item.editeur" />
-        <p v-if="item.lieu" class="date">Lieu de publication : {{ item.lieu }}</p>
-        <p v-if="item.extent" class="date">Format : {{ item.extent }}</p>
+        <p class="author"><span class="label">Auteur :</span> {{ item.authors }}</p>
+        <p v-if="item.dates" class="date"><span class="label">Dates :</span> {{ item.dates }}</p>
+        <p v-if="item.edition" class="edition"><span class="label">Édition :</span> {{ item.edition }}</p>
+        <p v-if="item.editeur" class="editeur" v-html="editeur" />
+        <p v-if="item.lieu" class="lieu"><span class="label">Lieu de publication :</span> {{ item.lieu }}</p>
+        <p v-if="item.extent" class="extent"><span class="label">Format :</span> {{ item.extent }}</p>
         <!-- manifestation -->
         <h3 v-if="item.manifestations && item.manifestations.length">Liste des manifestations :</h3>
         <ul v-if="item.manifestations && item.manifestations.length" class="item-list">
@@ -110,7 +110,7 @@
         <h3 v-if="item.notes && item.notes.length">Note :</h3>
         <ul v-if="item.notes && item.notes.length" class="notes-list">
           <li v-for="note in item.notes" :key="note.uuid">
-            <p v-html="note.tei" />
+            <p v-html="note" />
           </li>
         </ul>
         <!-- BNF -->
@@ -185,6 +185,9 @@ export default {
   computed: {
     apipath () {
       return window.apipath
+    },
+    editeur () {
+      return '<span class="label">Éditeur : </span>' + this.item.editeur
     },
     noticesbnf (item) {
       let n = []
