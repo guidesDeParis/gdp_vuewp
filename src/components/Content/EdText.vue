@@ -100,9 +100,9 @@ export default {
       if (items) {
         let itemparts, icon, newspan
         for (var i = 0; i < items.length; i++) {
-          itemparts = RegExp(/<span[^>]*class="([^"]+)"[^>]*>.+<\/span>/g).exec(items[i], 'g')
+          itemparts = RegExp(/(<span[^>]*class="([^"]+)"[^>]*>)(.+)<\/span>/g).exec(items[i], 'g')
           // console.log('itemparts', itemparts)
-          switch (itemparts[1]) {
+          switch (itemparts[2]) {
             case 'placeName':
               icon = '<span class="index-item-icon mdi mdi-map-marker"></span>'
               break
@@ -113,8 +113,12 @@ export default {
               icon = '<span class="index-item-icon mdi mdi-account"></span>'
               break
           }
-          newspan = `<span class="no-wrap">${items[i]}&nbsp;${icon}</span>`
           // newspan = `${items[i]}&nbsp;${icon}`
+          // newspan = `<span class="no-wrap">${items[i]}&nbsp;${icon}</span>`
+          // newspan = `${itemparts[1]}${itemparts[3]}${'&#160;'}${icon}</span>`
+          let words = itemparts[3].split(' ')
+          let lastword = words.splice(words.length - 1, 1)
+          newspan = `${itemparts[1]}${words.join(' ')} <span class="no-wrap">${lastword}&nbsp;${icon}</span></span>`
           this.teiparsed = this.teiparsed.replace(items[i], newspan)
         }
       }
