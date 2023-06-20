@@ -56,6 +56,7 @@
                 <span class="date">{{ manif.dates }} </span>
                 <router-link
                   :to="{ name:'bibliographieItem', params:{ type:'manifestations', uuid:manif.uuid } }"
+                  title="Consulter la notice de la manifestation"
                 >
                   <em>{{ manif.titles }}</em>
                 </router-link>
@@ -99,10 +100,10 @@
         <h3 v-if="item.manifestations && item.manifestations.length">Liste des manifestations :</h3>
         <ul v-if="item.manifestations && item.manifestations.length" class="item-list">
           <li v-for="manif in item.manifestations" :key="manif.uuid">
-            <p v-html="manif.tei" />
             <router-link
               :to="{ name:'bibliographieItem', params:{ type:'manifestations', uuid:manif.uuid } }"
-              v-html="manif.path"
+              title="Consulter la notice de la manifestation"
+              v-html="manif.tei"
             />
           </li>
         </ul>
