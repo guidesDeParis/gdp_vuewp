@@ -215,10 +215,16 @@ section[role="main-content"]{
           margin-bottom: $base-line*2;
           >header{
             margin-bottom: 0;
-            h2,h3,h4{
-              display: inline-block;
-              margin: 0;
+            h2{
+              // display: inline-block;
+              // margin: 0;
               margin-bottom: $base-line/2;
+              line-height: $base-line;
+            }
+            h3{
+              @include title1black;
+              margin-bottom: $base-line/2;
+              line-height: $base-line;
             }
           }
           section.notice{
@@ -244,7 +250,7 @@ section[role="main-content"]{
               margin-bottom: $base-line / 2;
             }
             ul.texts-list{
-              padding-left: 1em;
+              padding-left: 1.2em;
               >li{
                 list-style: circle;
                 h3{

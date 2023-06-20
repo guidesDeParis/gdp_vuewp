@@ -9,16 +9,15 @@
       <li v-for="(corpus,index) in editionslist" :key="index">
         <header>
           <h2>{{ corpus.author.title }}</h2>
-          <h3>{{ corpus.author.date }}</h3>
-          <h4 class="editions-quantity">
-            {{ corpus.author.editionsQuantity.quantity }} {{ corpus.author.editionsQuantity.unit }}
-          </h4>
+          <h3 class="editions-quantity">
+            Corpus : {{ corpus.author.editionsQuantity.quantity }} {{ corpus.author.editionsQuantity.unit }}, {{ corpus.author.date }}
+          </h3>
           <section v-if="corpus.author.note" class="notice" v-html="corpus.author.note" />
         </header>
         <section class="texts">
           <h4 class="texts-quantity">
             {{ corpus.author.textsQuantity.quantity }}
-            {{ corpus.author.textsQuantity.unit }} :
+            {{ corpus.author.textsQuantity.unit }}
           </h4>
           <ul class="texts-list">
             <li v-for="text in corpus.editions.content" :key="text.uuid">
