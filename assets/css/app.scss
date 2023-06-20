@@ -1042,7 +1042,7 @@ section[role="main-content"]{
         box-sizing: content-box;
         padding:0 0 1em 1.5em;
         margin-bottom: $m;
-        height:calc(100% - #{$pager_h} - #{$m} - #{$filter_m});
+        height:calc(100% - #{$pager_h} - #{$m} - #{$filter_m} * 2);
         overflow-x: hidden;
         overflow-y: auto;
         line-height: $base-line / 2;
@@ -1197,6 +1197,7 @@ section[role="main-content"]{
         overflow: hidden;
         box-sizing: content-box;
         padding:0 0 0 1.5em;
+        margin: 0 0 $filter_m 0;
         select{
           option{
             padding:0;
