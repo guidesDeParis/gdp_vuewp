@@ -619,6 +619,7 @@ section[role="main-content"]{
       aside.links{
         position: absolute;
         bottom: 0;
+        overflow-wrap:anywhere;
       }
     }
 
@@ -1382,12 +1383,22 @@ section[role="main-content"]{
     @include fontsans;
 
     >header{
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
       h1{
         @include titleSansRed;
         margin-bottom: $base-line * 0.4;
+        flex: 0 0 auto;
       }
       nav.toc{
+        flex: 1 1 auto;
+        overflow-y: auto;
         span.sommaire-title{ display:none; }
+        >div.wrapper{
+          height:100%;
+          overflow-y: auto;
+        }
         li{
           a{
             font-size: 1em;

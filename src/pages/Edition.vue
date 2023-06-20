@@ -52,14 +52,14 @@
           @click.prevent="onCLickEntitiesDisplay"
           @keyup.enter="onCLickEntitiesDisplay"
         >
-          <span class="mdi mdi-eye-outline" /> Afficher les marques d'entités dans les textes
+          <span class="mdi mdi-eye-outline" /> Afficher les marques d'entité
         </span>
         <span
           v-if="!entities_displayed"
           @click.prevent="onCLickEntitiesDisplay"
           @keyup.enter="onCLickEntitiesDisplay"
         >
-        <span class="mdi mdi-eye-off-outline" /> Masquer les marques d'entités dans les textes
+        <span class="mdi mdi-eye-off-outline" /> Masquer les marques d'entité
         </span>
       </nav>
 
