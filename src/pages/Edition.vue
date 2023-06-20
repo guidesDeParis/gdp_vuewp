@@ -34,15 +34,15 @@
           <p>{{ date }}</p>
         </div> -->
         <div v-if="biblio" class="biblio">
-          <p v-html="biblio.description" />
-          <a
-            :href="edition_manifestation_href"
-            @click.prevent="onClickManifestation"
-            @keyup.enter="onClickManifestation"
-          >
-            <!-- // todo better label
-            {{ biblio.uuid }} -->
-          </a>
+          <p>
+            <a
+              :href="edition_manifestation_href"
+              @click.prevent="onClickManifestation"
+              @keyup.enter="onClickManifestation"
+              title="Consulter la notice bibliographique"
+              v-html="biblio.description"
+            />
+          </p>
         </div>
       </aside>
 
