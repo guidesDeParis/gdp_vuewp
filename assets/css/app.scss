@@ -916,8 +916,14 @@ section[role="main-content"]{
               // }
             }
           }
+          $bq_padd: 2em;
           blockquote{
-            padding: 0 1em;
+            padding: 0 $bq_padd;
+            margin: $base-line/2 0;
+            line-height: $base-line;
+            p{
+              margin: 0;
+            }
           }
           ul, ol{
             padding: 0 0 0 2em;
@@ -976,6 +982,13 @@ section[role="main-content"]{
               // border-right: 1px solid $bleuroilight;
               // text-indent: $pagenum_w * 2.5;
             }
+
+          }
+          blockquote span[role="pageNum"]{
+            margin-right: - $pagenum_w * 1.5 - $bq_padd;
+            // &:before{
+            //   right: -$bq_padd;
+            // }
           }
 
           a.text-item-link{
@@ -1008,13 +1021,6 @@ section[role="main-content"]{
           ul{
             line-height: $base-line;
             margin-bottom: $base-line/2;
-          }
-          blockquote{
-            margin: $base-line/2 1em;
-            line-height: $base-line;
-            p{
-              margin: 0;
-            }
           }
         }
 
