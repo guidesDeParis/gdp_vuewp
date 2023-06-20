@@ -88,7 +88,7 @@
     <!-- or expression / manifestation item -->
     <template v-if="uuid">
       <div class="biblio-item">
-        <h2 v-if="item.type">{{ item.type }}</h2>
+        <h3 v-if="item.type" class="type">{{ item.type }}</h3>
         <h2 v-html="item.tei" />
         <p class="author"><span class="label">Auteur :</span> {{ item.authors }}</p>
         <p v-if="item.dates" class="date"><span class="label">Dates :</span> {{ item.dates }}</p>
