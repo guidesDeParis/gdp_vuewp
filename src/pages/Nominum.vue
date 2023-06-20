@@ -8,14 +8,14 @@
       <h1 v-html="content.title" />
       <h2 v-html="content.rubrique" />
       <p v-if="content.occupation"><em>{{ content.occupation }}</em></p>
-      <p><span class="label">Nom : </span>{{ content.surname }}, {{ content.surname }}</p>
-      <p><span class="label">Prénom : </span>{{ content.forename }}, {{ content.forename }}</p>
-      <p><span class="label">Sexe : </span>
+      <p v-if="content.surname"><span class="label">Nom : </span>{{ content.surname }}, {{ content.surname }}</p>
+      <p v-if="content.forename"><span class="label">Prénom : </span>{{ content.forename }}, {{ content.forename }}</p>
+      <p v-if="content.sexe === 1 || content.sexe === 0"><span class="label">Sexe : </span>
         <span v-if="content.sexe === 1">Masculin</span>
         <span v-if="content.sexe === 0">Feminin</span>
       </p>
-      <p><span class="label">Naissance : </span>{{ content.birthPlace }}, {{ content.birthDate }}</p>
-      <p><span class="label">Mort : </span>{{ content.deathPlace }}, {{ content.deathDate }}</p>
+      <p v-if="content.birthPlace || content.birthDate" v-html="birth_str" />
+      <p v-if="content.deathPlace || content.deathDate" v-html="death_str" />
       <section v-if="content.note && content.note.length > 0" class="notes">
         <h3>Notes</h3>
         <div v-for="(note, i) in content.note" :key="i" class="note" v-html="note" />
@@ -74,6 +74,36 @@ export default {
     return {
       title: this.metainfotitle,
       meta: this.meta
+    }
+  },
+  computed: {
+    birth_str () {
+      let str = '<span class="label">Naissance :</span>'
+      if (this.content.birthPlace) {
+        str += ' ' + this.content.birthPlace
+      }
+      if (this.content.birthPlace && this.content.birthDate) {
+        str += ','
+      }
+      if (this.content.birthDate) {
+        str += ' ' + this.content.birthDate
+      }
+
+      return str
+    },
+    death_str () {
+      let str = '<span class="label">Mort :</span>'
+      if (this.content.deathPlace) {
+        str += ' ' + this.content.deathPlace
+      }
+      if (this.content.deathPlace && this.content.deathDate) {
+        str += ','
+      }
+      if (this.content.deathDate) {
+        str += ' ' + this.content.deathDate
+      }
+
+      return str
     }
   },
   created () {
