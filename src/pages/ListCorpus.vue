@@ -8,7 +8,7 @@
     <ul v-if="editionslist.length" class="item-list">
       <li v-for="(corpus,index) in editionslist" :key="index">
         <header>
-          <h2>{{ corpus.author.title }}</h2>
+          <h2>{{ corpus.author.author }}</h2>
           <h3 class="editions-quantity">
             Corpus : {{ corpus.author.editionsQuantity.quantity }} {{ corpus.author.editionsQuantity.unit }}, {{ corpus.author.date }}
           </h3>
