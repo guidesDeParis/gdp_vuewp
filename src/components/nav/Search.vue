@@ -37,7 +37,7 @@
           title="chargement"
         />
       </fieldset>
-      <fieldset v-if="filters.texts.length && searchOpened" class="filters filters-texts small-col-4 med-col-4 large-col-4">
+      <fieldset v-if="filters.texts.length && searchOpened" class="filters filters-texts small-col-4 med-col-2 large-col-2">
         <v-select
           id="filters-texts"
           type="select"
