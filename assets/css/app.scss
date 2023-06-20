@@ -94,6 +94,16 @@ header[role="banner"]{
 
     }
   }
+   // iphone
+   @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+    div.wrapper{
+      display:flex;
+      flex-direction: column;
+    }
+    nav#header-menu{
+      text-align: left;
+    }
+   }
 }
 section[role="main-content"]{
   #home{
@@ -120,6 +130,7 @@ section[role="main-content"]{
           font-size: 0.7em
         }
       }
+
     }
     // $filet_space:8em;
     // $decallage: 0.5em;
@@ -179,7 +190,8 @@ section[role="main-content"]{
       @include teasersfilet(8em, 0.5em);
       }
     // responsive
-    @media only screen and (max-width: $small-bp), (orientation: portrait) {
+    // ipad
+    @media only screen and (min-width: $iphone-bp) and (max-width: $small-bp), (orientation: portrait) {
       header{
         h1{
           font-size: 5em;
@@ -195,7 +207,34 @@ section[role="main-content"]{
       div.teasers{
         flex-direction: column;
         // filets decoratif
-        @include teasersfilet(4em, 0.5em);
+        >div.wrapper{
+          @include teasersfilet(4em, 0.5em);
+        }
+      }
+    }
+
+    // iphone
+    @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+      header{
+        margin:0;
+        h1{
+          font-size: 5em;
+          margin:0;
+        }
+      }
+      section.row{
+        flex-direction: column;
+        padding-top: 1em;
+
+      }
+      div.teasers{
+        // filets decoratif
+        div.wrapper{
+          flex-direction: column;
+          &:before, &:after{
+            display: none;
+          }
+        }
       }
     }
   }
@@ -635,6 +674,10 @@ section[role="main-content"]{
         position: absolute;
         bottom: 0;
         overflow-wrap:anywhere;
+        // iphone
+        @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+          display: none;
+        }
       }
     }
 
@@ -741,6 +784,13 @@ section[role="main-content"]{
             }
           }
         }
+      }
+    }
+    // iphone
+    @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+      >header{
+        padding-right: 1em;
+        width:percentage(10/$default_sum);
       }
     }
 
@@ -1413,6 +1463,10 @@ section[role="main-content"]{
         p{
           line-height: $base-line * 0.65;
         }
+        // iphone
+        @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+          display: none;
+        }
       }
     }
   }
@@ -1876,7 +1930,14 @@ footer[role="tools"]{
         }
       }
     }
-    ;
+    
+    // iphone
+    @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+      #footer-tabs, #search{
+        display: none;
+      }
+    }
+    
     #logos{
       // max-height: 100%;
       position: relative;
