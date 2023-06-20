@@ -29,6 +29,7 @@
                   @click.prevent="onclick"
                   @keyup.enter="onclick"
                   v-html="text.title"
+                  title="Consulter cette édition"
                 />
               </h3>
               <p
