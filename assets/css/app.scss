@@ -1329,6 +1329,7 @@ section[role="main-content"]{
             max-height: 1px;
             transition: all 0.3s ease-in-out;
             padding-left: 1em;
+            overflow-y: hidden;
             li{
               margin-bottom: $base-line / 2;
             }

@@ -330,7 +330,7 @@ export default {
     },
     onToggleManifs (e) {
       console.log('togle manifs', e)
-      let aside = e.originalTarget.parentNode
+      let aside = e.target.parentNode
       // console.log('aside', aside)
       aside.classList.toggle('opened')
     },
