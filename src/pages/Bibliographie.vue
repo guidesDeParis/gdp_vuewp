@@ -44,8 +44,8 @@
             </router-link>
             <span v-else>/!\ No authors /!\</span>
           </h2>
-          <p class="date">{{ item.dates }}</p>
-          <em class="titles">{{ item.titles }}</em>
+          <p v-if="item.dates" class="date">{{ item.dates }}</p>
+          <em v-if="item.titles" class="titles">{{ item.titles }}</em>
           <aside v-if="item.manifestations && item.manifestations.length">
             <h5
               @click.prevent="onToggleManifs"
@@ -87,7 +87,7 @@
     <!-- or expression / manifestation item -->
     <template v-if="uuid">
       <div class="biblio-item">
-        <h2>{{ item.type }}</h2>
+        <h2 v-if="item.type">{{ item.type }}</h2>
         <h2 v-html="item.tei" />
         <p class="author"><span class="label">Auteur :</span> {{ item.authors }}</p>
         <p v-if="item.dates" class="date"><span class="label">Dates :</span> {{ item.dates }}</p>
@@ -144,7 +144,7 @@
         </li>
       </ul>
     </template>
-    <template v-else #nav>
+    <template v-if="item.url && item.uuid && item.path" #nav>
       <aside class="links">
         <p>
           Permalien:<br><a :href="`${item.url}`">{{ item.url }}</a>

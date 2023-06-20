@@ -266,13 +266,16 @@ section[role="main-content"]{
                   margin-bottom: $base-line * 0.5;
                 }
                 p{
-                  font-size: 1em;
-                  @include fontserif;
-                  font-weight: 300;
-                  margin-top:0;
-                  font-size: 1em;
-                  line-height: $base-line * 0.5;
-                  margin-bottom: $base-line / 2;
+                  @include labeurfont;
+                  line-height: $base-line * 0.75;
+                  font-weight: 200;
+                  // font-size: 1em;
+                  // @include fontserif;
+                  // font-weight: 300;
+                  // margin-top:0;
+                  // font-size: 1em;
+                  // line-height: $base-line * 0.5;
+                  // margin-bottom: $base-line / 2;
                 }
 
                 margin-bottom: $base-line;
@@ -649,6 +652,10 @@ section[role="main-content"]{
         // font-size: 1em;
         // line-height: $base-line *0.5;
         // margin-bottom: $base-line / 2;
+        &>*{
+          line-height: $base-line * 0.7;
+
+        }
       }
       nav.entities-hide-show{
         position: absolute;
@@ -1127,6 +1134,7 @@ section[role="main-content"]{
         h2.toc-title{
           font-size: 1.1em;
           color: $bleuroilight;
+          line-height: $base-line * 0.7;
           &:hover, &.loaded{
             color: $bleuroi;
           }
@@ -1292,7 +1300,7 @@ section[role="main-content"]{
     }
     .biblio-item{
       h2{
-        color: $bleuroi;
+        @include title1blue;
       }
       p{
         span.label{
@@ -1312,7 +1320,12 @@ section[role="main-content"]{
           color: $bleuroi;
         }
         p{
-          margin:0;
+          @include labeurfont;
+          margin:0 0 $base-line * 0.5 0;
+        }
+        >em{
+          @include labeurfont;
+          margin:0 0 $base-line * 0.5 0;
         }
 
         span.date{
@@ -1344,7 +1357,8 @@ section[role="main-content"]{
             padding-left: 1em;
             overflow-y: hidden;
             li{
-              margin-bottom: $base-line / 2;
+              @include labeurfont;
+              margin-bottom: 0;
             }
           }
           
@@ -1395,6 +1409,9 @@ section[role="main-content"]{
       aside.links{
         position: absolute;
         bottom: 0;
+        p{
+          line-height: $base-line * 0.65;
+        }
       }
     }
   }

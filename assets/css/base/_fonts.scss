@@ -34,7 +34,7 @@ footer[role="tools"] .row>nav{
   color: $bleuroi;
   font-weight: 400;
   margin:0;
-  line-height: $base-line;
+  line-height: $base-line * 1.5;
 }
 
 @mixin title1black {
@@ -122,4 +122,11 @@ footer[role="tools"] .row>nav{
   @include fontsans;
   font-size: 0.756em;
   line-height: 1.1em;
+}
+
+@mixin labeurfont {
+  @include fontserif;
+  font-size: 1.134em;
+  font-weight: 400;
+  line-height: $base-line;
 }
