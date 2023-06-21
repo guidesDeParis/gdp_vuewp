@@ -55,6 +55,7 @@ header[role="banner"]{
     font-size: 1em;
   }
   nav#header-menu{
+    span.burger-btn{ display:none; }
     grid-column: 2;
     text-align: right;
     >ul>li{
@@ -101,9 +102,48 @@ header[role="banner"]{
       flex-direction: column;
     }
     nav#header-menu{
-      text-align: left;
+      position: absolute;
+      top:0;
+      right:0;
+      span.burger-btn{ 
+        display:block; 
+        color: $bleuroi;
+        margin:1em 1em 0;
+        cursor: pointer;
+      }
+      >ul{
+        padding:1em 0 1em 1em;
+        background-color: #fff;
+        // height:150px;
+        box-shadow: -3px 3px 5px $grisclair;
+
+        transform: translateX(120%);
+        transition: transform 0.3s ease-in-out;
+
+        >li{
+          display: block;
+          margin-bottom: 0.5em;
+          >ul{
+            position: relative;
+            top:unset;
+            padding: 0;
+            >li{
+              box-sizing: border-box;
+              a{
+                padding-top: 0.2em;
+              }
+              
+            }
+          }
+        }
+      }
+      &.opened{
+        >ul{
+          transform: translateX(0);
+        }
+      }
     }
-   }
+  }
 }
 section[role="main-content"]{
   #home{
@@ -883,6 +923,20 @@ section[role="main-content"]{
                 margin: $base-line/2 0;
               }
               margin-bottom: $base-line;
+            }
+            @media only screen and (max-width: $iphone-bp), (orientation: portrait) {
+              padding-top: $base-line * 0.5;
+              h1{
+                font-size: 2em;
+                .initial{
+                  display: inline-block;
+                  text-transform: uppercase;
+                  font-size: 1.3em;
+                  line-height: $base-line*2;
+                  margin: $base-line/2 0;
+                }
+                margin-bottom: $base-line;
+              } 
             }
           }
           span.metamark.tailpiece,
