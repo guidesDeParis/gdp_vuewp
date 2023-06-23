@@ -1218,6 +1218,7 @@ section[role="main-content"]{
 
         .toc-title{
           @include title4grey;
+          line-height: $base-line * 0.6;
           color: $grismoyen;
           &.active,
           &:hover{
@@ -1680,7 +1681,7 @@ footer[role="tools"]{
     padding-right: $default_gap;
     article{
       max-height: 100%;
-      overflow: hidden;
+      overflow: visible;
     }
     article.item{
         h1{
